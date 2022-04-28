@@ -1,0 +1,41 @@
+apiVersion: "cis.f5.com/v1"
+kind: VirtualServer
+metadata:
+  name: virtual01
+  namespace: test100
+  labels:
+    f5cr: "true"
+spec:
+  host: test01.example.com
+  ipamLabel: Dev
+  pools:
+  - path: /coffee
+    service: app-svc
+    servicePort: 8080
+    monitor:
+      type: http
+      send: "HTTP /rn"
+      recv: ""
+      interval: 20
+      timeout: 10
+---
+apiVersion: "cis.f5.com/v1"
+kind: VirtualServer
+metadata:
+  name: virtual01
+  namespace: test101
+  labels:
+    f5cr: "true"
+spec:
+  host: test02.example.com
+  ipamLabel: Dev
+  pools:
+  - path: /
+    service: app-svc
+    servicePort: 8080
+    monitor:
+      type: http
+      send: "HTTP /rn"
+      recv: ""
+      interval: 20
+      timeout: 10

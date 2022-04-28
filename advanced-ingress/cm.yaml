@@ -1,0 +1,76 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cm-cistest
+  namespace: test104
+  labels:
+    f5type: virtual-server
+    as3: "true"
+data:
+  template: |
+    {
+      "class": "AS3",
+      "action": "deploy",
+      "persist": true,
+      "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.25.0",
+        "id": "test104",
+        "test104": {
+          "class": "Tenant",
+          "test104": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [{
+                "use": "test104_cookie_encryption"
+              }],
+              "virtualAddresses": [
+                "192.168.200.13"
+              ],
+              "serviceDownImmediateAction": "drop",
+              "snat": "self",
+              "virtualPort": 80,
+              "iRules": ["iRules_int_test104"],
+              "pool": "test104_app_svc_pool"
+            },
+            "test104_pool_monitor": {
+              "class": "Monitor",
+              "monitorType": "http",
+              "send": "GET /health HTTP/1.1\r\nHost: f5.monitor.com\r\n\r\n",
+              "interval": 5,
+              "timeout": 16,
+              "receive": "OK"
+            },
+            "test104_cookie_encryption": {
+              "class": "Persist",
+              "persistenceMethod": "cookie",
+              "cookieMethod": "insert",
+              "encrypt": true,
+              "passphrase": {
+                "ciphertext": "a3RjeGZ5Z2Q=",
+                "protected": "eyJhbGciOiJkaXIiLCJlbmMiOiJub25lIn0="
+             }
+            },
+            "iRules_int_test104": {
+              "class": "iRule",
+              "iRule": "when HTTP_REQUEST { HTTP::header insert X-Forwarded-For [IP::remote_addr] }"
+            },
+            "test104_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [{
+                "use": "test104_pool_monitor"
+              }],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": [ ]
+              }
+              ]
+            }
+          }
+        }
+      }
+    }

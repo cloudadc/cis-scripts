@@ -1,0 +1,65 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: test-l7
+  namespace: test100
+  labels:
+    f5type: virtual-server
+data:
+  schema: "f5schemadb://bigip-virtual-server_v0.1.7.json"
+  data: |-
+    {
+      "virtualServer": {
+        "frontend": {
+          "balance": "least-connections-member",
+          "mode": "http",
+          "partition": "k8s",
+          "virtualAddress": {
+            "bindAddr": "192.168.200.10",
+            "port": 8080
+          }
+        },
+        "backend": {
+          "serviceName": "app-svc",
+          "servicePort": 80,
+          "healthMonitors": [{
+            "interval": 5,
+            "timeout": 16,
+            "protocol": "http"
+          }]
+        }
+      }
+    }
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: test-l4
+  namespace: test105
+  labels:
+    f5type: virtual-server
+data:
+  schema: "f5schemadb://bigip-virtual-server_v0.1.7.json"
+  data: |-
+    {
+      "virtualServer": {
+        "frontend": {
+          "balance": "least-connections-member",
+          "mode": "tcp",
+          "partition": "k8s",
+          "virtualAddress": {
+            "bindAddr": "192.168.200.10",
+            "port": 8877
+          }
+        },
+        "backend": {
+          "serviceName": "app-svc",
+          "servicePort": 8877,
+          "healthMonitors": [{
+            "interval": 30,
+            "timeout": 91,
+            "protocol": "tcp"
+          }]
+        }
+      }
+    }

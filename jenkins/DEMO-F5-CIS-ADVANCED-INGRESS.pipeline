@@ -1,0 +1,48 @@
+node {
+  stage('DEPLOY CIS') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'kubectl apply -f /opt/src/cis-scripts/install/ns.yaml'
+      sh 'kubectl apply -f /opt/src/cis-scripts/install/secret.yaml'
+      sh 'kubectl apply -f /opt/src/cis-scripts/install/sa.yaml'
+      sh 'kubectl apply -f /opt/src/cis-scripts/install/rbac.yaml'
+      sh 'kubectl apply -f /opt/src/cis-scripts/install/cis-as3.yaml'
+      sh 'sleep 10'
+      sh 'kubectl get pods -n bigip-ctlr'
+    }
+  }
+  stage('L7 APP') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'kubectl apply -f /opt/src/cis-scripts/app/deploy.yaml'
+      sh 'sleep 15'
+      sh 'kubectl get pods --all-namespaces -o wide | grep test'
+    }
+  }
+  stage('L7 INGRESS') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'cat /opt/src/cis-scripts/advanced-ingress/ingress.yaml'
+      sh 'kubectl apply -f /opt/src/cis-scripts/advanced-ingress/ingress.yaml'
+      sh 'sleep 5'
+    }
+  }
+  stage('L7 ADVANCED') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'cat /opt/src/cis-scripts/advanced-ingress/cm.yaml'
+      sh 'kubectl apply -f /opt/src/cis-scripts/advanced-ingress/cm.yaml'
+      sh 'sleep 15'
+    }
+  }
+  stage('L4 APP') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'kubectl apply -f /opt/src/cis-scripts/app/deploy-l4.yaml'
+      sh 'sleep 5'
+      sh 'kubectl get pods -o wide -n test105'
+    }
+  }
+  stage('L4 INGRESS') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'cat /opt/src/cis-scripts/advanced-ingress/cm-l4.yaml'
+      sh 'kubectl apply -f /opt/src/cis-scripts/advanced-ingress/cm-l4.yaml'
+      sh 'sleep 5'
+    }
+  }
+}

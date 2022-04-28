@@ -1,0 +1,31 @@
+node {
+  stage('DELETE VS') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'kubectl delete -f /opt/src/cis-scripts/cccl/cm.yaml'
+      sh 'sleep 15'
+    }
+  }
+  stage('DELETE APP') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'kubectl delete -f /opt/src/cis-scripts/app/deploy.yaml'
+      sh 'kubectl delete -f /opt/src/cis-scripts/app/deploy-l4.yaml'
+      sh 'sleep 5'
+    }
+  }
+  stage('DELETE CIS') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'kubectl delete -f /opt/src/cis-scripts/install/cis-cccl.yaml'
+      sh 'sleep 5'
+      sh 'kubectl delete -f /opt/src/cis-scripts/install/rbac.yaml'
+      sh 'kubectl delete -f /opt/src/cis-scripts/install/sa.yaml'
+      sh 'kubectl delete -f /opt/src/cis-scripts/install/secret.yaml'
+      sh 'kubectl delete -f /opt/src/cis-scripts/install/ns.yaml'
+    }
+  }
+  stage('VERIFY') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'kubectl get ns'
+    }
+  }
+  
+}

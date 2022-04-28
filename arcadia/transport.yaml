@@ -1,0 +1,18 @@
+apiVersion: "cis.f5.com/v1"
+kind: TransportServer
+metadata:
+  name: arcadia-socket
+  namespace: arcadia
+  labels:
+    f5cr: "true"
+spec:
+  virtualServerAddress: "192.168.200.22"
+  virtualServerPort: 8877
+  mode: "performance"
+  pool:
+    service: app-svc
+    servicePort: 8877
+    monitor:
+      type: tcp
+      interval: 5
+      timeout: 16

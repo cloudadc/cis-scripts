@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: test105
+  labels:
+    cis_scanner_zone: zone_1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app
+  name: app
+  namespace: test105
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - image: cloudadc/echoserver:1.1
+        name: echoserver
+        ports:
+        - containerPort: 8877
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app
+    cis.f5.com/as3-tenant: test105
+    cis.f5.com/as3-app: test105
+    cis.f5.com/as3-pool: test105_app_svc_pool
+  name: app-svc
+  namespace: test105
+spec:
+  ports:
+  - port: 8877
+    protocol: TCP
+    targetPort: 8877
+  selector:
+    app: app
+  sessionAffinity: None
+  type: ClusterIP

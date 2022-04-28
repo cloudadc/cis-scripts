@@ -1,0 +1,44 @@
+node {
+  stage('DELETE VS') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'kubectl delete -f /opt/src/cis-scripts/ipam/transport.yaml --ignore-not-found'
+      sh 'sleep 5'
+      sh 'kubectl delete -f /opt/src/cis-scripts/ipam/vs.yaml --ignore-not-found'
+      sh 'sleep 5'
+      sh 'kubectl delete -f /opt/src/cis-scripts/ipam/svc.yaml --ignore-not-found'
+      sh 'sleep 5'
+    }
+  }
+  stage('DELETE APP') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'kubectl delete -f /opt/src/cis-scripts/app/deploy-l4.yaml --ignore-not-found'
+      sh 'sleep 3'
+      sh 'kubectl delete -f /opt/src/cis-scripts/app/deploy.yaml --ignore-not-found'
+      sh 'sleep 3'
+    }
+  }
+  stage('DELETE IPAM') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'kubectl delete -f /opt/src/cis-scripts/install/ipam-controller.yaml --ignore-not-found'
+      sh 'sleep 10'
+      sh 'kubectl delete -f /opt/src/cis-scripts/install/ipam_schema.yaml --ignore-not-found'
+    }
+  }
+  stage('DELETE CIS') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'kubectl delete -f /opt/src/cis-scripts/install/cis-crd.yaml --ignore-not-found'
+      sh 'sleep 5'
+      sh 'kubectl delete -f /opt/src/cis-scripts/install/customresourcedefinitions.yml --ignore-not-found'
+      sh 'kubectl delete -f /opt/src/cis-scripts/install/rbac.yaml --ignore-not-found'
+      sh 'kubectl delete -f /opt/src/cis-scripts/install/sa.yaml --ignore-not-found'
+      sh 'kubectl delete -f /opt/src/cis-scripts/install/secret.yaml --ignore-not-found'
+      sh 'kubectl delete -f /opt/src/cis-scripts/install/ns.yaml --ignore-not-found'
+    }
+  }
+  stage('VERIFY') {
+    withKubeConfig([credentialsId: 'kubernetes-config']) {
+      sh 'kubectl get ns'
+    }
+  }
+ 
+}

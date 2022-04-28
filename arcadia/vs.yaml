@@ -1,0 +1,47 @@
+apiVersion: "cis.f5.com/v1"
+kind: VirtualServer
+metadata:
+  name: arcadia
+  namespace: arcadia
+  labels:
+    f5cr: "true"
+spec:
+  host: arcadia-finance.io
+  virtualServerAddress: "192.168.200.20"
+  pools:
+  - path: /
+    service: main
+    servicePort: 80
+    monitor:
+      type: http
+      send: "HTTP /rn"
+      recv: ""
+      interval: 5
+      timeout: 16
+  - path: /files
+    service: backend
+    servicePort: 80
+    monitor:
+      type: http
+      send: "HTTP /rn"
+      recv: ""
+      interval: 5
+      timeout: 16
+  - path: /api
+    service: app2
+    servicePort: 80
+    monitor:
+      type: http
+      send: "HTTP /rn"
+      recv: ""
+      interval: 5
+      timeout: 16
+  - path: /app3
+    service: app3
+    servicePort: 80
+    monitor:
+      type: http
+      send: "HTTP /rn"
+      recv: ""
+      interval: 5
+      timeout: 16
