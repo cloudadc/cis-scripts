@@ -22,5 +22,5 @@ spec:
         - --ip-range='{"Dev":"192.168.200.11-192.168.200.15"}'
         - --log-level=INFO
         command: ["/app/bin/f5-ipam-controller"]
-        image: f5networks/f5-ipam-controller:0.1.4 
+        image: f5networks/f5-ipam-controller:0.1.7 
         name: f5-ipam-controller
