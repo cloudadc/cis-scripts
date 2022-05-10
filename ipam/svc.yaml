@@ -3,9 +3,10 @@ kind: Service
 metadata:
   annotations:
     cis.f5.com/ipamLabel: Dev
+    cis.f5.com/health: '{"interval": 10, "timeout": 31}'
   labels:
     app: app
-  name: app-svc
+  name: app-svc-lb
   namespace: test102
 spec:
   ports:
