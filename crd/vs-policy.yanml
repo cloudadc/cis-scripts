@@ -1,14 +1,13 @@
 apiVersion: "cis.f5.com/v1"
 kind: VirtualServer
 metadata:
-  name: virtual01
+  name: virtual02
   namespace: cafe
   labels:
     f5cr: "true"
 spec:
-  host: test01.example.com
-  virtualServerAddress: "192.168.200.20"
-  persistenceProfile: "cookie"
+  virtualServerAddress: "192.168.200.21"
+  policyName: basic-policy
   pools:
   - path: /coffee
     service: app-svc

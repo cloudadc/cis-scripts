@@ -1,0 +1,15 @@
+apiVersion: cis.f5.com/v1
+kind: Policy
+metadata:
+  labels:
+    f5cr: "true"
+  name: basic-policy
+  namespace: cafe
+spec:
+  profiles:
+    tcp: /Common/f5-tcp-wan
+    http: /Common/http
+    persistenceProfile: /Common/source_addr
+  iRules:
+    secure: /Common/RULE_01
+    insecure: /Common/RULE_02

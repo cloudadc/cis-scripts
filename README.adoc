@@ -33,7 +33,7 @@ kubectl apply -f loadbalancer/cafe.yaml
 [source, bash]
 .*1. Install CIS COntroller*
 ----
-kubectl apply -f loadbalancer/install/ns.yaml
+kubectl apply -f crd/install/ns.yaml
 kubectl create secret generic bigip-login --from-literal=username=admin --from-literal=password=admin -n bigip-ctlr
 kubectl apply -f crd/install/rbac.yaml
 kubectl apply -f crd/install/customresourcedefinitions.yaml
@@ -54,19 +54,21 @@ kubectl apply -f crd/vs.yaml
 kubectl apply -f crd/transport.yaml 
 ----
 
-== TODO
+== CRD Arcadia Demo
 
 [source, bash]
-.**
+.*1. Deploy*
 ----
-
+kubectl apply -f arcadia/arcadia.yaml 
 ----
 
 [source, bash]
-.**
+.*2. App delivery*
+----
+kubectl apply -f arcadia/vs.yaml 
 ----
 
-----
+== TD
 
 [source, bash]
 .**

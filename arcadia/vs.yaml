@@ -7,7 +7,7 @@ metadata:
     f5cr: "true"
 spec:
   host: arcadia-finance.io
-  virtualServerAddress: "192.168.200.20"
+  virtualServerAddress: "192.168.200.23"
   pools:
   - path: /
     service: main
