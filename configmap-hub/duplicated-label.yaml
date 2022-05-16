@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest6
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    cis.f5.com/as3-tenant: cistest1
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc
+  namespace: cistest6
+spec:
+  ports:
+  - port: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    cis.f5.com/as3-tenant: cistest1
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-dup
+  namespace: cistest1
+spec:
+  ports:
+  - port: 80
