@@ -393,7 +393,7 @@ kubectl apply -f configmap-filter-tenants/cm-100.yaml
 kubectl scale -n cistest101 deploy/app-1 --replicas=1
 ----
 
-|====
+|===
 
 [source, bash]
 .*Commands used to record time*
