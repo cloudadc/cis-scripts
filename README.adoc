@@ -1,4 +1,5 @@
 = F5 CIS 101
+:toc: manual
 
 == LoadBalancer Type Service
 
@@ -283,6 +284,7 @@ kubectl scale -n cistest51 deploy/app-1 --replicas=1
 ----
 
 |60
+|
 
 [source, bash]
 ----
