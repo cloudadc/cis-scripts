@@ -31,7 +31,7 @@ kubectl apply -f loadbalancer/cafe.yaml
 == CRD
 
 [source, bash]
-.*1. Install CIS COntroller*
+.*1. Install CIS Controller*
 ----
 kubectl apply -f crd/install/ns.yaml
 kubectl create secret generic bigip-login --from-literal=username=admin --from-literal=password=admin -n bigip-ctlr
@@ -68,7 +68,43 @@ kubectl apply -f arcadia/arcadia.yaml
 kubectl apply -f arcadia/vs.yaml 
 ----
 
-== TD
+== AS3 Hub Mode
+
+[source, bash]
+.*1. Install CIS Controller*
+----
+kubectl apply -f as3-hub/install/ns.yaml
+kubectl create secret generic bigip-login --from-literal=username=admin --from-literal=password=admin -n bigip-ctlr
+kubectl apply -f as3-hub/install/rbac.yaml
+kubectl apply -f as3-hub/install/cis.yaml 
+----
+
+[source, bash]
+.*2. Deploy App*
+----
+kubectl apply -f as3-hub/apps.yaml
+----
+
+[source, bash]
+.*3. Deploy Configmap*
+----
+kubectl apply -f as3-hub/cm-hub-1.yaml
+kubectl apply -f as3-hub/cm-hub-2.yaml 
+----
+
+[source, bash]
+.*4. Verify deployment via tmsh*
+----
+~ # tmsh list auth partition | grep cistest | awk '{print $3}'
+cistest1
+cistest2
+cistest3
+cistest4
+cistest5
+
+~ # tmsh list ltm virtual /cistest3/app-1/app_svc_vs | grep reset 
+    service-down-immediate-action reset
+----
 
 [source, bash]
 .**
@@ -87,6 +123,4 @@ kubectl apply -f arcadia/vs.yaml
 ----
 
 ----
-
-
 
