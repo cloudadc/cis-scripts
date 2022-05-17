@@ -208,13 +208,13 @@ kubectl apply -f configmap-filter-tenants/deploy-21.yaml
 kubectl apply -f configmap-filter-tenants/cm-21.yaml 
 
 // upadate service, then record time 
-kubectl scale -n cistest21 deploy/app-1 --replicas=2
+kubectl scale -n cistest021 deploy/app-1 --replicas=2
 
 // delete service from BIG-IP, record time
 kubectl apply -f configmap-filter-tenants/cm-20.yaml
 
 // resource release
-kubectl scale -n cistest21 deploy/app-1 --replicas=1 
+kubectl scale -n cistest021 deploy/app-1 --replicas=1 
 ----
 
 |30
@@ -252,13 +252,13 @@ kubectl apply -f configmap-filter-tenants/deploy-41.yaml
 kubectl apply -f configmap-filter-tenants/cm-41.yaml
 
 // upadate service, then record time
-kubectl scale -n cistest41 deploy/app-1 --replicas=2
+kubectl scale -n cistest041 deploy/app-1 --replicas=2
 
 // delete service from BIG-IP, record time
 kubectl apply -f configmap-filter-tenants/cm-40.yaml
 
 // resource release
-kubectl scale -n cistest41 deploy/app-1 --replicas=1 
+kubectl scale -n cistest041 deploy/app-1 --replicas=1 
 ----
 
 |50
@@ -296,13 +296,13 @@ kubectl apply -f configmap-filter-tenants/deploy-61.yaml
 kubectl apply -f configmap-filter-tenants/cm-61.yaml
 
 // upadate service, then record time
-kubectl scale -n cistest61 deploy/app-1 --replicas=2
+kubectl scale -n cistest061 deploy/app-1 --replicas=2
 
 // delete service from BIG-IP, record time
 kubectl apply -f configmap-filter-tenants/cm-60.yaml
 
 // resource release
-kubectl scale -n cistest61 deploy/app-1 --replicas=1
+kubectl scale -n cistest061 deploy/app-1 --replicas=1
 ----
 
 |70
@@ -340,13 +340,13 @@ kubectl apply -f configmap-filter-tenants/deploy-81.yaml
 kubectl apply -f configmap-filter-tenants/cm-81.yaml
 
 // upadate service, then record time
-kubectl scale -n cistest81 deploy/app-1 --replicas=2
+kubectl scale -n cistest081 deploy/app-1 --replicas=2
 
 // delete service from BIG-IP, record time
 kubectl apply -f configmap-filter-tenants/cm-80.yaml
 
 // resource release
-kubectl scale -n cistest81 deploy/app-1 --replicas=1
+kubectl scale -n cistest081 deploy/app-1 --replicas=1
 ----
 
 |90
@@ -362,13 +362,13 @@ kubectl apply -f configmap-filter-tenants/deploy-91.yaml
 kubectl apply -f configmap-filter-tenants/cm-91.yaml
 
 // upadate service, then record time
-kubectl scale -n cistest91 deploy/app-1 --replicas=2
+kubectl scale -n cistest0091 deploy/app-1 --replicas=2
 
 // delete service from BIG-IP, record time
 kubectl apply -f configmap-filter-tenants/cm-90.yaml
 
 // resource release
-kubectl scale -n cistest91 deploy/app-1 --replicas=1
+kubectl scale -n cistest0091 deploy/app-1 --replicas=1
 ----
 
 |100
@@ -413,13 +413,13 @@ kubectl apply -f configmap-filter-tenants/deploy-11-svc.yaml
 kubectl apply -f configmap-filter-tenants/cm-11-svc.yaml
 
 // upadate service, then record time
-kubectl scale -n cistest9 deploy/app-3 --replicas=2
+kubectl scale -n cistest009 deploy/app-3 --replicas=2
 
 // delete service from BIG-IP, record time
 kubectl apply -f configmap-filter-tenants/cm-10-svc.yaml
 
 // resource release
-kubectl scale -n cistest9 deploy/app-3 --replicas=2
+kubectl scale -n cistest009 deploy/app-3 --replicas=2
 ----
 
 |20
@@ -435,13 +435,13 @@ kubectl apply -f configmap-filter-tenants/deploy-21-svc.yaml
 kubectl apply -f configmap-filter-tenants/cm-21-svc.yaml
 
 // upadate service, then record time
-kubectl scale -n cistest21 deploy/app-1 --replicas=2
+kubectl scale -n cistest021 deploy/app-1 --replicas=2
 
 // delete service from BIG-IP, record time
 kubectl apply -f configmap-filter-tenants/cm-20-svc.yaml
 
 // resource release
-kubectl scale -n cistest21 deploy/app-1 --replicas=1
+kubectl scale -n cistest021 deploy/app-1 --replicas=1
 ----
 
 |30
@@ -457,13 +457,13 @@ kubectl apply -f configmap-filter-tenants/deploy-31-svc.yaml
 kubectl apply -f configmap-filter-tenants/cm-31-svc.yaml
 
 // upadate service, then record time
-kubectl scale -n cistest29 deploy/app-3 --replicas=2
+kubectl scale -n cistest029 deploy/app-3 --replicas=2
 
 // delete service from BIG-IP, record time
 kubectl apply -f configmap-filter-tenants/cm-30-svc.yaml
 
 // resource release
-kubectl scale -n cistest29 deploy/app-3 --replicas=1
+kubectl scale -n cistest029 deploy/app-3 --replicas=1
 ----
 
 |40
@@ -479,13 +479,13 @@ kubectl apply -f configmap-filter-tenants/deploy-41-svc.yaml
 kubectl apply -f configmap-filter-tenants/cm-41-svc.yaml
 
 // upadate service, then record time
-kubectl scale -n cistest41 deploy/app-1 --replicas=2
+kubectl scale -n cistest041 deploy/app-1 --replicas=2
 
 // delete service from BIG-IP, record time
 kubectl apply -f configmap-filter-tenants/cm-40-svc.yaml
 
 // resource release
-kubectl scale -n cistest41 deploy/app-1 --replicas=1
+kubectl scale -n cistest041 deploy/app-1 --replicas=1
 ----
 
 |50
@@ -501,13 +501,13 @@ kubectl apply -f configmap-filter-tenants/deploy-51-svc.yaml
 kubectl apply -f configmap-filter-tenants/cm-51-svc.yaml
 
 // upadate service, then record time
-kubectl scale -n cistest49 deploy/app-3 --replicas=2
+kubectl scale -n cistest049 deploy/app-3 --replicas=2
 
 // delete service from BIG-IP, record time
 kubectl apply -f configmap-filter-tenants/cm-20-svc.yaml
 
 // resource release
-kubectl scale -n cistest49 deploy/app-3 --replicas=1
+kubectl scale -n cistest049 deploy/app-3 --replicas=1
 ----
 
 |60
@@ -523,13 +523,13 @@ kubectl apply -f configmap-filter-tenants/deploy-61-svc.yaml
 kubectl apply -f configmap-filter-tenants/cm-61-svc.yaml
 
 // upadate service, then record time
-kubectl scale -n cistest61 deploy/app-1 --replicas=2
+kubectl scale -n cistest061 deploy/app-1 --replicas=2
 
 // delete service from BIG-IP, record time
 kubectl apply -f configmap-filter-tenants/cm-60-svc.yaml
 
 // resource release
-kubectl scale -n cistest61 deploy/app-1 --replicas=1
+kubectl scale -n cistest061 deploy/app-1 --replicas=1
 ----
 
 |70
@@ -545,13 +545,13 @@ kubectl apply -f configmap-filter-tenants/deploy-71-svc.yaml
 kubectl apply -f configmap-filter-tenants/cm-71-svc.yaml
 
 // upadate service, then record time
-kubectl scale -n cistest69 deploy/app-3 --replicas=2
+kubectl scale -n cistest069 deploy/app-3 --replicas=2
 
 // delete service from BIG-IP, record time
 kubectl apply -f configmap-filter-tenants/cm-70-svc.yaml
 
 // resource release
-kubectl scale -n cistest71 deploy/app-1 --replicas=1
+kubectl scale -n cistest069 deploy/app-3 --replicas=1
 ----
 
 |80
@@ -567,13 +567,13 @@ kubectl apply -f configmap-filter-tenants/deploy-81-svc.yaml
 kubectl apply -f configmap-filter-tenants/cm-81-svc.yaml
 
 // upadate service, then record time
-kubectl scale -n cistest81 deploy/app-1 --replicas=2
+kubectl scale -n cistest081 deploy/app-1 --replicas=2
 
 // delete service from BIG-IP, record time
 kubectl apply -f configmap-filter-tenants/cm-80-svc.yaml
 
 // resource release
-kubectl scale -n cistest81 deploy/app-1 --replicas=1
+kubectl scale -n cistest081 deploy/app-1 --replicas=1
 ----
 
 |90
@@ -589,13 +589,13 @@ kubectl apply -f configmap-filter-tenants/deploy-91-svc.yaml
 kubectl apply -f configmap-filter-tenants/cm-91-svc.yaml
 
 // upadate service, then record time
-kubectl scale -n cistest89 deploy/app-3 --replicas=2
+kubectl scale -n cistest089 deploy/app-3 --replicas=2
 
 // delete service from BIG-IP, record time
 kubectl apply -f configmap-filter-tenants/cm-90-svc.yaml
 
 // resource release
-kubectl scale -n cistest89 deploy/app-3 --replicas=1
+kubectl scale -n cistest089 deploy/app-3 --replicas=1
 ----
 
 |100
@@ -764,14 +764,22 @@ STARTTIME=$(date +%s) ; for i in {1..100} ; do tmsh list ltm pool /cistest11/app
 
 // delete 11th service, then record time
 STARTTIME=$(date +%s) ; for i in {1..100} ; do tmsh list auth partition | grep cistest | wc -l ; ENDTIME=$(date +%s); echo "spend $(($ENDTIME - $STARTTIME)) seconds" ; sleep 3 ; done
-----
 
-== TD
+# cat ./record_pool.sh 
+#!/bin/bash
+
+STARTTIME=$(date +%s) ; for i in {1..100} ; do tmsh list ltm pool /cistest$1/app-$2/* | grep pool | wc -l ; ENDTIME=$(date +%s); echo "spend $(($ENDTIME - $STARTTIME)) seconds" ; sleep 3 ; done
+
+# cat ./record_member.sh 
+#!/bin/bash
+
+STARTTIME=$(date +%s) ; for i in {1..100} ; do tmsh list ltm pool /cistest$1/app-$2/app-$3_app_svc_pool members | grep address | wc -l ; ENDTIME=$(date +%s); echo "spend $(($ENDTIME - $STARTTIME)) seconds" ; sleep 3 ; done
+----
 
 [source, bash]
-.**
+.*Simulate a cluster offline*
 ----
-
+for i in $(kubectl get ns | grep cistest | awk '{print $1}') ; do for j in $(kubectl get pods -n $i --no-headers | awk '{print $1}') ; do kubectl delete pod $j -n $i ; done ; done;
 ----
 
 [source, bash]

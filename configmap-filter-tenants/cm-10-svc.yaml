@@ -16,7 +16,7 @@ data:
         "class": "ADC",
         "schemaVersion": "3.30.0",
         "id": "f5-hub01-a",
-        "cistest1": {
+        "cistest001": {
           "class": "Tenant",
           "app-1": {
             "class": "Application",
@@ -127,7 +127,7 @@ data:
             }
           }
         },
-        "cistest5": {
+        "cistest005": {
           "class": "Tenant",
           "app-1": {
             "class": "Application",
@@ -238,7 +238,7 @@ data:
             }
           }
         },
-        "cistest9": {
+        "cistest009": {
           "class": "Tenant",
           "app-1": {
             "class": "Application",
