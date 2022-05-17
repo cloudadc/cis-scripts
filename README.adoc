@@ -168,7 +168,7 @@ kubectl apply -f configmap-filter-tenants/install/cis.yaml
 
 *2. Use the following script to test CIS control plane performance*
 
-
+.*1 service per namespce*
 [cols="2,5a"]
 |===
 |Service Numbers |Scripts
@@ -393,6 +393,364 @@ kubectl apply -f configmap-filter-tenants/cm-100.yaml
 kubectl scale -n cistest101 deploy/app-1 --replicas=1
 ----
 
+|===
+
+.*4 services per namespce*
+[cols="2,5a"]
+|===
+|Service Numbers |Scripts
+
+|10
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-10-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-10-svc.yaml
+
+// add 11th app and 11th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-11-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-11-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest9 deploy/app-3 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-10-svc.yaml
+
+// resource release
+kubectl scale -n cistest9 deploy/app-3 --replicas=2
+----
+
+|20
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-20-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-20-svc.yaml
+
+// add 21th app and 21th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-21-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-21-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest21 deploy/app-1 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-20-svc.yaml
+
+// resource release
+kubectl scale -n cistest21 deploy/app-1 --replicas=1
+----
+
+|30
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-30-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-30-svc.yaml
+
+// add 31th app and 31th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-31-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-31-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest29 deploy/app-3 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-30-svc.yaml
+
+// resource release
+kubectl scale -n cistest29 deploy/app-3 --replicas=1
+----
+
+|40
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-40-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-40-svc.yaml
+
+// add 41th app and 41th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-41-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-41-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest41 deploy/app-1 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-40-svc.yaml
+
+// resource release
+kubectl scale -n cistest41 deploy/app-1 --replicas=1
+----
+
+|50
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-50-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-50-svc.yaml
+
+// add 51th app and 51th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-51-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-51-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest49 deploy/app-3 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-20-svc.yaml
+
+// resource release
+kubectl scale -n cistest49 deploy/app-3 --replicas=1
+----
+
+|60
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-60-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-60-svc.yaml
+
+// add 61th app and 61th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-61-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-61-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest61 deploy/app-1 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-60-svc.yaml
+
+// resource release
+kubectl scale -n cistest61 deploy/app-1 --replicas=1
+----
+
+|70
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-70-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-70-svc.yaml
+
+// add 71th app and 71th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-71-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-71-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest69 deploy/app-3 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-70-svc.yaml
+
+// resource release
+kubectl scale -n cistest71 deploy/app-1 --replicas=1
+----
+
+|80
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-80-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-80-svc.yaml
+
+// add 81th app and 81th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-81-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-81-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest81 deploy/app-1 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-80-svc.yaml
+
+// resource release
+kubectl scale -n cistest81 deploy/app-1 --replicas=1
+----
+
+|90
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-90-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-90-svc.yaml
+
+// add 91th app and 91th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-91-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-91-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest89 deploy/app-3 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-90-svc.yaml
+
+// resource release
+kubectl scale -n cistest89 deploy/app-3 --replicas=1
+----
+
+|100
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-100-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-100-svc.yaml
+
+// add 101th app and 101th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-101-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-101-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest101 deploy/app-1 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-100-svc.yaml
+
+// resource release
+kubectl scale -n cistest101 deploy/app-1 --replicas=1
+----
+
+|110
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-110-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-110-svc.yaml
+
+// add 111th app and 111th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-111-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-111-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest109 deploy/app-3 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-110-svc.yaml
+
+// resource release
+kubectl scale -n cistest109 deploy/app-3 --replicas=1
+----
+
+|120
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-120-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-120-svc.yaml
+
+// add 111th app and 111th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-121-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-121-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest121 deploy/app-1 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-120-svc.yaml
+
+// resource release
+kubectl scale -n cistest121 deploy/app-1 --replicas=1
+----
+
+|130
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-130-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-130-svc.yaml
+
+// add 131th app and 131th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-131-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-131-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest129 deploy/app-3 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-130-svc.yaml
+
+// resource release
+kubectl scale -n cistest129 deploy/app-3 --replicas=1
+----
+
+|140
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-140-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-140-svc.yaml
+
+// add 141th app and 141th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-141-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-141-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest141 deploy/app-1 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-140-svc.yaml
+
+// resource release
+kubectl scale -n cistest141 deploy/app-1 --replicas=1
+----
+
+|150
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-150-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-150-svc.yaml
+
+// add 151th app and 151th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-151-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-151-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest149 deploy/app-3 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-150-svc.yaml
+
+// resource release
+kubectl scale -n cistest149 deploy/app-3 --replicas=1
+----
+
+|160
+|
+
+[source, bash]
+----
+kubectl apply -f configmap-filter-tenants/deploy-160-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-160-svc.yaml
+
+// add 161th app and 161th vs and record time spended
+kubectl apply -f configmap-filter-tenants/deploy-161-svc.yaml
+kubectl apply -f configmap-filter-tenants/cm-161-svc.yaml
+
+// upadate service, then record time
+kubectl scale -n cistest161 deploy/app-1 --replicas=2
+
+// delete service from BIG-IP, record time
+kubectl apply -f configmap-filter-tenants/cm-160-svc.yaml
+
+// resource release
+kubectl scale -n cistest161 deploy/app-1 --replicas=1
+----
 |===
 
 [source, bash]

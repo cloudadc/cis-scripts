@@ -1,0 +1,575 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cm-cistest
+  namespace: f5-hub-1
+  labels:
+    f5type: virtual-server
+    as3: "true"
+data:
+  template: |
+    {
+      "class": "AS3",
+      "action": "deploy",
+      "persist": true,
+      "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.30.0",
+        "id": "f5-hub01-a",
+        "cistest1": {
+          "class": "Tenant",
+          "app-1": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.1"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-1_app_svc_pool"
+            },
+            "app-1_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-2": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.2"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-2_app_svc_pool"
+            },
+            "app-2_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-3": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.3"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-3_app_svc_pool"
+            },
+            "app-3_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-4": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.4"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-4_app_svc_pool"
+            },
+            "app-4_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          }
+        },
+        "cistest5": {
+          "class": "Tenant",
+          "app-1": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.5"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-1_app_svc_pool"
+            },
+            "app-1_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-2": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.6"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-2_app_svc_pool"
+            },
+            "app-2_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-3": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.7"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-3_app_svc_pool"
+            },
+            "app-3_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-4": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.8"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-4_app_svc_pool"
+            },
+            "app-4_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          }
+        },
+        "cistest9": {
+          "class": "Tenant",
+          "app-1": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.9"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-1_app_svc_pool"
+            },
+            "app-1_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-2": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.10"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-2_app_svc_pool"
+            },
+            "app-2_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-3": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.11"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-3_app_svc_pool"
+            },
+            "app-3_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-4": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.12"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-4_app_svc_pool"
+            },
+            "app-4_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          }
+        },
+        "cistest13": {
+          "class": "Tenant",
+          "app-1": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.13"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-1_app_svc_pool"
+            },
+            "app-1_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-2": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.14"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-2_app_svc_pool"
+            },
+            "app-2_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-3": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.15"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-3_app_svc_pool"
+            },
+            "app-3_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-4": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.16"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-4_app_svc_pool"
+            },
+            "app-4_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          }
+        },
+        "cistest17": {
+          "class": "Tenant",
+          "app-1": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.17"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-1_app_svc_pool"
+            },
+            "app-1_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-2": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.18"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-2_app_svc_pool"
+            },
+            "app-2_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-3": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.19"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-3_app_svc_pool"
+            },
+            "app-3_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "app-4": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.10.10.20"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-4_app_svc_pool"
+            },
+            "app-4_app_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "serverAddresses": []
+              }
+              ]
+            }
+          }
+        }
+      }
+    }
