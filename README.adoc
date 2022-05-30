@@ -68,7 +68,8 @@ kubectl apply -f arcadia/arcadia.yaml
 kubectl apply -f arcadia/vs.yaml 
 ----
 
-== AS3 Configmap Hub Mode
+
+== Configmap Hub Mode
 
 [source, bash]
 .*1. Install CIS Controller*
@@ -155,7 +156,7 @@ kubectl delete -f configmap-hub/install/cis.yaml
 kubectl delete -f configmap-hub/install/ns.yaml
 ----
 
-== Per Tenants Update
+== Configmap Hub Mode Per Tenants Update
 
 [source, bash]
 .*1. Install CIS Controller*
@@ -782,11 +783,32 @@ STARTTIME=$(date +%s) ; for i in {1..100} ; do tmsh list ltm pool /cistest$1/app
 for i in $(kubectl get ns | grep cistest | awk '{print $1}') ; do for j in $(kubectl get pods -n $i --no-headers | awk '{print $1}') ; do kubectl delete pod $j -n $i ; done ; done;
 ----
 
+== Limited BIG-IP User Account
+
 [source, bash]
-.**
+.*1. Install*
+----
+kubectl apply -f configmap-limited-bigip-account/install/ns.yaml
+kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
+kubectl apply -f configmap-limited-bigip-account/install/rbac.yaml
+kubectl apply -f configmap-limited-bigip-account/install/cis.yaml
 ----
 
+[source, bash]
+.*2. Deploy App*
 ----
+kubectl apply -f configmap-limited-bigip-account/deploy.yaml 
+kubectl apply -f configmap-limited-bigip-account/cm.yaml 
+----
+
+[source, bash]
+.*3. Create a customized BIG-IP User*
+----
+create auth user cis_user password default partition-access add { all-partitions { role admin } } 
+----
+
+NOTE: The admin role is necessary for CIS to work.
+
 
 [source, bash]
 .**
