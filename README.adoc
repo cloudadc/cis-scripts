@@ -946,84 +946,90 @@ kubectl apply -f configmap-canary/backend-canary.yaml
 |Methods |Steps
 
 |URL
-|Deliver APP
+|Deliver
 
 ----
+kubectl apply -f configmap-canary/cm-canary-v1.yaml 
 kubectl apply -f configmap-canary/cm-canary-v2.yaml
 kubectl apply -f configmap-canary/cm-canary-url.yaml
 ----
 
-Test canary version
+Test
 
 ----
 curl 192.168.200.13/foo
 ----
 
 |URL Parameter
-|Deliver APP
+|Deliver
 
 ----
+kubectl apply -f configmap-canary/cm-canary-v1.yaml 
 kubectl apply -f configmap-canary/cm-canary-v2.yaml
 kubectl apply -f configmap-canary/cm-canary-parametes.yaml
 ----
 
-Test canary version
+Test
 
 ----
 curl 192.168.200.13/foo?name=1010
 ----
 
 |Source Address
-|Deliver APP
+|Deliver
 
 ----
+kubectl apply -f configmap-canary/cm-canary-v1.yaml 
 kubectl apply -f configmap-canary/cm-canary-v2.yaml
 kubectl apply -f configmap-canary/cm-canary-sourceaddr.yaml 
 ----
 
-Test canary version
+Test
 
 ----
 curl 192.168.200.13/foo
 ----
 
 |Http Header
-|Deliver APP
+|Deliver
 
 ----
+kubectl apply -f configmap-canary/cm-canary-v1.yaml 
 kubectl apply -f configmap-canary/cm-canary-v2.yaml
 kubectl apply -f configmap-canary/cm-canary-headers.yaml
 ----
 
-Test canary version
+Test
 
 ----
 curl 192.168.200.13/foo --header "Canary: true"
 ----
 
 |Cookie
-|Deliver APP
+|Deliver
 
 ----
+kubectl apply -f configmap-canary/cm-canary-v1.yaml 
 kubectl apply -f configmap-canary/cm-canary-v2.yaml
 kubectl apply -f configmap-canary/cm-canary-cookie.yaml 
 ----
 
-Test canary version
+Test
 
 ----
 curl 192.168.200.13/foo --cookie "Canary=true"
 ----
 
 |Ratio
-|Deliver APP
+|Deliver
 
 ----
+kubectl apply -f configmap-canary/cm-canary-v1.yaml 
 kubectl apply -f configmap-canary/cm-canary-v2.yaml
 kubectl apply -f configmap-canary/cm-canary-ratio.yaml 
 ----
 
-Test canary version
+Test
 
 ----
 curl 192.168.200.13/foo 
