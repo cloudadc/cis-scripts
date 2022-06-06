@@ -809,6 +809,227 @@ create auth user cis_user password default partition-access add { all-partitions
 
 NOTE: The admin role is necessary for CIS to work.
 
+== Configmap Isolation with L4/l7 Application ADC
+
+[source, bash]
+.*1. Install*
+----
+kubectl apply -f configmap-advanced-adc/install/ns.yaml
+kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
+kubectl apply -f configmap-advanced-adc/install/rbac.yaml
+kubectl apply -f configmap-advanced-adc/install/cis.yaml
+----
+
+[source, bash]
+.*2. Deploy APP*
+----
+kubectl apply -f configmap-advanced-adc/cafe.yaml 
+kubectl apply -f configmap-advanced-adc/ttcp.yaml 
+----
+
+[source, bash]
+.*3. Deliver APP*
+----
+kubectl apply -f configmap-advanced-adc/cm-cafe.yaml 
+kubectl apply -f configmap-advanced-adc/cm-ttcp.yaml 
+----
+
+The L7 ADC will demostrate:
+
+* Cookie persistence with insert method
+* Cookie encription with random cipher text
+* Service down immediate action with drop
+* Health monitor with path and response pattern mapping
+* XFF via iRule
+* Least connections member load balancer algorithm
+* Customized snat address
+* Customized TCP attributes
+
+The L4 ADC will demostrate:
+
+* Source address persistence
+* Customized snat address
+* Enabled Connection mirroring
+* TCP half open health monitoring
+* Least connections member load balancer algorithm
+
+== Configmap Management isolation
+
+[source, bash]
+.*1. Install*
+----
+kubectl apply -f configmap-management-isolation/install/ns.yaml
+kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
+kubectl apply -f configmap-management-isolation/install/rbac.yaml
+kubectl apply -f configmap-management-isolation/install/cis.yaml
+----
+
+[source, bash]
+.*2. Deploy APP*
+----
+kubectl apply -f configmap-management-isolation/deploy.yaml 
+----
+
+[source, bash]
+.*3. Deliver APP 1(this will failed due to configmap syntax err)*
+----
+kubectl apply -f configmap-management-isolation/cm-cistest001.yaml 
+----
+
+Check from the cis log, the following errors show up:
+
+[source, bash]
+----
+2022/06/06 09:19:42 [ERROR] [AS3] Big-IP Responded with error code: 422
+----
+
+[source, bash]
+.*4. Deliver APP 2*
+----
+kubectl apply -f configmap-management-isolation/cm-cistest002.yaml 
+----
+
+Check from BIG-IP VE, the test002 be delivered successfully even the app 1 delivered failed.
+
+[source, bash]
+----
+[root@bigip1:Active:Standalone] config # tmsh list ltm virtual /cistest002/app-svc-1-app/app-svc-1-app-vs 
+ltm virtual /cistest002/app-svc-1-app/app-svc-1-app-vs {
+    creation-time 2022-06-06:16:57:13
+    description app-svc-1-app
+    destination /cistest002/10.10.10.2:http
+    ip-protocol tcp
+    last-modified-time 2022-06-06:16:57:13
+    mask 255.255.255.255
+    partition cistest002
+    persist {
+        cookie {
+            default yes
+        }
+    }
+    pool /cistest002/app-svc-1-app/app-svc-1-app-pool
+    profiles {
+        f5-tcp-progressive { }
+        http { }
+    }
+    serverssl-use-sni disabled
+    source 0.0.0.0/0
+    source-address-translation {
+        pool /cistest002/app-svc-1-app/app-svc-1-app-vs-self
+        type snat
+    }
+    translate-address enabled
+    translate-port enabled
+    vs-index 1947
+}
+----
+
+== Configmap Canary  
+
+[source, bash]
+.*1. Install*
+----
+kubectl apply -f configmap-canary/install/ns.yaml
+kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
+kubectl apply -f configmap-canary/install/rbac.yaml
+kubectl apply -f configmap-canary/install/cis.yaml
+----
+
+[source, bash]
+.*2. Deploy APP(Deploy 2 version of app, 1.0 version on test001, 1.1 version on test002)*
+----
+kubectl apply -f configmap-canary/backend-canary.yaml
+----
+
+[cols="2,5a"]
+|===
+|Methods |Steps
+
+|URL
+|Deliver APP
+
+----
+kubectl apply -f configmap-canary/cm-canary-v2.yaml
+kubectl apply -f configmap-canary/cm-canary-url.yaml
+----
+
+Test canary version
+
+----
+curl 192.168.200.13/foo
+----
+
+|URL Parameter
+|Deliver APP
+
+----
+kubectl apply -f configmap-canary/cm-canary-v2.yaml
+kubectl apply -f configmap-canary/cm-canary-parametes.yaml
+----
+
+Test canary version
+
+----
+curl 192.168.200.13/foo?name=1010
+----
+
+|Source Address
+|Deliver APP
+
+----
+kubectl apply -f configmap-canary/cm-canary-v2.yaml
+kubectl apply -f configmap-canary/cm-canary-sourceaddr.yaml 
+----
+
+Test canary version
+
+----
+curl 192.168.200.13/foo
+----
+
+|Http Header
+|Deliver APP
+
+----
+kubectl apply -f configmap-canary/cm-canary-v2.yaml
+kubectl apply -f configmap-canary/cm-canary-headers.yaml
+----
+
+Test canary version
+
+----
+curl 192.168.200.13/foo --header "Canary: true"
+----
+
+|Cookie
+|Deliver APP
+
+----
+kubectl apply -f configmap-canary/cm-canary-v2.yaml
+kubectl apply -f configmap-canary/cm-canary-cookie.yaml 
+----
+
+Test canary version
+
+----
+curl 192.168.200.13/foo --cookie "Canary=true"
+----
+
+|Ratio
+|Deliver APP
+
+----
+kubectl apply -f configmap-canary/cm-canary-v2.yaml
+kubectl apply -f configmap-canary/cm-canary-ratio.yaml 
+----
+
+Test canary version
+
+----
+curl 192.168.200.13/foo 
+----
+
+|===
 
 [source, bash]
 .**
