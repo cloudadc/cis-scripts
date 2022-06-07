@@ -54,7 +54,7 @@ kubectl apply -f crd/vs.yaml
 kubectl apply -f crd/transport.yaml 
 ----
 
-== CRD Arcadia Demo
+== CRD Arcadia
 
 [source, bash]
 .*1. Deploy*
@@ -427,6 +427,112 @@ curl 192.168.200.13/foo
 ----
 
 |===
+
+== Configmap Arcadia 
+
+[source, bash]
+.*1. Install*
+----
+kubectl apply -f configmap-arcadia/install/ns.yaml
+kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
+kubectl apply -f configmap-arcadia/install/rbac.yaml
+kubectl apply -f configmap-arcadia/install/cis.yaml
+----
+
+[source, bash]
+.*2. Deploy APP*
+----
+kubectl apply -f configmap-arcadia/arcadia.yaml
+----
+
+[source, bash]
+.*3. Deliver APP*
+----
+kubectl apply -f configmap-arcadia/cm.yaml
+----
+
+Routing Rules
+
+[source, bash]
+----
+when HTTP_REQUEST {
+  if { [HTTP::uri] starts_with "/api" } {
+    pool /arcadia/api/api-svc-pool
+  } elseif { [HTTP::uri] starts_with "/files" } {
+    pool /arcadia/backend/backend-svc-pool
+  } elseif { [HTTP::uri] starts_with "/app3" } {
+    pool /arcadia/refer/refer-svc-pool
+  } else {
+    pool /arcadia/main/main-svc-pool
+  }
+}
+----
+
+== Configmap Arcadia Across Namespace Routing
+
+[source, bash]
+.*1. Install*
+----
+kubectl apply -f configmap-arcadia/install/ns.yaml
+kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
+kubectl apply -f configmap-arcadia/install/rbac.yaml
+kubectl apply -f configmap-arcadia/install/cis.yaml
+----
+
+[source, bash]
+.*2. Deploy APP*
+----
+kubectl apply -f configmap-arcadia/arcadia-backend.yaml 
+kubectl apply -f configmap-arcadia/arcadia-api.yaml 
+kubectl apply -f configmap-arcadia/arcadia-refer.yaml 
+kubectl apply -f configmap-arcadia/arcadia-main.yaml 
+----
+
+[source, bash]
+.*3. Deliver APP*
+----
+kubectl apply -f configmap-arcadia/cm-backend.yaml
+kubectl apply -f configmap-arcadia/cm-api.yaml
+kubectl apply -f configmap-arcadia/cm-refer.yaml
+kubectl apply -f configmap-arcadia/cm-main.yaml 
+----
+
+Routing Rules
+
+[source, bash]
+----
+when HTTP_REQUEST {
+  if { [HTTP::uri] starts_with "/api" } {
+    pool /arcadia-api/api/api-svc-pool
+  } elseif { [HTTP::uri] starts_with "/files" } {
+    pool /arcadia-backend/backend/backend-svc-pool
+  } elseif { [HTTP::uri] starts_with "/app3" } {
+    pool /arcadia-refer/refer/refer-svc-pool
+  } else {
+    pool /arcadia-main/main/main-svc-pool
+  }
+}  
+----
+
+== TODO--
+
+[source, bash]
+.**
+----
+
+----
+
+[source, bash]
+.**
+----
+
+----
+
+[source, bash]
+.**
+----
+
+----
 
 [source, bash]
 .**
