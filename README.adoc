@@ -514,18 +514,27 @@ when HTTP_REQUEST {
 }  
 ----
 
-== TODO--
+== Configmap Path Based Route
 
 [source, bash]
-.**
+.*1. Install*
 ----
-
+kubectl apply -f configmap-routing/install/ns.yaml
+kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
+kubectl apply -f configmap-routing/install/rbac.yaml
+kubectl apply -f configmap-routing/install/cis.yaml
 ----
 
 [source, bash]
-.**
+.*3. Deploy APP*
+----
+kubectl apply -f deploy.yaml
 ----
 
+[source, bash]
+.*3. Depliver APP*
+----
+kubectl apply -f configmap-routing/cm.yaml
 ----
 
 [source, bash]

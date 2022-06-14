@@ -22,10 +22,10 @@ data:
             "class": "Application",
             "template": "generic",
             "app-svc-1-app-vs": {
-              "class": "Service_HTTP",
-              "persistenceMethods": [ "cookie" ],
+              "class": "Service_L4",
+              "persistenceMethods": [],
               "virtualAddresses": [
-                "10.10.10.2"
+                "192.168.200.13"
               ],
               "snat": "self",
               "virtualPort": 80,
@@ -36,7 +36,7 @@ data:
               "monitors": [
                 "tcp"
               ],
-              "loadBalancingMode": "least-connections-member",
+              "loadBalancingMode": "round-robin",
               "members": [
               {
                 "servicePort": 8080,

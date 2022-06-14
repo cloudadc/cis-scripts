@@ -9,18 +9,18 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: app-svc-1-app
-  name: app-svc-1-app
+    app: plbbanking-app
+  name: plbbanking-app
   namespace: cistest001
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app-svc-1-app
+      app: plbbanking-app
   template:
     metadata:
       labels:
-        app: app-svc-1-app
+        app: plbbanking-app
     spec:
       containers:
       - image: cloudadc/cafe:1.0
@@ -32,11 +32,11 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: app-svc-1-app
+    app: plbbanking-app
     cis.f5.com/as3-tenant: cistest001
-    cis.f5.com/as3-app: app-svc-1-app
-    cis.f5.com/as3-pool: app-svc-1-app-pool
-  name: app-svc-1
+    cis.f5.com/as3-app: plbbanking-app
+    cis.f5.com/as3-pool: plbbanking-app-pool
+  name: plbbanking
   namespace: cistest001
 spec:
   ports:
@@ -44,33 +44,26 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app: app-svc-1-app
+    app: plbbanking-app
   sessionAffinity: None
   type: ClusterIP
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: cistest002
-  labels:
-    cis_scanner: cistest
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: app-svc-1-app
-  name: app-svc-1-app
-  namespace: cistest002
+    app: gluebanking-app
+  name: gluebanking-app
+  namespace: cistest001
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
-      app: app-svc-1-app
+      app: gluebanking-app
   template:
     metadata:
       labels:
-        app: app-svc-1-app
+        app: gluebanking-app
     spec:
       containers:
       - image: cloudadc/cafe:1.0
@@ -82,19 +75,19 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: app-svc-1-app
-    cis.f5.com/as3-tenant: cistest002
-    cis.f5.com/as3-app: app-svc-1-app
-    cis.f5.com/as3-pool: app-svc-1-app-pool
-  name: app-svc-1
-  namespace: cistest002
+    app: gluebanking-app
+    cis.f5.com/as3-tenant: cistest001
+    cis.f5.com/as3-app: gluebanking-app
+    cis.f5.com/as3-pool: gluebanking-app-pool
+  name: gluebanking
+  namespace: cistest001
 spec:
   ports:
   - port: 80
     protocol: TCP
     targetPort: 8080
   selector:
-    app: app-svc-1-app
+    app: gluebanking-app
   sessionAffinity: None
   type: ClusterIP
 ---
