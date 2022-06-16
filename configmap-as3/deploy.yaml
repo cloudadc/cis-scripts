@@ -1,0 +1,1394 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: aml
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: pandora-web
+  name: pandora-web
+  namespace: aml
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pandora-web
+  template:
+    metadata:
+      labels:
+        app: pandora-web
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: pandora-web
+    cis.f5.com/as3-tenant: aml
+    cis.f5.com/as3-app: pandora-web_app
+    cis.f5.com/as3-pool: pandora-web_pool
+  name: pandora-web
+  namespace: aml
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: pandora-web
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: apass
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: apaas-cloud-toolkit-app-uat-service
+  name: apaas-cloud-toolkit-app-uat-service
+  namespace: apass
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: apaas-cloud-toolkit-app-uat-service
+  template:
+    metadata:
+      labels:
+        app: apaas-cloud-toolkit-app-uat-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    cis.f5.com/as3-tenant: apass
+    cis.f5.com/as3-app: apaas-cloud-toolkit-app-uat-service_app
+    cis.f5.com/as3-pool: apaas-cloud-toolkit-app-uat-service_pool
+  name: apaas-cloud-toolkit-app-uat-service
+  namespace: apass
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: apaas-cloud-toolkit-app-uat-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cdss
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cdss-tccb-ob-service
+  name: cdss-tccb-ob-service
+  namespace: cdss
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cdss-tccb-ob-service
+  template:
+    metadata:
+      labels:
+        app: cdss-tccb-ob-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cdss-tccb-ob-service
+    cis.f5.com/as3-tenant: cdss
+    cis.f5.com/as3-app: cdss-tccb-ob-service_app
+    cis.f5.com/as3-pool: cdss-tccb-ob-service_pool
+  name: cdss-tccb-ob-service
+  namespace: cdss
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: cdss-tccb-ob-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cdss-tccb-service
+  name: cdss-tccb-service
+  namespace: cdss
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cdss-tccb-service
+  template:
+    metadata:
+      labels:
+        app: cdss-tccb-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cdss-tccb-service
+    cis.f5.com/as3-tenant: cdss
+    cis.f5.com/as3-app: cdss-tccb-service_app
+    cis.f5.com/as3-pool: cdss-tccb-service_pool
+  name: cdss-tccb-service
+  namespace: cdss
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: cdss-tccb-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cdss-tccb
+  name: cdss-tccb
+  namespace: cdss
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cdss-tccb
+  template:
+    metadata:
+      labels:
+        app: cdss-tccb
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cdss-tccb
+    cis.f5.com/as3-tenant: cdss
+    cis.f5.com/as3-app: cdss-tccb_app
+    cis.f5.com/as3-pool: cdss-tccb_pool
+  name: cdss-tccb
+  namespace: cdss
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: cdss-tccb
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ethp
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: flato-service
+  name: flato-service
+  namespace: ethp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: flato-service
+  template:
+    metadata:
+      labels:
+        app: flato-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: flato-service
+    cis.f5.com/as3-tenant: ethp
+    cis.f5.com/as3-app: flato-service_app
+    cis.f5.com/as3-pool: flato-service_pool
+  name: flato-service
+  namespace: ethp
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: flato-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: fund-service
+  name: fund-service
+  namespace: ethp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: fund-service
+  template:
+    metadata:
+      labels:
+        app: fund-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: fund-service
+    cis.f5.com/as3-tenant: ethp
+    cis.f5.com/as3-app: fund-service_app
+    cis.f5.com/as3-pool: fund-service_pool
+  name: fund-service
+  namespace: ethp
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: fund-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: innov
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: digital-human-plat-f5
+  name: digital-human-plat-f5
+  namespace: innov
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: digital-human-plat-f5
+  template:
+    metadata:
+      labels:
+        app: digital-human-plat-f5
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: digital-human-plat-f5
+    cis.f5.com/as3-tenant: innov
+    cis.f5.com/as3-app: digital-human-plat-f5_app
+    cis.f5.com/as3-pool: digital-human-plat-f5_pool
+  name: digital-human-plat-f5
+  namespace: innov
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: digital-human-plat-f5
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: digital-human-video-pipeline-f5
+  name: digital-human-video-pipeline-f5
+  namespace: innov
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: digital-human-video-pipeline-f5
+  template:
+    metadata:
+      labels:
+        app: digital-human-video-pipeline-f5
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: digital-human-video-pipeline-f5
+    cis.f5.com/as3-tenant: innov
+    cis.f5.com/as3-app: digital-human-video-pipeline-f5_app
+    cis.f5.com/as3-pool: digital-human-video-pipeline-f5_pool
+  name: digital-human-video-pipeline-f5
+  namespace: innov
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: digital-human-video-pipeline-f5
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ingress-nginx-http
+  name: ingress-nginx-http
+  namespace: innov
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ingress-nginx-http
+  template:
+    metadata:
+      labels:
+        app: ingress-nginx-http
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ingress-nginx-http
+    cis.f5.com/as3-tenant: innov
+    cis.f5.com/as3-app: ingress-nginx-http_app
+    cis.f5.com/as3-pool: ingress-nginx-http_pool
+  name: ingress-nginx-http
+  namespace: innov
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: ingress-nginx-http
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ingress-nginx-https
+  name: ingress-nginx-https
+  namespace: innov
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ingress-nginx-https
+  template:
+    metadata:
+      labels:
+        app: ingress-nginx-https
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ingress-nginx-https
+    cis.f5.com/as3-tenant: innov
+    cis.f5.com/as3-app: ingress-nginx-https_app
+    cis.f5.com/as3-pool: ingress-nginx-https_pool
+  name: ingress-nginx-https
+  namespace: innov
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: ingress-nginx-https
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: rtc-janus-service
+  name: rtc-janus-service
+  namespace: innov
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rtc-janus-service
+  template:
+    metadata:
+      labels:
+        app: rtc-janus-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: rtc-janus-service
+    cis.f5.com/as3-tenant: innov
+    cis.f5.com/as3-app: rtc-janus-service_app
+    cis.f5.com/as3-pool: rtc-janus-service_pool
+  name: rtc-janus-service
+  namespace: innov
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: rtc-janus-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: rtc-signal-server-exterf5
+  name: rtc-signal-server-exterf5
+  namespace: innov
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rtc-signal-server-exterf5
+  template:
+    metadata:
+      labels:
+        app: rtc-signal-server-exterf5
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: rtc-signal-server-exterf5
+    cis.f5.com/as3-tenant: innov
+    cis.f5.com/as3-app: rtc-signal-server-exterf5_app
+    cis.f5.com/as3-pool: rtc-signal-server-exterf5_pool
+  name: rtc-signal-server-exterf5
+  namespace: innov
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: rtc-signal-server-exterf5
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: rtc-signal-server-interf5
+  name: rtc-signal-server-interf5
+  namespace: innov
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rtc-signal-server-interf5
+  template:
+    metadata:
+      labels:
+        app: rtc-signal-server-interf5
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: rtc-signal-server-interf5
+    cis.f5.com/as3-tenant: innov
+    cis.f5.com/as3-app: rtc-signal-server-interf5_app
+    cis.f5.com/as3-pool: rtc-signal-server-interf5_pool
+  name: rtc-signal-server-interf5
+  namespace: innov
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: rtc-signal-server-interf5
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: iot
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: iot-integrate-service
+  name: iot-integrate-service
+  namespace: iot
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: iot-integrate-service
+  template:
+    metadata:
+      labels:
+        app: iot-integrate-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: iot-integrate-service
+    cis.f5.com/as3-tenant: iot
+    cis.f5.com/as3-app: iot-integrate-service_app
+    cis.f5.com/as3-pool: iot-integrate-service_pool
+  name: iot-integrate-service
+  namespace: iot
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: iot-integrate-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: iot-vehicle-app-uat-service
+  name: iot-vehicle-app-uat-service
+  namespace: iot
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: iot-vehicle-app-uat-service
+  template:
+    metadata:
+      labels:
+        app: iot-vehicle-app-uat-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: iot-vehicle-app-uat-service
+    cis.f5.com/as3-tenant: iot
+    cis.f5.com/as3-app: iot-vehicle-app-uat-service_app
+    cis.f5.com/as3-pool: iot-vehicle-app-uat-service_pool
+  name: iot-vehicle-app-uat-service
+  namespace: iot
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: iot-vehicle-app-uat-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: iot-vehicle-web-uat-service
+  name: iot-vehicle-web-uat-service
+  namespace: iot
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: iot-vehicle-web-uat-service
+  template:
+    metadata:
+      labels:
+        app: iot-vehicle-web-uat-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: iot-vehicle-web-uat-service
+    cis.f5.com/as3-tenant: iot
+    cis.f5.com/as3-app: iot-vehicle-web-uat-service_app
+    cis.f5.com/as3-pool: iot-vehicle-web-uat-service_pool
+  name: iot-vehicle-web-uat-service
+  namespace: iot
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: iot-vehicle-web-uat-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: tccb-service
+  name: tccb-service
+  namespace: iot
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tccb-service
+  template:
+    metadata:
+      labels:
+        app: tccb-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: tccb-service
+    cis.f5.com/as3-tenant: iot
+    cis.f5.com/as3-app: tccb-service_app
+    cis.f5.com/as3-pool: tccb-service_pool
+  name: tccb-service
+  namespace: iot
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: tccb-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: midwareak
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: escluster
+  name: escluster
+  namespace: midwareak
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: escluster
+  template:
+    metadata:
+      labels:
+        app: escluster
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: escluster
+    cis.f5.com/as3-tenant: midwareak
+    cis.f5.com/as3-app: escluster_app
+    cis.f5.com/as3-pool: escluster_pool
+  name: escluster
+  namespace: midwareak
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: escluster
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kafka
+  name: kafka
+  namespace: midwareak
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kafka
+  template:
+    metadata:
+      labels:
+        app: kafka
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: kafka
+    cis.f5.com/as3-tenant: midwareak
+    cis.f5.com/as3-app: kafka_app
+    cis.f5.com/as3-pool: kafka_pool
+  name: kafka
+  namespace: midwareak
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: kafka
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: miniocluster
+  name: miniocluster
+  namespace: midwareak
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: miniocluster
+  template:
+    metadata:
+      labels:
+        app: miniocluster
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: miniocluster
+    cis.f5.com/as3-tenant: midwareak
+    cis.f5.com/as3-app: miniocluster_app
+    cis.f5.com/as3-pool: miniocluster_pool
+  name: miniocluster
+  namespace: midwareak
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: miniocluster
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: redis
+  name: redis
+  namespace: midwareak
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: redis
+    cis.f5.com/as3-tenant: midwareak
+    cis.f5.com/as3-app: redis_app
+    cis.f5.com/as3-pool: redis_pool
+  name: redis
+  namespace: midwareak
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: redis
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: rot-consulcluster
+  name: rot-consulcluster
+  namespace: midwareak
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: rot-consulcluster
+  template:
+    metadata:
+      labels:
+        app: rot-consulcluster
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: rot-consulcluster
+    cis.f5.com/as3-tenant: midwareak
+    cis.f5.com/as3-app: rot-consulcluster_app
+    cis.f5.com/as3-pool: rot-consulcluster_pool
+  name: rot-consulcluster
+  namespace: midwareak
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: rot-consulcluster
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: zookeeper
+  name: zookeeper
+  namespace: midwareak
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: zookeeper
+  template:
+    metadata:
+      labels:
+        app: zookeeper
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: zookeeper
+    cis.f5.com/as3-tenant: midwareak
+    cis.f5.com/as3-app: zookeeper_app
+    cis.f5.com/as3-pool: zookeeper_pool
+  name: zookeeper
+  namespace: midwareak
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: zookeeper
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nlpak
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-group-f5
+  name: api-group-f5
+  namespace: nlpak
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: api-group-f5
+  template:
+    metadata:
+      labels:
+        app: api-group-f5
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: api-group-f5
+    cis.f5.com/as3-tenant: nlpak
+    cis.f5.com/as3-app: api-group-f5_app
+    cis.f5.com/as3-pool: api-group-f5_pool
+  name: api-group-f5
+  namespace: nlpak
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: api-group-f5
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cmbcparse-f5
+  name: cmbcparse-f5
+  namespace: nlpak
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cmbcparse-f5
+  template:
+    metadata:
+      labels:
+        app: cmbcparse-f5
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: cmbcparse-f5
+    cis.f5.com/as3-tenant: nlpak
+    cis.f5.com/as3-app: cmbcparse-f5_app
+    cis.f5.com/as3-pool: cmbcparse-f5_pool
+  name: cmbcparse-f5
+  namespace: nlpak
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: cmbcparse-f5
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: crm-app-service
+  name: crm-app-service
+  namespace: nlpak
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: crm-app-service
+  template:
+    metadata:
+      labels:
+        app: crm-app-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: crm-app-service
+    cis.f5.com/as3-tenant: nlpak
+    cis.f5.com/as3-app: crm-app-service_app
+    cis.f5.com/as3-pool: crm-app-service_pool
+  name: crm-app-service
+  namespace: nlpak
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: crm-app-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: crm-service
+  name: crm-service
+  namespace: nlpak
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: crm-service
+  template:
+    metadata:
+      labels:
+        app: crm-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: crm-service
+    cis.f5.com/as3-tenant: nlpak
+    cis.f5.com/as3-app: crm-service_app
+    cis.f5.com/as3-pool: crm-service_pool
+  name: crm-service
+  namespace: nlpak
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: crm-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: oms
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: oms-service
+  name: oms-service
+  namespace: oms
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: oms-service
+  template:
+    metadata:
+      labels:
+        app: oms-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: oms-service
+    cis.f5.com/as3-tenant: oms
+    cis.f5.com/as3-app: oms-service_app
+    cis.f5.com/as3-pool: oms-service_pool
+  name: oms-service
+  namespace: oms
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: oms-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: oms-uat-service
+  name: oms-uat-service
+  namespace: oms
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: oms-uat-service
+  template:
+    metadata:
+      labels:
+        app: oms-uat-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: oms-uat-service
+    cis.f5.com/as3-tenant: oms
+    cis.f5.com/as3-app: oms-uat-service_app
+    cis.f5.com/as3-pool: oms-uat-service_pool
+  name: oms-uat-service
+  namespace: oms
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: oms-uat-service
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: oms-web-service
+  name: oms-web-service
+  namespace: oms
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: oms-web-service
+  template:
+    metadata:
+      labels:
+        app: oms-web-service
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: oms-web-service
+    cis.f5.com/as3-tenant: oms
+    cis.f5.com/as3-app: oms-web-service_app
+    cis.f5.com/as3-pool: oms-web-service_pool
+  name: oms-web-service
+  namespace: oms
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: oms-web-service
+  sessionAffinity: None
+  type: ClusterIP

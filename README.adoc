@@ -537,10 +537,45 @@ kubectl apply -f deploy.yaml
 kubectl apply -f configmap-routing/cm.yaml
 ----
 
+== Configmap FastL4 Vs Standard
+
 [source, bash]
-.**
+.*1. Install*
+----
+kubectl apply -f configmap-fastl4-standard/install/ns.yaml
+kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
+kubectl apply -f configmap-fastl4-standard/install/rbac.yaml
+kubectl apply -f configmap-fastl4-standard/install/cis.yaml
 ----
 
+[source, bash]
+.*2. Deploy APP*
+----
+kubectl apply -f  configmap-fastl4-standard/deploy.yaml 
+----
+
+[source, bash]
+.*3. Deliver APP*
+----
+kubectl apply -f configmap-fastl4-standard/cm-l4.yaml
+configmap-fastl4-standard/cm-http.yaml
+----
+
+== Configmap AS3 Performance
+
+[source, bash]
+.*1. Install*
+----
+kubectl apply -f configmap-as3/install/ns.yaml
+kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
+kubectl apply -f configmap-as3/install/rbac.yaml
+kubectl apply -f configmap-as3/install/cis.yaml
+----
+
+[source, bash]
+.*2. Deploy APP*
+----
+kubectl apply -f  configmap-as3/deploy.yaml
 ----
 
 [source, bash]
