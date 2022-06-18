@@ -448,6 +448,7 @@ kubectl apply -f configmap-arcadia/arcadia.yaml
 [source, bash]
 .*3. Deliver APP*
 ----
+kubectl apply -f configmap-arcadia/cm-v1.yaml
 kubectl apply -f configmap-arcadia/cm.yaml
 ----
 
@@ -558,7 +559,7 @@ kubectl apply -f  configmap-fastl4-standard/deploy.yaml
 .*3. Deliver APP*
 ----
 kubectl apply -f configmap-fastl4-standard/cm-l4.yaml
-configmap-fastl4-standard/cm-http.yaml
+kubectl apply -f configmap-fastl4-standard/cm-http.yaml
 ----
 
 == Configmap AS3 Performance

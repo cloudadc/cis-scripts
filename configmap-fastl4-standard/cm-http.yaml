@@ -27,7 +27,7 @@ data:
               "virtualAddresses": [
                 "192.168.200.13"
               ],
-              "virtualPort": 80,
+              "virtualPort": 30003,
               "pool": "app-svc-1-app-pool"
             },
             "app-svc-1-app-pool": {
