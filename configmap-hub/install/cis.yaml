@@ -50,6 +50,7 @@ spec:
             "--bigip-username=$(BIGIP_USERNAME)",
             "--bigip-password=$(BIGIP_PASSWORD)",
             "--log-level=INFO",
+            "--log-as3-response=true",
             "--manage-ingress=false",
             "--bigip-url=192.168.200.204",
             "--insecure=true",

@@ -1,0 +1,1327 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: veconfig-nsgroup1
+  namespace: f5-hub-1
+  labels:
+    f5type: virtual-server
+    as3: "true"
+data:
+  template: |
+    {
+      "class": "AS3",
+      "action": "deploy",
+      "persist": true,
+      "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.18.0",
+        "id": "veconfig-nsgroup1",
+        "midwareak": {
+          "class": "Tenant",
+          "escluster_app": {
+            "class": "Application",
+            "template": "generic",
+            "escluster_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "persistenceMethods": [],
+              "virtualAddresses": [
+                "197.0.214.1"
+              ],
+              "virtualPort": 31001,
+              "snat": "self",
+              "pool": "escluster_pool"
+            },
+            "escluster_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "kafka_app": {
+            "class": "Application",
+            "template": "generic",
+            "kafka_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "persistenceMethods": [],
+              "virtualAddresses": [
+                "197.0.214.1"
+              ],
+              "virtualPort": 31002,
+              "snat": "self",
+              "pool": "kafka_pool"
+            },
+            "kafka_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "miniocluster_app": {
+            "class": "Application",
+            "template": "generic",
+            "miniocluster_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "persistenceMethods": [],
+              "virtualAddresses": [
+                "197.0.214.1"
+              ],
+              "virtualPort": 31003,
+              "snat": "self",
+              "pool": "miniocluster_pool"
+            },
+            "miniocluster_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "redis_app": {
+            "class": "Application",
+            "template": "generic",
+            "redis_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "persistenceMethods": [],
+              "virtualAddresses": [
+                "197.0.214.1"
+              ],
+              "virtualPort": 31004,
+              "snat": "self",
+              "pool": "redis_pool"
+            },
+            "redis_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "rot-consulcluster_app": {
+            "class": "Application",
+            "template": "generic",
+            "rot-consulcluster_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "persistenceMethods": [],
+              "virtualAddresses": [
+                "197.0.214.1"
+              ],
+              "virtualPort": 31005,
+              "snat": "self",
+              "pool": "rot-consulcluster_pool"
+            },
+            "rot-consulcluster_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "zookeeper_app": {
+            "class": "Application",
+            "template": "generic",
+            "zookeeper_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "persistenceMethods": [],
+              "virtualAddresses": [
+                "197.0.214.1"
+              ],
+              "virtualPort": 31006,
+              "snat": "self",
+              "pool": "zookeeper_pool"
+            },
+            "zookeeper_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            }
+          }
+        },
+        "nlpak": {
+          "class": "Tenant",
+          "api-group-f5_app": {
+            "class": "Application",
+            "template": "generic",
+            "api-group-f5_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.2"
+              ],
+              "virtualPort": 31007,
+              "profileMultiplex": {
+                "use": "api-group-f5_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "api-group-f5_httpprofile"
+              },
+              "snat": "self",
+              "pool": "api-group-f5_pool"
+            },
+            "api-group-f5_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "api-group-f5_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "api-group-f5_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          },
+          "cmbcparse-f5_app": {
+            "class": "Application",
+            "template": "generic",
+            "cmbcparse-f5_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.2"
+              ],
+              "virtualPort": 31008,
+              "profileMultiplex": {
+                "use": "cmbcparse-f5_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "cmbcparse-f5_httpprofile"
+              },
+              "snat": "self",
+              "pool": "cmbcparse-f5_pool"
+            },
+            "cmbcparse-f5_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "cmbcparse-f5_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "cmbcparse-f5_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          }
+        },
+        "innov": {
+          "class": "Tenant",
+          "ingress-nginx-http_app": {
+            "class": "Application",
+            "template": "generic",
+            "ingress-nginx-http_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "persistenceMethods": [],
+              "virtualAddresses": [
+                "197.0.214.3"
+              ],
+              "virtualPort": 30000,
+              "snat": "self",
+              "pool": "ingress-nginx-http_pool"
+            },
+            "ingress-nginx-http_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "ingress-nginx-https_app": {
+            "class": "Application",
+            "template": "generic",
+            "ingress-nginx-https_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "persistenceMethods": [],
+              "virtualAddresses": [
+                "197.0.214.3"
+              ],
+              "virtualPort": 30001,
+              "snat": "self",
+              "pool": "ingress-nginx-https_pool"
+            },
+            "ingress-nginx-https_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "rtc-signal-server-interf5_app": {
+            "class": "Application",
+            "template": "generic",
+            "rtc-signal-server-interf5_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "persistenceMethods": [],
+              "virtualAddresses": [
+                "197.0.214.3"
+              ],
+              "virtualPort": 30002,
+              "snat": "self",
+              "pool": "rtc-signal-server-interf5_pool"
+            },
+            "rtc-signal-server-interf5_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "rtc-signal-server-exterf5_app": {
+            "class": "Application",
+            "template": "generic",
+            "rtc-signal-server-exterf5_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "persistenceMethods": [],
+              "virtualAddresses": [
+                "197.0.214.3"
+              ],
+              "virtualPort": 30003,
+              "snat": "self",
+              "pool": "rtc-signal-server-exterf5_pool"
+            },
+            "rtc-signal-server-exterf5_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "rtc-janus-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "rtc-janus-service_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "persistenceMethods": [],
+              "virtualAddresses": [
+                "197.0.214.3"
+              ],
+              "virtualPort": 30004,
+              "snat": "self",
+              "pool": "rtc-janus-service_pool"
+            },
+            "rtc-janus-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "icmp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "digital-human-plat-f5_app": {
+            "class": "Application",
+            "template": "generic",
+            "digital-human-plat-f5_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "persistenceMethods": [],
+              "virtualAddresses": [
+                "197.0.214.3"
+              ],
+              "virtualPort": 30005,
+              "snat": "self",
+              "pool": "digital-human-plat-f5_pool"
+            },
+            "digital-human-plat-f5_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            }
+          },
+          "digital-human-video-pipeline-f5_app": {
+            "class": "Application",
+            "template": "generic",
+            "digital-human-video-pipeline-f5_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "persistenceMethods": [],
+              "virtualAddresses": [
+                "197.0.214.3"
+              ],
+              "virtualPort": 30006,
+              "snat": "self",
+              "pool": "digital-human-video-pipeline-f5_pool"
+            },
+            "digital-human-video-pipeline-f5_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            }
+          }
+        },
+        "oms": {
+          "class": "Tenant",
+          "oms-uat-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "oms-uat-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.4"
+              ],
+              "virtualPort": 7003,
+              "profileMultiplex": {
+                "use": "oms-uat-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "oms-uat-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "oms-uat-service_pool"
+            },
+            "oms-uat-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "oms-uat-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "oms-uat-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+           }
+          },
+          "oms-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "oms-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.4"
+              ],
+              "virtualPort": 8001,
+              "profileMultiplex": {
+                "use": "oms-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "oms-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "oms-service_pool"
+            },
+            "oms-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "oms-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "oms-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          },
+          "oms-web-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "oms-web-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.4"
+              ],
+              "virtualPort": 8002,
+              "profileMultiplex": {
+                "use": "oms-web-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "oms-web-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "oms-web-service_pool"
+            },
+            "oms-web-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "oms-web-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "oms-web-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          }
+        },
+        "cdss": {
+          "class": "Tenant",
+          "cdss-tccb_app": {
+            "class": "Application",
+            "template": "generic",
+            "cdss-tccb_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.5"
+              ],
+              "virtualPort": 80,
+              "profileMultiplex": {
+                "use": "cdss-tccb_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "cdss-tccb_httpprofile"
+              },
+              "snat": "self",
+              "pool": "cdss-tccb_pool"
+            },
+            "cdss-tccb_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "cdss-tccb_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "cdss-tccb_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          },
+          "cdss-tccb-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "cdss-tccb-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.5"
+              ],
+              "virtualPort": 8080,
+              "profileMultiplex": {
+                "use": "cdss-tccb-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "cdss-tccb-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "cdss-tccb-service_pool"
+            },
+            "cdss-tccb-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "cdss-tccb-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "cdss-tccb-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          },
+          "cdss-tccb-ob-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "cdss-tccb-ob-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.5"
+              ],
+              "virtualPort": 8090,
+              "profileMultiplex": {
+                "use": "cdss-tccb-ob-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "cdss-tccb-ob-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "cdss-tccb-ob-service_pool"
+            },
+            "cdss-tccb-ob-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "cdss-tccb-ob-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "cdss-tccb-ob-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          }
+        },
+        "aml": {
+          "class": "Tenant",
+          "pandora-web_app": {
+            "class": "Application",
+            "template": "generic",
+            "pandora-web_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.6"
+              ],
+              "virtualPort": 30249,
+              "profileMultiplex": {
+                "use": "pandora-web_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "pandora-web_httpprofile"
+              },
+              "snat": "self",
+              "pool": "pandora-web_pool"
+            },
+            "pandora-web_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "pandora-web_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "pandora-web_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+           }
+          }
+        },
+        "ocrm": {
+          "class": "Tenant",
+          "crm-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "crm-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.7"
+              ],
+              "virtualPort": 8000,
+              "profileMultiplex": {
+                "use": "crm-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "crm-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "crm-service_pool"
+            },
+            "crm-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "crm-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "crm-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          },
+          "crm-app-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "crm-app-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.7"
+              ],
+              "virtualPort": 8001,
+              "profileMultiplex": {
+                "use": "crm-app-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "crm-app-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "crm-app-service_pool"
+            },
+            "crm-app-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "crm-app-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "crm-app-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+           }
+          }
+        },
+        "ethp": {
+          "class": "Tenant",
+          "fund-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "fund-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.9"
+              ],
+              "virtualPort": 50012,
+              "profileMultiplex": {
+                "use": "fund-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "fund-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "fund-service_pool"
+            },
+            "fund-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "fund-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "fund-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          },
+          "flato-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "flato-service_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "persistenceMethods": [],
+              "virtualAddresses": [
+                "197.0.214.9"
+              ],
+              "virtualPort": 50011,
+              "snat": "self",
+              "pool": "flato-service_pool"
+            },
+            "flato-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            }
+          }
+        },
+        "apaas": {
+          "class": "Tenant",
+          "apaas-cloud-toolkit-app-uat-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "apaas-cloud-toolkit-app-uat-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.10"
+              ],
+              "virtualPort": 30283,
+              "profileMultiplex": {
+                "use": "apaas-cloud-toolkit-app-uat-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "apaas-cloud-toolkit-app-uat-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "apaas-cloud-toolkit-app-uat-service_pool"
+            },
+            "apaas-cloud-toolkit-app-uat-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "apaas-cloud-toolkit-app-uat-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "apaas-cloud-toolkit-app-uat-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          }
+        },
+        "iot": {
+          "class": "Tenant",
+          "iot-integrate-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "iot-integrate-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.11"
+              ],
+              "virtualPort": 8080,
+              "profileMultiplex": {
+                "use": "iot-integrate-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "iot-integrate-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "iot-integrate-service_pool"
+            },
+            "iot-integrate-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "iot-integrate-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "iot-integrate-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          },
+          "iot-vehicle-web-uat-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "iot-vehicle-web-uat-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.11"
+              ],
+              "virtualPort": 8089,
+              "profileMultiplex": {
+                "use": "iot-vehicle-web-uat-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "iot-vehicle-web-uat-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "iot-vehicle-web-uat-service_pool"
+            },
+            "iot-vehicle-web-uat-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "iot-vehicle-web-uat-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "iot-vehicle-web-uat-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          },
+          "iot-vehicle-app-uat-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "iot-vehicle-app-uat-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.11"
+              ],
+              "virtualPort": 8088,
+              "profileMultiplex": {
+                "use": "iot-vehicle-app-uat-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "iot-vehicle-app-uat-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "iot-vehicle-app-uat-service_pool"
+            },
+            "iot-vehicle-app-uat-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "iot-vehicle-app-uat-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "iot-vehicle-app-uat-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          },
+          "tccb-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "tccb-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.11"
+              ],
+              "virtualPort": 18080,
+              "profileMultiplex": {
+                "use": "tccb-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "tccb-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "tccb-service_pool"
+            },
+            "tccb-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "tccb-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "tccb-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          }
+        },
+       "gd": {
+          "class": "Tenant",
+          "gdweb-apache-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "gdweb-apache-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.12"
+              ],
+              "virtualPort": 10180,
+              "profileMultiplex": {
+                "use": "gdweb-apache-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "gdweb-apache-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "gdweb-apache-service_pool"
+            },
+            "gdweb-apache-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "gdweb-apache-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "gdweb-apache-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+          }
+        },  
+          "gdapp-nginx-flume-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "gdapp-nginx-flume-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.12"
+              ],
+              "virtualPort": 10280,
+              "profileMultiplex": {
+                "use": "gdapp-nginx-flume-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "gdapp-nginx-flume-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "gdapp-nginx-flume-service_pool"
+            },
+            "gdapp-nginx-flume-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "gdapp-nginx-flume-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "gdapp-nginx-flume-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+          }
+        },
+          "mobile-analysis-web-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "mobile-analysis-web-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.12"
+              ],
+              "virtualPort": 8095,
+              "profileMultiplex": {
+                "use": "mobile-analysis-web-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "mobile-analysis-web-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "mobile-analysis-web-service_pool"
+            },
+            "mobile-analysis-web-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "mobile-analysis-web-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "mobile-analysis-web-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+          }
+        },
+          "mobile-app-service_app": {
+            "class": "Application",
+            "template": "generic",
+            "mobile-app-service_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "197.0.214.12"
+              ],
+              "virtualPort": 8080,
+              "profileMultiplex": {
+                "use": "mobile-app-service_oneconnectprofile"
+              },
+              "profileHTTP": {
+                "use": "mobile-app-service_httpprofile"
+              },
+              "snat": "self",
+              "pool": "mobile-app-service_pool"
+            },
+            "mobile-app-service_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 80,
+                "serverAddresses": []
+              }
+              ]
+            },
+            "mobile-app-service_httpprofile": {
+              "class": "HTTP_Profile",
+              "xForwardedFor": true
+            },
+            "mobile-app-service_oneconnectprofile": {
+              "class": "Multiplex_Profile",
+              "sourceMask": "255.255.255.255",
+              "maxConnectionReuse": 5
+            }
+          }
+        }
+      }
+    }

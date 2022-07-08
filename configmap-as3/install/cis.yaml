@@ -55,6 +55,9 @@ spec:
             "--insecure=true",
             "--filter-tenants=true",
             "--bigip-partition=k8s",
+            "--hubmode=true",
+            "--bigip-partition=k8s",
             "--pool-member-type=cluster",
-            "--namespace-label=cis_scanner=cistest"
+            "--namespace=f5-hub-1",
+            "--namespace=f5-hub-2"
             ]
