@@ -1,39 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bigip-ctlr-192-168-200-204
+  name: bigip-ctlr-192-168-75-204
   labels:
-    app: bigip-ctlr-192-168-200-204
+    app: bigip-ctlr-192-168-75-204
   namespace: bigip-ctlr
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bigip-ctlr-192-168-200-204
+      app: bigip-ctlr-192-168-75-204
   template:
     metadata:
-      name: bigip-ctlr-192-168-200-204
+      name: bigip-ctlr-192-168-75-204
       labels:
-        app: bigip-ctlr-192-168-200-204
+        app: bigip-ctlr-192-168-75-204
     spec:
       serviceAccountName: bigip-ctlr
       containers:
-        - name: bigip-ctlr
-          image: "f5networks/k8s-bigip-ctlr:2.9.0"
+        - name: as3-parser
+          image: "zongzw/as3-parser:latest"
           imagePullPolicy: IfNotPresent
-          livenessProbe:
-            failureThreshold: 3
-            exec:
-              command:
-              - curl
-              - -k
-              - -s
-              - -o
-              - /dev/null
-              - https://192.168.200.204
-            initialDelaySeconds: 15
-            periodSeconds: 15
-            successThreshold: 1
+          ports:
+            - containerPort: 8081
+              protocol: TCP
+        - name: bigip-ctlr
+          image: "zongzw/k8s-bigip-ctlr-c:2.9.01"
+          imagePullPolicy: IfNotPresent
           env:
             - name: BIGIP_USERNAME
               valueFrom:
@@ -45,18 +38,18 @@ spec:
                 secretKeyRef:
                   name: bigip-login
                   key: password
-          command: ["/app/bin/k8s-bigip-ctlr"]
+            - name: BIGIP_URL
+              valueFrom:
+                secretKeyRef:
+                  name: bigip-login
+                  key: url
+          command: ["/f5-kic-linux"]
           args: [
             "--bigip-username=$(BIGIP_USERNAME)",
             "--bigip-password=$(BIGIP_PASSWORD)",
             "--log-level=INFO",
-            "--log-as3-response=true",
-            "--manage-ingress=false",
-            "--bigip-url=192.168.200.204",
-            "--insecure=true",
-            "--hubmode=true",
-            "--bigip-partition=k8s",
-            "--pool-member-type=cluster",
+            "--bigip-url=$(BIGIP_URL)",
+            "--hub-mode=true",
             "--namespace=f5-hub-1",
             "--namespace=f5-hub-2"
             ]
