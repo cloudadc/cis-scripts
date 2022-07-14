@@ -47,7 +47,7 @@ spec:
           args: [
             "--bigip-username=$(BIGIP_USERNAME)",
             "--bigip-password=$(BIGIP_PASSWORD)",
-            "--log-level=INFO",
+            "--log-level=info",
             "--bigip-url=$(BIGIP_URL)",
             "--hub-mode=true",
             "--namespace=f5-hub-1",

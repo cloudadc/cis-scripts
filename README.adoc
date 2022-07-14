@@ -7,7 +7,7 @@
 .*1. Install CIS Controller*
 ----
 kubectl apply -f configmap-hub/install/ns.yaml
-kubectl create secret generic bigip-login --from-literal=username=admin --from-literal=password=admin -n bigip-ctlr
+kubectl create secret generic bigip-login --from-literal=username=admin --from-literal=password=admin --from-literal=url=https://10.1.10.10:443 -n bigip-ctlr
 kubectl apply -f configmap-hub/install/rbac.yaml
 kubectl apply -f configmap-hub/install/cis.yaml 
 ----
