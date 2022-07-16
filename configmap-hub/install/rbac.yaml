@@ -9,24 +9,21 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: bigip-ctlr-clusterrole
 rules:
-- apiGroups: ["", "extensions", "networking.k8s.io"]
-  resources: ["nodes", "services", "endpoints", "namespaces", "ingresses", "pods", "ingressclasses"]
+- apiGroups: ["", "extensions"]
+  resources: ["nodes", "services", "endpoints", "namespaces", "ingresses", "pods"]
   verbs: ["get", "list", "watch"]
-- apiGroups: ["", "extensions", "networking.k8s.io"]
-  resources: ["configmaps", "events", "ingresses/status", "services/status"]
+- apiGroups: ["", "extensions"]
+  resources: ["configmaps", "events", "ingresses/status"]
   verbs: ["get", "list", "watch", "update", "create", "patch"]
-- apiGroups: ["cis.f5.com"]
-  resources: ["virtualservers","virtualservers/status", "tlsprofiles", "transportservers", "ingresslinks", "externaldnses", "policies"]
-  verbs: ["get", "list", "watch", "update"]
 - apiGroups: ["", "extensions"]
   resources: ["secrets"]
+  resourceNames: ["bigip-login"]
   verbs: ["get", "list", "watch"]
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: bigip-ctlr-clusterrole-binding
-  namespace: bigip-ctlr
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole

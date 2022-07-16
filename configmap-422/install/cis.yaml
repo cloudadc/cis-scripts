@@ -1,39 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bigip-ctlr
+  name: k8s-bigip-ctlr
   namespace: bigip-ctlr
   labels:
-    app: bigip-ctlr
+    app: k8s-bigip-ctlr
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bigip-ctlr
+      app: k8s-bigip-ctlr
   template:
     metadata:
-      name: bigip-ctlr
+      name: k8s-bigip-ctlr
       labels:
-        app: bigip-ctlr
+        app: k8s-bigip-ctlr
     spec:
       serviceAccountName: bigip-ctlr
       containers:
-        - name: f5-test-1-bigip-ctlr
-          image: "f5networks/k8s-bigip-ctlr:2.5.0"
-          imagePullPolicy: Never
-          livenessProbe:
-            failureThreshold: 3
-            exec:
-              command:
-              - curl
-              - -k
-              - -s
-              - -o
-              - /dev/null
-              - https://192.168.200.204
-            initialDelaySeconds: 15
-            periodSeconds: 15
-            successThreshold: 1
+        - name: k8s-bigip-ctlr
+          image: "cloudadc/k8s-bigip-ctlr:2.0-C3456795-2344"
           env:
             - name: BIGIP_USERNAME
               valueFrom:
@@ -49,13 +35,10 @@ spec:
           args: [
             "--bigip-username=$(BIGIP_USERNAME)",
             "--bigip-password=$(BIGIP_PASSWORD)",
-            "--namespace-label=cis_scanner_zone=zone_1",
-            "--manage-configmaps=true",
-            "--manage-ingress=true",
-            "--log-level=INFO",
-            "--bigip-url=192.168.200.204",
+            "--bigip-url=https://192.168.200.204:443",
             "--insecure=true",
             "--bigip-partition=k8s",
+            "--log-level=DEBUG",
             "--pool-member-type=cluster",
-            "--agent=as3"
+            "--namespace=f5-hub-1"
             ]
