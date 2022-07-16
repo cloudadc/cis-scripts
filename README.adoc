@@ -96,13 +96,13 @@ kubectl apply -f configmap-hub/cm-hub-2.yaml
 The above configmap will demostrate:
 
 * Hub mode with 2 hub configmap in 2 namespace
-* AS3 pool member's `servicePort` is optional, container exposed port is 8080, but AS3 pool member port is 80
+* AS3 pool member's `servicePort` is optional, container exposed port is 8080, but AS3 pool member port is 8088
 
 [source, yaml]
 ----
               "members": [
               {
-                "servicePort": 80,
+                "servicePort": 8088,
 ----
 
 * Immediate Action On Service Down reset mode

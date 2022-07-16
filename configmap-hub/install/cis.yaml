@@ -19,7 +19,7 @@ spec:
       serviceAccountName: bigip-ctlr
       containers:
         - name: bigip-ctlr
-          image: "f5networks/k8s-bigip-ctlr:2.9.0"
+          image: "f5networks/k8s-bigip-ctlr:2.8.1-1"
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
