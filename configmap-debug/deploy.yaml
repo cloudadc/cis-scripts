@@ -1,0 +1,1500 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest001
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest001
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest001
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest001
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest002
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest002
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest002
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest002
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest003
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest003
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest003
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest003
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest004
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest004
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest004
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest004
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest005
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest005
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest005
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest005
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest006
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest006
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest006
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest006
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest007
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest007
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest007
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest007
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest008
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest008
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest008
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest008
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest009
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest009
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest009
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest009
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest010
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest010
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest010
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest010
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest011
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest011
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest011
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest011
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest012
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest012
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest012
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest012
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest013
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest013
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest013
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest013
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest014
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest014
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest014
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest014
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest015
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest015
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest015
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest015
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest016
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest016
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest016
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest016
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest017
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest017
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest017
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest017
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest018
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest018
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest018
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest018
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest019
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest019
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest019
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest019
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest020
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest020
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest020
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest020
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest021
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest021
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest021
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest021
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest022
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest022
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest022
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest022
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest023
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest023
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest023
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest023
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest024
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest024
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest024
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest024
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest025
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest025
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest025
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest025
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest026
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest026
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest026
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest026
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest027
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest027
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest027
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest027
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest028
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest028
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest028
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest028
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest029
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest029
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest029
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest029
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest030
+  labels:
+    cis_scanner: cistest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-1
+  name: app-1
+  namespace: cistest030
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - image: cloudadc/cafe:1.0
+        name: backend
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-1
+    cis.f5.com/as3-tenant: cistest030
+    cis.f5.com/as3-app: app-1
+    cis.f5.com/as3-pool: app-1_app_svc_pool
+  name: app-svc-1
+  namespace: cistest030
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: app-1
+  sessionAffinity: None
+  type: ClusterIP
+---
