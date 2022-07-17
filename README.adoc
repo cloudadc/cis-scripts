@@ -90,3 +90,19 @@ kubectl apply -f configmap-422/cm.yaml
 ----
 for i in {1..3} ; do echo $i ;kubectl delete -f configmap-422/deploy.yaml ; kubectl apply -f configmap-422/deploy.yaml ; sleep 30 ; echo;  done
 ----
+
+CIS error log looks:
+
+[source, bash]
+----
+2022/07/16 16:11:53 [ERROR] [AS3] Big-IP Responded with code: 422
+----
+
+The Restnoded log looks
+
+[source, bash]
+----
+Sat, 16 Jul 2022 16:10:51 GMT - warning: [appsvcs] {"status":422,"message":"declaration is invalid","errors":["/cistest004/app-1/app-1_app_svc_pool/members: pool member /cistest004/app-1/app-1_app_svc_pool/members/0 static address 100.64.21.157 conflicts with bigip node /cistest005/100.64.21.157"],"level":"warning"}
+
+Sat, 16 Jul 2022 16:11:23 GMT - warning: [appsvcs] {"status":422,"message":"declaration is invalid","errors":["/cistest001/app-1/app-1_app_svc_pool/members: pool member /cistest001/app-1/app-1_app_svc_pool/members/0 static address 100.64.23.53 conflicts with bigip node /cistest003/100.64.23.53"],"level":"warning"}
+----
