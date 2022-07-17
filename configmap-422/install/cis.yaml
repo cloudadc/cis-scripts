@@ -38,7 +38,8 @@ spec:
             "--bigip-url=https://192.168.200.204:443",
             "--insecure=true",
             "--bigip-partition=k8s",
-            "--log-level=DEBUG",
+            "--log-level=INFO",
+            "--log-as3-response=true",
             "--pool-member-type=cluster",
             "--namespace=f5-hub-1"
             ]
