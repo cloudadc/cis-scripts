@@ -16,7 +16,7 @@ data:
         "class": "ADC",
         "schemaVersion": "3.30.0",
         "id": "f5-hub01",
-        "cistest1": {
+        "cistest001": {
           "class": "Tenant",
           "app-1": {
             "class": "Application",
@@ -25,43 +25,13 @@ data:
               "class": "Service_HTTP",
               "persistenceMethods": [ "cookie" ],
               "virtualAddresses": [
-                "10.1.10.1"
+                "192.168.200.31"
               ],
               "snat": "self",
               "virtualPort": 80,
-              "pool": "app-1_app_svc_pool"
+              "pool": "app_1_svc_pool"
             },
-            "app-1_app_svc_pool": {
-              "class": "Pool",
-              "monitors": [
-                "tcp"
-              ],
-              "loadBalancingMode": "least-connections-member",
-              "members": [
-              {
-                "servicePort": 8088,
-                "serverAddresses": []
-              }
-              ]
-            }
-          }
-        },
-        "cistest2": {
-          "class": "Tenant",
-          "app-1": {
-            "class": "Application",
-            "template": "generic",
-            "app_svc_vs": {
-              "class": "Service_HTTP",
-              "persistenceMethods": [ "cookie" ],
-              "virtualAddresses": [
-                "10.1.10.2"
-              ],
-              "snat": "self",
-              "virtualPort": 80,
-              "pool": "app-1_app_svc_pool"
-            },
-            "app-1_app_svc_pool": {
+            "app_1_svc_pool": {
               "class": "Pool",
               "monitors": [
                 "tcp"
@@ -78,3 +48,4 @@ data:
         }
       }
     }
+
