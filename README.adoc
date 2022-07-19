@@ -109,61 +109,113 @@ URI: /test/user
 Request ID: d4fbc16fea0300ad67263a376a5eab38
 ----
 
-=== TD 
+=== Cookie 加密 
 
 [source, bash]
 .*1. 创建应用*
 ----
-
+kubectl apply -f 002/app.yaml 
 ----
 
 [source, bash]
 .*2. 下发服务*
 ----
-
+kubectl apply -f 002/cm.yaml
 ----
 
 [source, bash]
 .*3. 测试验证*
 ----
+$ curl http://192.168.200.32 -v
+...
+< Set-Cookie: BIGipServer~cistest002~app-1~app_1_svc_pool=!5agmNHYLuqqe3qfKX3XmY+C0N2Z48JQp+ps7BHHI7cFyhqrRVC/WhN3goMDCQf/nBpJ8+qCR5uT7Slg=; path=/; Httponly
+< 
+Server address: 100.64.21.180:8080
+Server name: app-1-7f4585dc79-n2k6z
+Date: 19/Jul/2022:11:59:59 +0000
+URI: /
+Request ID: c4f8480f1b7ee744c33ccff729f8c99a
 
+$ curl --cookie 'BIGipServer~cistest002~app-1~app_1_svc_pool=!iQ5xKJ7r5J5cx47KX3XmY+C0N2Z48EzgRDLD6LmcMmk5aIzT+IdWNWeMolr/H7KhlzScsmiZMkuQ25o=' http://192.168.200.32/test
+Server address: 100.64.21.180:8080
+Server name: app-1-7f4585dc79-n2k6z
+Date: 19/Jul/2022:12:00:07 +0000
+URI: /test
+Request ID: 728c77ad635347ec83ef12c993dd54d1
+
+$ curl --cookie 'BIGipServer~cistest002~app-1~app_1_svc_pool=!iQ5xKJ7r5J5cx47KX3XmY+C0N2Z48EzgRDLD6LmcMmk5aIzT+IdWNWeMolr/H7KhlzScsmiZMkuQ25o=' http://192.168.200.32/test/user
+Server address: 100.64.21.180:8080
+Server name: app-1-7f4585dc79-n2k6z
+Date: 19/Jul/2022:12:00:10 +0000
+URI: /test/user
+Request ID: 6a4cfaec2d62011848adb982415fc388
 ----
+
+=== 根据请求路径和返回值判断的健康检查
 
 [source, bash]
 .*1. 创建应用*
 ----
-
+kubectl apply -f 003/app.yaml
 ----
 
 [source, bash]
 .*2. 下发服务*
 ----
-
+kubectl apply -f 003/cm.yaml
 ----
 
 [source, bash]
 .*3. 测试验证*
 ----
-
+$ ssh root@192.168.200.204 tmsh list ltm pool /cistest003/app-1/app_1_svc_pool monitor 
+Password: 
+ltm pool /cistest003/app-1/app_1_svc_pool {
+    monitor min 1 of { /cistest003/app-1/custom_http_monitor }
+}
 ----
+
+=== 多健康检查（TCP + HTTP）
 
 [source, bash]
 .*1. 创建应用*
 ----
-
+kubectl apply -f 004/app.yaml 
 ----
 
 [source, bash]
-.*2. 下发服务*
+.*2. 下发服务（仅 TCP）*
 ----
-
+kubectl apply -f 004/cm.1.yaml
 ----
 
 [source, bash]
 .*3. 测试验证*
 ----
-
+$ ssh root@192.168.200.204 tmsh list ltm pool /cistest004/app-1/app_1_svc_pool monitor 
+Password: 
+ltm pool /cistest004/app-1/app_1_svc_pool {
+    monitor min 1 of { tcp }
+}
 ----
+
+[source, bash]
+.*4. 下发服务（TCP + HTTP）*
+----
+kubectl apply -f 004/cm.2.yaml
+----
+
+[source, bash]
+.*5. 测试验证*
+----
+$ ssh root@192.168.200.204 tmsh list ltm pool /cistest004/app-1/app_1_svc_pool monitor 
+Password: 
+ltm pool /cistest004/app-1/app_1_svc_pool {
+    monitor min 1 of { tcp /cistest004/app-1/custom_http_monitor }
+}
+----
+
+=== TD
 
 [source, bash]
 .*1. 创建应用*

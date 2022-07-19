@@ -141,26 +141,15 @@ data:
               "virtualPort": 80,
               "pool": "app_1_svc_pool"
             },
-            "custom_http_monitor": {
-              "class": "Monitor",
-              "monitorType": "http",
-              "send": "GET /coffee/ HTTP/1.1\r\nHost:f5.monitor.com\r\n\r\n",
-              "interval": 5,
-              "timeout": 16,
-              "receive": "coffee"
-            },
             "app_1_svc_pool": {
               "class": "Pool",
               "monitors": [
-                "tcp",
-                {
-                "use": "custom_http_monitor"
-                }
+                "tcp"
               ],
               "loadBalancingMode": "least-connections-member",
               "members": [
               {
-                "servicePort": 80,
+                "servicePort": 8080,
                 "serverAddresses": []
               }
               ]

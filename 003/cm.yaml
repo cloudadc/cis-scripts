@@ -125,47 +125,6 @@ data:
               ]
             }
           }
-        },
-        "cistest004": {
-          "class": "Tenant",
-          "app-1": {
-            "class": "Application",
-            "template": "generic",
-            "app_svc_vs": {
-              "class": "Service_HTTP",
-              "persistenceMethods": [ "cookie" ],
-              "virtualAddresses": [
-                "192.168.200.34"
-              ],
-              "snat": "self",
-              "virtualPort": 80,
-              "pool": "app_1_svc_pool"
-            },
-            "custom_http_monitor": {
-              "class": "Monitor",
-              "monitorType": "http",
-              "send": "GET /coffee/ HTTP/1.1\r\nHost:f5.monitor.com\r\n\r\n",
-              "interval": 5,
-              "timeout": 16,
-              "receive": "coffee"
-            },
-            "app_1_svc_pool": {
-              "class": "Pool",
-              "monitors": [
-                "tcp",
-                {
-                "use": "custom_http_monitor"
-                }
-              ],
-              "loadBalancingMode": "least-connections-member",
-              "members": [
-              {
-                "servicePort": 80,
-                "serverAddresses": []
-              }
-              ]
-            }
-          }
         }
       }
     }
