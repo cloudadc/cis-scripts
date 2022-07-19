@@ -111,7 +111,7 @@ data:
           "app-1": {
             "class": "Application",
             "template": "generic",
-            "app_svc_vs": {
+            "app_svc_vs_80": {
               "class": "Service_HTTP",
               "persistenceMethods": [ "cookie" ],
               "virtualAddresses": [
@@ -171,7 +171,7 @@ data:
           "app-1": {
             "class": "Application",
             "template": "generic",
-            "app_svc_vs": {
+            "app_svc_vs_80": {
               "class": "Service_HTTP",
               "persistenceMethods": [ "cookie" ],
               "virtualAddresses": [
@@ -261,7 +261,7 @@ data:
           "app-1": {
             "class": "Application",
             "template": "generic",
-            "app_svc_vs": {
+            "app_svc_vs_80": {
               "class": "Service_HTTP",
               "persistenceMethods": [ "cookie" ],
               "virtualAddresses": [
@@ -561,7 +561,7 @@ data:
           "app-1": {
             "class": "Application",
             "template": "generic",
-            "app_svc_vs": {
+            "app_svc_vs_80": {
               "class": "Service_HTTP",
               "persistenceMethods": [ "cookie" ],
               "virtualAddresses": [
@@ -621,7 +621,7 @@ data:
           "app-1": {
             "class": "Application",
             "template": "generic",
-            "app_svc_vs": {
+            "app_svc_vs_80": {
               "class": "Service_HTTP",
               "persistenceMethods": [ "cookie" ],
               "virtualAddresses": [

@@ -197,7 +197,36 @@ ns=cistest010 ; for j in {1..10} ; do for i in $(kubectl get pods -n $ns --no-he
 for i in {1..3} ; do  kubectl delete -f configmap-debug/deploy.yaml ; kubectl apply -f configmap-debug/deploy.yaml  ; echo;  done ; 
 ----
 
-== Limited BIG-IP User Account
+[source, bash]
+.*5. Clean up*
+----
+kubectl delete -f configmap-debug/cm.yaml
+kubectl delete -f configmap-debug/deploy.yaml 
+kubectl delete -f configmap-debug/install/cis.yaml 
+kubectl delete -f configmap-debug/install/rbac.yaml 
+kubectl delete -f configmap-debug/install/ns.yaml
+----
+
+== Installation - Limited CIS RBAC
+
+[source, bash]
+.*1. Install CIS Controller*
+----
+kubectl apply -f configmap-limited-rbac/install/ns.yaml 
+kubectl create secret generic bigip-login --from-literal=username=admin --from-literal=password=admin -n bigip-ctlr
+kubectl apply -f configmap-limited-rbac/install/rbac-small.yaml
+kubectl apply -f configmap-limited-rbac/install/cis.yaml
+----
+
+[source, bash]
+.*2. Clean up*
+----
+kubectl delete -f configmap-debug/install/cis.yaml
+kubectl delete -f configmap-debug/install/rbac.yaml
+kubectl delete -f configmap-debug/install/ns.yaml
+----
+
+== Installation - Limited BIG-IP User Account
 
 [source, bash]
 .*1. Install*
