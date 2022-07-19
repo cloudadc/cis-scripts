@@ -314,35 +314,6 @@ data:
               ]
             }
           }
-        },
-        "cistest007": {
-          "class": "Tenant",
-          "app-1": {
-            "class": "Application",
-            "template": "generic",
-            "app_svc_vs": {
-              "class": "Service_TCP",
-              "persistenceMethods": [ "source-address" ],
-              "virtualAddresses": [
-                "192.168.200.37"
-              ],
-              "snat": "self",
-              "virtualPort": 80,
-              "pool": "app_1_svc_pool"
-            },
-            "app_1_svc_pool": {
-              "class": "Pool",
-              "monitors": [
-                "tcp"
-              ],
-              "members": [
-              {
-                "servicePort": 8080,
-                "serverAddresses": []
-              }
-              ]
-            }
-          }
         }
       }
     }

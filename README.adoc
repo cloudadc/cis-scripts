@@ -215,61 +215,135 @@ ltm pool /cistest004/app-1/app_1_svc_pool {
 }
 ----
 
-=== TD
+=== 使用 Rule 控制流量
 
 [source, bash]
 .*1. 创建应用*
 ----
-
+kubectl apply -f 005/app-1.yaml 
+kubectl apply -f 005/app-2.yaml 
 ----
 
 [source, bash]
 .*2. 下发服务*
 ----
-
+kubectl apply -f 005/cm.yaml
 ----
 
 [source, bash]
 .*3. 测试验证*
 ----
-
+$ ssh root@192.168.200.204 tmsh list ltm rule /cistest005/app-1/iRulesHere
+Password: 
+ltm rule /cistest005/app-1/iRulesHere {
+    partition cistest005
+when HTTP_REQUEST {
+ if { [HTTP::uri] contains "foo" } {
+   pool /cistest005/app-1/app_1_svc_pool
+ } elseif {[HTTP::uri] contains "bar"} {
+   pool /cistest005/app-2/app_2_svc_pool
+ } else {
+ pool   /cistest005/app-1/app_1_svc_pool
+ }
+}
+}
 ----
+
+=== 使用 Policy 控制流量 
 
 [source, bash]
 .*1. 创建应用*
 ----
-
+kubectl apply -f 006/app-1.yaml
+kubectl apply -f 006/app-2.yaml
 ----
 
 [source, bash]
 .*2. 下发服务*
 ----
-
+kubectl apply -f 006/cm.yaml
 ----
 
 [source, bash]
 .*3. 测试验证*
 ----
-
+$ ssh root@192.168.200.204 tmsh list ltm policy /cistest006/app/forward_policy
+Password: 
+ltm policy /cistest006/app/forward_policy {
+    controls { forwarding }
+    last-modified 2022-07-19:22:03:04
+    partition cistest006
+    requires { http }
+    rules {
+        forward_to_poo1 {
+            actions {
+                0 {
+                    forward
+                    select
+                    pool /cistest006/app/app_1_svc_pool
+                }
+            }
+            conditions {
+                0 {
+                    http-uri
+                    path
+                    contains
+                    values { foo }
+                }
+            }
+        }
+        forward_to_poo2 {
+            actions {
+                0 {
+                    forward
+                    select
+                    pool /cistest006/app/app_2_svc_pool
+                }
+            }
+            conditions {
+                0 {
+                    http-uri
+                    path
+                    contains
+                    values { bar }
+                }
+            }
+            ordinal 1
+        }
+    }
+    status legacy
+    strategy best-match
+}
 ----
+
+NOTE: Rule 可以跨 partion, 跨 app，Policy 必需在同一个 app 中。
+
+=== Standard VS，无 HTTP Profile，源地址会话保持
 
 [source, bash]
 .*1. 创建应用*
 ----
-
+kubectl apply -f 007/app.yaml 
 ----
 
 [source, bash]
 .*2. 下发服务*
 ----
-
+kubectl apply -f cm.yaml 
 ----
 
 [source, bash]
 .*3. 测试验证*
 ----
-
+$ for i in {1..5} ; do curl -s http://192.168.200.37 | grep address | awk '{print $3}' ; done
+100.64.21.158:8080
+100.64.21.158:8080
+100.64.21.158:8080
+100.64.21.158:8080
+100.64.21.158:8080
 ----
+
+=== Standard VS，无 HTTP Profile，源地址会话保持，启用连接镜像
 
 [source, bash]
 .*1. 创建应用*
