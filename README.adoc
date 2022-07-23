@@ -535,7 +535,7 @@ ltm profile http /cistest012/app-1/customHTTPProfile {
 [source, bash]
 .*1. 创建应用*
 ----
-
+kubectl apply -f 013/app.yaml
 ----
 
 [source, bash]
@@ -555,7 +555,7 @@ ltm profile http /cistest012/app-1/customHTTPProfile {
 [source, bash]
 .*1. 创建应用*
 ----
-
+kubectl apply -f 014/app.yaml
 ----
 
 [source, bash]
@@ -575,7 +575,7 @@ ltm profile http /cistest012/app-1/customHTTPProfile {
 [source, bash]
 .*1. 创建应用*
 ----
-
+kubectl apply -f 015/app.yaml
 ----
 
 [source, bash]
@@ -590,6 +590,73 @@ ltm profile http /cistest012/app-1/customHTTPProfile {
 
 ----
 
+=== VS 状态与 pool-member 状态联动 Down
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 016/app.yaml
+----
+
+[source, bash]
+.*2. 下发服务*
+----
+
+----
+
+[source, bash]
+.*3. 测试验证*
+----
+
+----
+
+=== AS3 ServicePort 配置可选
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 017/app.yaml
+----
+
+[source, bash]
+.*2. 下发服务*
+----
+
+----
+
+[source, bash]
+.*3. 测试验证*
+----
+
+----
+
+=== 不同 service 拥有相同 labels
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 018/app.yaml
+----
+
+[source, bash]
+.*2. 测试验证*
+----
+// check the cis log
+2022/07/23 15:53:59 [WARNING] [CORE] Multiple Services are tagged for this pool. Using oldest service endpoints.
+Service: app-svc-1, Namespace: cistest001,Timestamp: 2022-07-23 07:50:52 +0000 UTC
+
+// verify the service on cistest001
+$ curl http://192.168.200.31 -I
+HTTP/1.1 200 OK
+Server: nginx/1.16.1
+Date: Sat, 23 Jul 2022 15:55:09 GMT
+Content-Type: text/plain
+Content-Length: 155
+Connection: keep-alive
+Expires: Sat, 23 Jul 2022 15:55:08 GMT
+Cache-Control: no-cache
+Set-Cookie: BIGipServer~cistest001~app-1~app_1_svc_pool=857161828.36895.0000; path=/; Httponly
+----
 
 == Configmap Hub Mode Debug
 
