@@ -215,6 +215,38 @@ ltm pool /cistest004/app-1/app_1_svc_pool {
 }
 ----
 
+[source, bash]
+.*6. 下发服务（HTTP）*
+----
+kubectl apply -f 004/cm.3.yaml
+----
+
+[source, bash]
+.*7. 测试验证*
+----
+$ ssh root@192.168.200.204 tmsh list ltm pool /cistest004/app-1/app_1_svc_pool monitor
+Password:
+ltm pool /cistest004/app-1/app_1_svc_pool {
+    monitor min 1 of { http }
+}
+----
+
+[source, bash]
+.*8. 下发服务（TCP + HTTP）*
+----
+kubectl apply -f 004/cm.2.yaml
+----
+
+[source, bash]
+.*9. 测试验证*
+----
+$ ssh root@192.168.200.204 tmsh list ltm pool /cistest004/app-1/app_1_svc_pool monitor
+Password:
+ltm pool /cistest004/app-1/app_1_svc_pool {
+    monitor min 1 of { tcp /cistest004/app-1/custom_http_monitor }
+}
+----
+
 === 使用 Rule 控制流量
 
 [source, bash]
@@ -318,7 +350,7 @@ ltm policy /cistest006/app/forward_policy {
 
 NOTE: Rule 可以跨 partion, 跨 app，Policy 必需在同一个 app 中。
 
-=== Standard VS，无 HTTP Profile，源地址会话保持
+=== 源地址会话保持
 
 [source, bash]
 .*1. 创建应用*
@@ -343,7 +375,162 @@ $ for i in {1..5} ; do curl -s http://192.168.200.37 | grep address | awk '{prin
 100.64.21.158:8080
 ----
 
-=== Standard VS，无 HTTP Profile，源地址会话保持，启用连接镜像
+=== 启用连接镜像
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 008/app.yaml
+----
+
+[source, bash]
+.*2. 下发服务*
+----
+kubectl apply -f 008/cm.yaml
+----
+
+[source, bash]
+.*3. 测试验证*
+----
+$ ssh root@192.168.200.204 tmsh list ltm virtual /cistest008/app-1/app_svc_vs mirror
+Password: 
+ltm virtual /cistest008/app-1/app_svc_vs {
+    mirror enabled
+}
+----
+
+=== 负载算法
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 009/app.yaml 
+----
+
+[source, bash]
+.*2. 下发服务*
+----
+kubectl apply -f 009/cm-1.yaml 
+----
+
+[source, bash]
+.*3. 测试验证*
+----
+$ ssh root@192.168.200.204 tmsh list ltm pool /cistest009/app-1/app_1_svc_pool load-balancing-mode
+Password: 
+ltm pool /cistest009/app-1/app_1_svc_pool {
+    load-balancing-mode least-connections-member
+}
+----
+
+[source, bash]
+.*4. 下发服务*
+----
+kubectl apply -f 009/cm-3.yaml 
+----
+
+[source, bash]
+.*5. 测试验证*
+----
+BEI-ML-00005336:cis-scripts ksong$ ssh root@192.168.200.204 tmsh list ltm pool /cistest009/app-1/app_1_svc_pool load-balancing-mode
+Password: 
+ltm pool /cistest009/app-1/app_1_svc_pool {
+    load-balancing-mode round-robin
+}
+----
+
+[source, bash]
+.*6. 下发服务*
+----
+kubectl apply -f 009/cm-3.yaml
+----
+
+[source, bash]
+.*7. 测试验证*
+----
+$ ssh root@192.168.200.204 tmsh list ltm pool /cistest009/app-1/app_1_svc_pool load-balancing-mode
+Password: 
+ltm pool /cistest009/app-1/app_1_svc_pool {
+    load-balancing-mode least-sessions
+}
+----
+
+=== SNAT Pool 支持 
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 010/app.yaml
+----
+
+[source, bash]
+.*2. 下发服务*
+----
+kubectl apply -f 010/cm.yaml
+----
+
+[source, bash]
+.*3. 测试验证*
+----
+$ ssh root@192.168.200.204 tmsh list ltm snatpool /cistest010/app-1/app_svc_vs-self
+Password: 
+ltm snatpool /cistest010/app-1/app_svc_vs-self {
+    members {
+        /cistest010/app-1/192.168.200.40
+    }
+    partition cistest010
+}
+----
+
+=== 自定义 TCP Profile
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 011/app.yaml
+----
+
+[source, bash]
+.*2. 下发服务*
+----
+kubectl apply -f 011/cm.yaml
+----
+
+[source, bash]
+.*3. 测试验证*
+----
+$ ssh root@192.168.200.204 tmsh list ltm profile tcp /cistest011/app-1/customTCPProfile idle-timeout
+Password: 
+ltm profile tcp /cistest011/app-1/customTCPProfile {
+    idle-timeout 600
+}
+
+----
+
+=== 自定义 HTTP Profile
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 012/app.yaml
+----
+
+[source, bash]
+.*2. 下发服务*
+----
+kubectl apply -f 012/cm.yaml
+----
+
+[source, bash]
+.*3. 测试验证*
+----
+$ ssh root@192.168.200.204 tmsh list ltm profile http /cistest012/app-1/customHTTPProfile insert-xforwarded-for
+ltm profile http /cistest012/app-1/customHTTPProfile {
+    insert-xforwarded-for enabled
+}
+----
+
+=== 自定义 OneConnect Profile
 
 [source, bash]
 .*1. 创建应用*
@@ -363,23 +550,7 @@ $ for i in {1..5} ; do curl -s http://192.168.200.37 | grep address | awk '{prin
 
 ----
 
-[source, bash]
-.*1. 创建应用*
-----
-
-----
-
-[source, bash]
-.*2. 下发服务*
-----
-
-----
-
-[source, bash]
-.*3. 测试验证*
-----
-
-----
+=== 自定义 SSL Profile
 
 [source, bash]
 .*1. 创建应用*
@@ -399,59 +570,7 @@ $ for i in {1..5} ; do curl -s http://192.168.200.37 | grep address | awk '{prin
 
 ----
 
-[source, bash]
-.*1. 创建应用*
-----
-
-----
-
-[source, bash]
-.*2. 下发服务*
-----
-
-----
-
-[source, bash]
-.*3. 测试验证*
-----
-
-----
-
-[source, bash]
-.*1. 创建应用*
-----
-
-----
-
-[source, bash]
-.*2. 下发服务*
-----
-
-----
-
-[source, bash]
-.*3. 测试验证*
-----
-
-----
-
-[source, bash]
-.*1. 创建应用*
-----
-
-----
-
-[source, bash]
-.*2. 下发服务*
-----
-
-----
-
-[source, bash]
-.*3. 测试验证*
-----
-
-----
+=== 四层透传模式
 
 [source, bash]
 .*1. 创建应用*
