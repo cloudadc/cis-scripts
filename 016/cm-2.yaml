@@ -647,37 +647,6 @@ data:
               ]
             }
           }
-        },
-        "cistest017": {
-          "class": "Tenant",
-          "app-1": {
-            "class": "Application",
-            "template": "generic",
-            "app_svc_vs": {
-              "class": "Service_HTTP",
-              "persistenceMethods": [ "cookie" ],
-              "virtualAddresses": [
-                "192.168.200.47"
-              ],
-              "snat": "self",
-              "virtualPort": 80,
-              "serviceDownImmediateAction": "reset",
-              "pool": "app_1_svc_pool"
-            },
-            "app_1_svc_pool": {
-              "class": "Pool",
-              "monitors": [
-                "tcp"
-              ],
-              "loadBalancingMode": "least-connections-member",
-              "members": [
-              {
-                "servicePort": 8088,
-                "serverAddresses": []
-              }
-              ]
-            }
-          }
         }
       }
     }

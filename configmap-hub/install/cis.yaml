@@ -19,7 +19,7 @@ spec:
       serviceAccountName: bigip-ctlr
       containers:
         - name: bigip-ctlr
-          image: "f5networks/k8s-bigip-ctlr:2.8.1-1"
+          image: "f5networks/k8s-bigip-ctlr:2.9.1"
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
@@ -33,6 +33,7 @@ spec:
               - https://192.168.200.204
             initialDelaySeconds: 15
             periodSeconds: 15
+            timeoutSeconds: 5
             successThreshold: 1
           env:
             - name: BIGIP_USERNAME
@@ -49,7 +50,7 @@ spec:
           args: [
             "--bigip-username=$(BIGIP_USERNAME)",
             "--bigip-password=$(BIGIP_PASSWORD)",
-            "--log-level=DEBUG",
+            "--log-level=INFO",
             "--manage-ingress=false",
             "--bigip-url=192.168.200.204",
             "--insecure=true",

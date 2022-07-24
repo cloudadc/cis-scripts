@@ -541,13 +541,25 @@ kubectl apply -f 013/app.yaml
 [source, bash]
 .*2. 下发服务*
 ----
-
+kubectl apply -f 013/cm.yaml
 ----
 
 [source, bash]
 .*3. 测试验证*
 ----
-
+$ ssh root@192.168.200.204 tmsh list ltm profile one-connect /cistest013/app-1/customOneConnectProfile
+Password: 
+ltm profile one-connect /cistest013/app-1/customOneConnectProfile {
+    app-service none
+    description none
+    idle-timeout-override disabled
+    limit-type none
+    max-age 86400
+    max-reuse 1000
+    max-size 10000
+    share-pools disabled
+    source-mask 255.255.255.255
+}
 ----
 
 === 自定义 SSL Profile
@@ -561,12 +573,59 @@ kubectl apply -f 014/app.yaml
 [source, bash]
 .*2. 下发服务*
 ----
-
+kubectl apply -f 014/cm.yaml
 ----
 
 [source, bash]
 .*3. 测试验证*
 ----
+$ curl https://192.168.200.44 -k -v
+*   Trying 192.168.200.44...
+* TCP_NODELAY set
+* Connected to 192.168.200.44 (192.168.200.44) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+*   CAfile: /etc/ssl/cert.pem
+  CApath: none
+* TLSv1.2 (OUT), TLS handshake, Client hello (1):
+* TLSv1.2 (IN), TLS handshake, Server hello (2):
+* TLSv1.2 (IN), TLS handshake, Certificate (11):
+* TLSv1.2 (IN), TLS handshake, Server key exchange (12):
+* TLSv1.2 (IN), TLS handshake, Server finished (14):
+* TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
+* TLSv1.2 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.2 (OUT), TLS handshake, Finished (20):
+* TLSv1.2 (IN), TLS change cipher, Change cipher spec (1):
+* TLSv1.2 (IN), TLS handshake, Finished (20):
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES128-GCM-SHA256
+* ALPN, server did not agree to a protocol
+* Server certificate:
+*  subject: C=US; ST=WA; L=Seattle; O=MyCompany; OU=IT; CN=localhost.localdomain; emailAddress=root@localhost.localdomain
+*  start date: Apr 15 06:24:16 2021 GMT
+*  expire date: Apr 13 06:24:16 2031 GMT
+*  issuer: C=US; ST=WA; L=Seattle; O=MyCompany; OU=IT; CN=localhost.localdomain; emailAddress=root@localhost.localdomain
+*  SSL certificate verify result: self signed certificate (18), continuing anyway.
+> GET / HTTP/1.1
+> Host: 192.168.200.44
+> User-Agent: curl/7.64.1
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Server: nginx/1.16.1
+< Date: Sun, 24 Jul 2022 07:40:27 GMT
+< Content-Type: text/plain
+< Content-Length: 155
+< Connection: keep-alive
+< Expires: Sun, 24 Jul 2022 07:40:26 GMT
+< Cache-Control: no-cache
+< Set-Cookie: BIGipServer~cistest014~app-1~app_1_svc_pool=504840292.36895.0000; path=/; Httponly; Secure
+< 
+Server address: 100.64.23.30:8080
+Server name: app-1-7f4585dc79-6xc2n
+Date: 24/Jul/2022:07:40:27 +0000
+URI: /
+Request ID: 0473c17d40cde2901ebe300ce3b87658
 
 ----
 
@@ -581,33 +640,71 @@ kubectl apply -f 015/app.yaml
 [source, bash]
 .*2. 下发服务*
 ----
-
+kubectl apply -f 015/cm.yaml 
 ----
 
 [source, bash]
 .*3. 测试验证*
 ----
-
+$ ssh root@192.168.200.204 tmsh list ltm virtual /cistest015/app-1/app_svc_vs
+Password: 
+ltm virtual /cistest015/app-1/app_svc_vs {
+    creation-time 2022-07-24:15:20:17
+    description app-1
+    destination /cistest015/192.168.200.45:http
+    last-modified-time 2022-07-24:15:20:17
+    mask 255.255.255.255
+    partition cistest015
+    persist {
+        source_addr {
+            default yes
+        }
+    }
+    pool /cistest015/app-1/app_1_svc_pool
+    profiles {
+        fastL4 { }
+    }
+    serverssl-use-sni disabled
+    source 0.0.0.0/0
+    source-address-translation {
+        pool /cistest015/app-1/app_svc_vs-self
+        type snat
+    }
+    translate-address enabled
+    translate-port enabled
+    vs-index 2928
+}
 ----
 
 === VS 状态与 pool-member 状态联动 Down
 
 [source, bash]
-.*1. 创建应用*
+.*1. 发布服务*
 ----
-kubectl apply -f 016/app.yaml
-----
-
-[source, bash]
-.*2. 下发服务*
-----
-
+kubectl apply -f 016/cm-1.yaml
 ----
 
 [source, bash]
-.*3. 测试验证*
+.*2. Telnet 测试(尽管 VS 为红色，但 Telnet 成功)*
+----
+$ telnet 192.168.200.46 80
+Trying 192.168.200.46...
+Connected to 192.168.200.46.
+Escape character is '^]'.
 ----
 
+[source, bash]
+.*3. 发布服务，启用service Down Immediate Action*
+----
+kubectl apply -f 016/cm-2.yaml 
+----
+
+[source, bash]
+.*4. Telnet 测试*
+----
+$ telnet 192.168.200.46 40
+Trying 192.168.200.46...
+telnet: Unable to connect to remote host: Connection refused
 ----
 
 === AS3 ServicePort 配置可选
@@ -621,13 +718,22 @@ kubectl apply -f 017/app.yaml
 [source, bash]
 .*2. 下发服务*
 ----
-
+kubectl apply -f 017/cm.yaml
 ----
 
 [source, bash]
 .*3. 测试验证*
 ----
-
+$ curl http://192.168.200.47 -I
+HTTP/1.1 200 OK
+Server: nginx/1.16.1
+Date: Sun, 24 Jul 2022 07:41:14 GMT
+Content-Type: text/plain
+Content-Length: 156
+Connection: keep-alive
+Expires: Sun, 24 Jul 2022 07:41:13 GMT
+Cache-Control: no-cache
+Set-Cookie: BIGipServer~cistest017~app-1~app_1_svc_pool=2148876388.36895.0000; path=/; Httponly
 ----
 
 === 不同 service 拥有相同 labels
@@ -708,51 +814,6 @@ kubectl delete -f configmap-debug/install/cis.yaml
 kubectl delete -f configmap-debug/install/rbac.yaml 
 kubectl delete -f configmap-debug/install/ns.yaml
 ----
-
-== Installation - Limited CIS RBAC
-
-[source, bash]
-.*1. Install CIS Controller*
-----
-kubectl apply -f configmap-limited-rbac/install/ns.yaml 
-kubectl create secret generic bigip-login --from-literal=username=admin --from-literal=password=admin -n bigip-ctlr
-kubectl apply -f configmap-limited-rbac/install/rbac-small.yaml
-kubectl apply -f configmap-limited-rbac/install/cis.yaml
-----
-
-[source, bash]
-.*2. Clean up*
-----
-kubectl delete -f configmap-debug/install/cis.yaml
-kubectl delete -f configmap-debug/install/rbac.yaml
-kubectl delete -f configmap-debug/install/ns.yaml
-----
-
-== Installation - Limited BIG-IP User Account
-
-[source, bash]
-.*1. Install*
-----
-kubectl apply -f configmap-limited-bigip-account/install/ns.yaml
-kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
-kubectl apply -f configmap-limited-bigip-account/install/rbac.yaml
-kubectl apply -f configmap-limited-bigip-account/install/cis.yaml
-----
-
-[source, bash]
-.*2. Deploy App*
-----
-kubectl apply -f configmap-limited-bigip-account/deploy.yaml 
-kubectl apply -f configmap-limited-bigip-account/cm.yaml 
-----
-
-[source, bash]
-.*3. Create a customized BIG-IP User*
-----
-create auth user cis_user password default partition-access add { all-partitions { role admin } } 
-----
-
-NOTE: The admin role is necessary for CIS to work.
 
 == Configmap Isolation with L4/l7 Application ADC
 
