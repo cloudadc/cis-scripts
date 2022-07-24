@@ -9,60 +9,22 @@
 * 最小化 RBAC（读写分开，读 cluster wide，写 namespace wide）
 * 启用hub模式
 * 启用基于租户增量更新
-* 业务下发验证（1 个 CIS 关联两个 configmap，发布 5 个服务）
 
 [source, bash]
-.*1. Install CIS Controller*
+.*安装*
 ----
-kubectl apply -f configmap-hub/install/ns.yaml
+kubectl apply -f install/ns.yaml
 kubectl create secret generic bigip-login --from-literal=username=admin --from-literal=password=admin -n bigip-ctlr
-kubectl apply -f configmap-hub/install/rbac-small.yaml
-kubectl apply -f configmap-hub/install/cis.yaml 
+kubectl apply -f install/rbac-small.yaml
+kubectl apply -f install/cis.yaml 
 ----
 
 [source, bash]
-.*2. Deploy App*
+.*移除*
 ----
-kubectl apply -f configmap-hub/apps.yaml
-----
-
-[source, bash]
-.*3. Deploy Configmap*
-----
-kubectl apply -f configmap-hub/cm-hub-1.yaml
-kubectl apply -f configmap-hub/cm-hub-2.yaml 
-----
-
-[source, bash]
-.*4. Verify deployment via tmsh*
-----
-$ ssh root@192.168.200.204 tmsh list auth partition | grep cistest | awk '{print $3}'
-Password: 
-cistest1
-cistest2
-cistest3
-cistest4
-cistest5
-
-$ ssh root@192.168.200.204 'for i in {1..5}; do tmsh list ltm virtual /cistest$i/app-1/app_svc_vs one-line ; done'
-Password: 
-ltm virtual /cistest1/app-1/app_svc_vs { creation-time 2022-07-19:15:34:07 description app-1 destination /cistest1/10.1.10.1:http ip-protocol tcp last-modified-time 2022-07-19:15:34:07 mask 255.255.255.255 partition cistest1 persist { cookie { default yes } } pool /cistest1/app-1/app-1_app_svc_pool profiles { f5-tcp-progressive { } http { } } serverssl-use-sni disabled source 0.0.0.0/0 source-address-translation { pool /cistest1/app-1/app_svc_vs-self type snat } translate-address enabled translate-port enabled vs-index 2860 }
-ltm virtual /cistest2/app-1/app_svc_vs { creation-time 2022-07-19:15:34:10 description app-1 destination /cistest2/10.1.10.2:http ip-protocol tcp last-modified-time 2022-07-19:15:34:10 mask 255.255.255.255 partition cistest2 persist { cookie { default yes } } pool /cistest2/app-1/app-1_app_svc_pool profiles { f5-tcp-progressive { } http { } } serverssl-use-sni disabled source 0.0.0.0/0 source-address-translation { pool /cistest2/app-1/app_svc_vs-self type snat } translate-address enabled translate-port enabled vs-index 2861 }
-ltm virtual /cistest3/app-1/app_svc_vs { creation-time 2022-07-19:15:34:33 description app-1 destination /cistest3/10.1.10.3:http ip-protocol tcp last-modified-time 2022-07-19:15:34:33 mask 255.255.255.255 partition cistest3 persist { cookie { default yes } } pool /cistest3/app-1/app-1_app_svc_pool profiles { f5-tcp-progressive { } http { } } serverssl-use-sni disabled service-down-immediate-action reset source 0.0.0.0/0 source-address-translation { pool /cistest3/app-1/app_svc_vs-self type snat } translate-address enabled translate-port enabled vs-index 2863 }
-ltm virtual /cistest4/app-1/app_svc_vs { creation-time 2022-07-19:15:34:35 description app-1 destination /cistest4/10.1.10.4:http ip-protocol tcp last-modified-time 2022-07-19:15:34:35 mask 255.255.255.255 partition cistest4 persist { cookie { default yes } } pool /cistest4/app-1/app-1_app_svc_pool profiles { f5-tcp-progressive { } http { } } serverssl-use-sni disabled source 0.0.0.0/0 source-address-translation { pool /cistest4/app-1/app_svc_vs-self type snat } translate-address enabled translate-port enabled vs-index 2864 }
-ltm virtual /cistest5/app-1/app_svc_vs { creation-time 2022-07-19:15:34:12 description app-1 destination /cistest5/10.1.10.5:http ip-protocol tcp last-modified-time 2022-07-19:15:34:12 mask 255.255.255.255 partition cistest5 persist { cookie { default yes } } pool /cistest5/app-1/app-1_app_svc_pool profiles { f5-tcp-progressive { } http { } } serverssl-use-sni disabled source 0.0.0.0/0 source-address-translation { pool /cistest5/app-1/app_svc_vs-self type snat } translate-address enabled translate-port enabled vs-index 2862 }
-----
-
-[source, bash]
-.*5. Tear down*
-----
-kubectl delete -f configmap-hub/cm-hub-1.yaml
-kubectl delete -f configmap-hub/cm-hub-2.yaml
-kubectl delete -f configmap-hub/apps.yaml
-
-kubectl delete -f configmap-hub/install/rbac.yaml
-kubectl delete -f configmap-hub/install/cis.yaml
-kubectl delete -f configmap-hub/install/ns.yaml
+kubectl delete -f install/rbac.yaml
+kubectl delete -f install/cis.yaml
+kubectl delete -f install/ns.yaml
 ----
 
 == 功能测试
@@ -775,12 +737,14 @@ Set-Cookie: BIGipServer~cistest001~app-1~app_1_svc_pool=857161828.36895.0000; pa
 kubectl apply -f 101/backend-canary.yaml
 ----
 
+*2. 六种灰度发布*
+
 [cols="2,5a"]
 |===
 |Methods |Steps
 
 |URL
-|Deliver
+|Deploy
 
 ----
 kubectl apply -f 101/cm-canary-v1.yaml
@@ -795,7 +759,7 @@ curl 192.168.200.11/foo
 ----
 
 |URL Parameter
-|Deliver
+|Deploy
 
 ----
 kubectl apply -f 101/cm-canary-v1.yaml
@@ -810,7 +774,7 @@ curl 192.168.200.11/foo?name=1010
 ----
 
 |Source Address
-|Deliver
+|Deploy
 
 ----
 kubectl apply -f 101/cm-canary-v1.yaml
@@ -825,7 +789,7 @@ curl 192.168.200.11/foo
 ----
 
 |Http Header
-|Deliver
+|Deploy
 
 ----
 kubectl apply -f 101/cm-canary-v1.yaml
@@ -840,7 +804,7 @@ curl 192.168.200.11/foo --header "Canary: true"
 ----
 
 |Cookie
-|Deliver
+|Deploy
 
 ----
 kubectl apply -f 101/cm-canary-v1.yaml
@@ -855,7 +819,7 @@ curl 192.168.200.11/foo --cookie "Canary=true"
 ----
 
 |Ratio
-|Deliver
+|Deploy
 
 ----
 kubectl apply -f 101/cm-canary-v1.yaml
@@ -871,156 +835,110 @@ curl 192.168.200.11/foo
 
 |===
 
-== Configmap Hub Mode Debug
+=== 根据路径转发 
 
 [source, bash]
-.*1. Install CIS Controller*
+.*1. 部署应用*
 ----
-kubectl apply -f configmap-debug/install/ns.yaml
-kubectl create secret generic bigip-login --from-literal=username=admin --from-literal=password=admin -n bigip-ctlr
-kubectl apply -f configmap-debug/install/rbac.yaml
-kubectl apply -f configmap-debug/install/cis.yaml
-----
-
-== Configmap Hub Mode Per Tenants Update
-
-[source, bash]
-.*1. Install CIS Controller*
-----
-kubectl apply -f configmap-filter-tenants/install/ns.yaml
-kubectl create secret generic bigip-login --from-literal=username=admin --from-literal=password=admin -n bigip-ctlr
-kubectl apply -f configmap-filter-tenants/install/rbac.yaml
-kubectl apply -f configmap-filter-tenants/install/cis.yaml
+kubectl apply -f 102/apps.yaml 
 ----
 
 [source, bash]
-.*2. Use the following script to test CIS control plane performance*
+.*2. 发布服务*
 ----
-kubectl apply -f configmap-filter-tenants/deploy-10.yaml 
-kubectl apply -f configmap-filter-tenants/cm-10.yaml 
-----
-
-[source, bash]
-.*3. Delete 1 service's pods 10 times*
-----
-ns=cistest010 ; for j in {1..10} ; do for i in $(kubectl get pods -n $ns --no-headers | awk '{print $1}') ; do kubectl delete pod  $i -n $ns ; done ; done
+kubectl apply -f 102/cm-v1.yaml
+kubectl apply -f 102/cm-v2.yaml 
 ----
 
 [source, bash]
-.*4. Delete and create all 30 services 3 times*
+.*3. 查看转发规则*
 ----
-for i in {1..3} ; do  kubectl delete -f configmap-debug/deploy.yaml ; kubectl apply -f configmap-debug/deploy.yaml  ; echo;  done ; 
+when HTTP_REQUEST {
+  if { [HTTP::uri] starts_with "/api" } {
+    pool /test003/api/api-svc-pool
+  } elseif { [HTTP::uri] starts_with "/files" } {
+    pool /test003/backend/backend-svc-pool
+  } elseif { [HTTP::uri] starts_with "/app3" } {
+    pool /test003/refer/refer-svc-pool
+  } else {
+    pool /test003/main/main-svc-pool
+  }
+}
+----
+
+== 架构测试
+
+=== Hub 模式
+
+一个 CIS 监控两个 NS，每个 NS 下一个 Configmap, 第一个 Configmap 发布 3 个服务，第二个 Configmap 发布 5个服务。
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 201/apps.yaml
 ----
 
 [source, bash]
-.*5. Clean up*
+.*2. 下发服务*
 ----
-kubectl delete -f configmap-debug/cm.yaml
-kubectl delete -f configmap-debug/deploy.yaml 
-kubectl delete -f configmap-debug/install/cis.yaml 
-kubectl delete -f configmap-debug/install/rbac.yaml 
-kubectl delete -f configmap-debug/install/ns.yaml
-----
-
-== Configmap Isolation with L4/l7 Application ADC
-
-[source, bash]
-.*1. Install*
-----
-kubectl apply -f configmap-advanced-adc/install/ns.yaml
-kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
-kubectl apply -f configmap-advanced-adc/install/rbac.yaml
-kubectl apply -f configmap-advanced-adc/install/cis.yaml
+kubectl apply -f 201/cm-hub-1.yaml
+kubectl apply -f 201/cm-hub-2.yaml
 ----
 
 [source, bash]
-.*2. Deploy APP*
+.*3. 测试验证*
 ----
-kubectl apply -f configmap-advanced-adc/cafe.yaml 
-kubectl apply -f configmap-advanced-adc/ttcp.yaml 
+$ ssh root@192.168.200.204 'for i in {1..5}; do tmsh list ltm virtual /cistest$i/app-1/app_svc_vs one-line ; done'
+Password: 
+ltm virtual /cistest1/app-1/app_svc_vs { creation-time 2022-07-24:22:21:38 description app-1 destination /cistest1/10.1.10.1:http ip-protocol tcp last-modified-time 2022-07-24:22:21:38 mask 255.255.255.255 partition cistest1 persist { cookie { default yes } } pool /cistest1/app-1/app-1_app_svc_pool profiles { f5-tcp-progressive { } http { } } serverssl-use-sni disabled source 0.0.0.0/0 source-address-translation { pool /cistest1/app-1/app_svc_vs-self type snat } translate-address enabled translate-port enabled vs-index 2935 }
+ltm virtual /cistest2/app-1/app_svc_vs { creation-time 2022-07-24:22:21:04 description app-1 destination /cistest2/10.1.10.2:http ip-protocol tcp last-modified-time 2022-07-24:22:21:04 mask 255.255.255.255 partition cistest2 persist { cookie { default yes } } pool /cistest2/app-1/app-1_app_svc_pool profiles { f5-tcp-progressive { } http { } } serverssl-use-sni disabled source 0.0.0.0/0 source-address-translation { pool /cistest2/app-1/app_svc_vs-self type snat } translate-address enabled translate-port enabled vs-index 2933 }
+ltm virtual /cistest3/app-1/app_svc_vs { creation-time 2022-07-24:22:22:22 description app-1 destination /cistest3/10.1.10.3:http ip-protocol tcp last-modified-time 2022-07-24:22:22:22 mask 255.255.255.255 partition cistest3 persist { cookie { default yes } } pool /cistest3/app-1/app-1_app_svc_pool profiles { f5-tcp-progressive { } http { } } serverssl-use-sni disabled service-down-immediate-action reset source 0.0.0.0/0 source-address-translation { pool /cistest3/app-1/app_svc_vs-self type snat } translate-address enabled translate-port enabled vs-index 2937 }
+ltm virtual /cistest4/app-1/app_svc_vs { creation-time 2022-07-24:22:22:04 description app-1 destination /cistest4/10.1.10.4:http ip-protocol tcp last-modified-time 2022-07-24:22:22:04 mask 255.255.255.255 partition cistest4 persist { cookie { default yes } } pool /cistest4/app-1/app-1_app_svc_pool profiles { f5-tcp-progressive { } http { } } serverssl-use-sni disabled source 0.0.0.0/0 source-address-translation { pool /cistest4/app-1/app_svc_vs-self type snat } translate-address enabled translate-port enabled vs-index 2936 }
+ltm virtual /cistest5/app-1/app_svc_vs { creation-time 2022-07-24:22:21:20 description app-1 destination /cistest5/10.1.10.5:http ip-protocol tcp last-modified-time 2022-07-24:22:21:20 mask 255.255.255.255 partition cistest5 persist { cookie { default yes } } pool /cistest5/app-1/app-1_app_svc_pool profiles { f5-tcp-progressive { } http { } } serverssl-use-sni disabled source 0.0.0.0/0 source-address-translation { pool /cistest5/app-1/app_svc_vs-self type snat } translate-address enabled translate-port enabled vs-index 2934 }
+----
+
+=== 一个 NS 下有多个 Configmap
+
+一个 NS 下通过多个 Configmap 发布服务
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 202/apps.yaml
 ----
 
 [source, bash]
-.*3. Deliver APP*
+.*2. 下发服务*
 ----
-kubectl apply -f configmap-advanced-adc/cm-cafe.yaml 
-kubectl apply -f configmap-advanced-adc/cm-ttcp.yaml 
-----
-
-The L7 ADC will demostrate:
-
-* Cookie persistence with insert method
-* Cookie encription with random cipher text
-* Service down immediate action with drop
-* Health monitor with path and response pattern mapping
-* XFF via iRule
-* Least connections member load balancer algorithm
-* Customized snat address
-* Customized TCP attributes
-
-The L4 ADC will demostrate:
-
-* Source address persistence
-* Customized snat address
-* Enabled Connection mirroring
-* TCP half open health monitoring
-* Least connections member load balancer algorithm
-
-== Configmap Management isolation
-
-[source, bash]
-.*1. Install*
-----
-kubectl apply -f configmap-management-isolation/install/ns.yaml
-kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
-kubectl apply -f configmap-management-isolation/install/rbac.yaml
-kubectl apply -f configmap-management-isolation/install/cis.yaml
+kubectl apply -f 202/cm-202-a.yaml 
+kubectl apply -f 202/cm-202-b.yaml 
 ----
 
 [source, bash]
-.*2. Deploy APP*
+.*3. 测试验证*
 ----
-kubectl apply -f configmap-management-isolation/deploy.yaml 
-----
+// query configmap from hub-1
+$ kubectl get cm -n f5-hub-1 | grep 202
+cm-202-a     1      7m30s
+cm-202-b     1      5m19s
 
-[source, bash]
-.*3. Deliver APP 1(this will failed due to configmap syntax err)*
-----
-kubectl apply -f configmap-management-isolation/cm-cistest001.yaml 
-----
-
-Check from the cis log, the following errors show up:
-
-[source, bash]
-----
-2022/06/06 09:19:42 [ERROR] [AS3] Big-IP Responded with error code: 422
-----
-
-[source, bash]
-.*4. Deliver APP 2*
-----
-kubectl apply -f configmap-management-isolation/cm-cistest002.yaml 
-----
-
-Check from BIG-IP VE, the test002 be delivered successfully even the app 1 delivered failed.
-
-[source, bash]
-----
-[root@bigip1:Active:Standalone] config # tmsh list ltm virtual /cistest002/app-svc-1-app/app-svc-1-app-vs 
-ltm virtual /cistest002/app-svc-1-app/app-svc-1-app-vs {
-    creation-time 2022-06-06:16:57:13
-    description app-svc-1-app
-    destination /cistest002/10.10.10.2:http
+// echo from BIG-IP
+$ ssh root@192.168.200.204 'tmsh list ltm virtual /cistest6/app-1/app_svc_vs ; echo ; tmsh list ltm virtual /cistest7/app-1/app_svc_vs'
+Password: 
+ltm virtual /cistest6/app-1/app_svc_vs {
+    creation-time 2022-07-24:22:35:06
+    description app-1
+    destination /cistest6/10.1.10.6:http
     ip-protocol tcp
-    last-modified-time 2022-06-06:16:57:13
+    last-modified-time 2022-07-24:22:35:06
     mask 255.255.255.255
-    partition cistest002
+    partition cistest6
     persist {
         cookie {
             default yes
         }
     }
-    pool /cistest002/app-svc-1-app/app-svc-1-app-pool
+    pool /cistest6/app-1/app-1_app_svc_pool
     profiles {
         f5-tcp-progressive { }
         http { }
@@ -1028,287 +946,173 @@ ltm virtual /cistest002/app-svc-1-app/app-svc-1-app-vs {
     serverssl-use-sni disabled
     source 0.0.0.0/0
     source-address-translation {
-        pool /cistest002/app-svc-1-app/app-svc-1-app-vs-self
+        pool /cistest6/app-1/app_svc_vs-self
         type snat
     }
     translate-address enabled
     translate-port enabled
-    vs-index 1947
+    vs-index 2938
+}
+
+ltm virtual /cistest7/app-1/app_svc_vs {
+    creation-time 2022-07-24:22:37:12
+    description app-1
+    destination /cistest7/10.1.10.7:http
+    ip-protocol tcp
+    last-modified-time 2022-07-24:22:37:12
+    mask 255.255.255.255
+    partition cistest7
+    persist {
+        cookie {
+            default yes
+        }
+    }
+    pool /cistest7/app-1/app-1_app_svc_pool
+    profiles {
+        f5-tcp-progressive { }
+        http { }
+    }
+    serverssl-use-sni disabled
+    source 0.0.0.0/0
+    source-address-translation {
+        pool /cistest7/app-1/app_svc_vs-self
+        type snat
+    }
+    translate-address enabled
+    translate-port enabled
+    vs-index 2939
 }
 ----
 
-== Configmap Canary  
+=== 一个 K8S NS 对应多个 BIG-IP Partition
 
 [source, bash]
-.*1. Install*
+.*1. 创建应用*
 ----
-kubectl apply -f 101/install/ns.yaml
-kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
-kubectl apply -f 101/install/rbac.yaml
-kubectl apply -f 101/install/cis.yaml
+kubectl apply -f 203/apps.yaml
 ----
 
 [source, bash]
-.*2. Deploy APP(Deploy 2 version of app, 1.0 version on test001, 1.1 version on test002)*
+.*2. 下发服务*
 ----
-kubectl apply -f 101/backend-canary.yaml
-----
-
-[cols="2,5a"]
-|===
-|Methods |Steps
-
-|URL
-|Deliver
-
-----
-kubectl apply -f 101/cm-canary-v1.yaml 
-kubectl apply -f 101/cm-canary-v2.yaml
-kubectl apply -f 101/cm-canary-url.yaml
-----
-
-Test
-
-----
-$ curl -s 192.168.200.11/bar | grep app | awk '{print $3}'
-app-v1-87d895484-zbvq6
-
-// if url start with foo will go into new version
-$ curl -s 192.168.200.11/foo | grep app | awk '{print $3}'
-app-v2-6f6c4894fd-nphh5
-----
-
-|URL Parameter
-|Deliver
-
-----
-kubectl apply -f 101/cm-canary-v1.yaml 
-kubectl apply -f 101/cm-canary-v2.yaml
-kubectl apply -f 101/cm-canary-parametes.yaml
-----
-
-Test
-
-----
-$ curl -s 192.168.200.11/foo?name=1010 | grep app | awk '{print $3}'
-app-v2-6f6c4894fd-nphh5
-----
-
-|Source Address
-|Deliver
-
-----
-kubectl apply -f 101/cm-canary-v1.yaml 
-kubectl apply -f 101/cm-canary-v2.yaml
-kubectl apply -f 101/cm-canary-sourceaddr.yaml 
-----
-
-Test
-
-----
-curl 192.168.200.11/foo
-----
-
-|Http Header
-|Deliver
-
-----
-kubectl apply -f 101/cm-canary-v1.yaml 
-kubectl apply -f 101/cm-canary-v2.yaml
-kubectl apply -f 101/cm-canary-headers.yaml
-----
-
-Test
-
-----
-curl 192.168.200.11/foo --header "Canary: true"
-----
-
-|Cookie
-|Deliver
-
-----
-kubectl apply -f 101/cm-canary-v1.yaml 
-kubectl apply -f 101/cm-canary-v2.yaml
-kubectl apply -f 101/cm-canary-cookie.yaml 
-----
-
-Test
-
-----
-curl 192.168.200.11/foo --cookie "Canary=true"
-----
-
-|Ratio
-|Deliver
-
-----
-kubectl apply -f 101/cm-canary-v1.yaml 
-kubectl apply -f 101/cm-canary-v2.yaml
-kubectl apply -f 101/cm-canary-ratio.yaml 
-----
-
-Test
-
-----
-curl 192.168.200.11/foo 
-----
-
-|===
-
-== Configmap Arcadia 
-
-[source, bash]
-.*1. Install*
-----
-kubectl apply -f configmap-arcadia/install/ns.yaml
-kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
-kubectl apply -f configmap-arcadia/install/rbac.yaml
-kubectl apply -f configmap-arcadia/install/cis.yaml
+kubectl apply -f 203/cm.yaml 
 ----
 
 [source, bash]
-.*2. Deploy APP*
+.*3. 测试验证*
 ----
-kubectl apply -f configmap-arcadia/arcadia.yaml
+$ ssh root@192.168.200.204 tmsh list auth partition | grep cistest8 | awk '{print $3}'
+Password: 
+cistest8-1
+cistest8-2
+----
+
+=== 一个 K8S NS 内的多个 SVC 对应 BIG-IP 上一个 Partition 内多个 APP
+
+K8S SVC 和 BIG-IP APP 1 对 1 关系。 
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 204/apps.yaml 
 ----
 
 [source, bash]
-.*3. Deliver APP*
+.*2. 下发服务*
 ----
-kubectl apply -f configmap-arcadia/cm-v1.yaml
-kubectl apply -f configmap-arcadia/cm.yaml
-----
-
-Routing Rules
-
-[source, bash]
-----
-when HTTP_REQUEST {
-  if { [HTTP::uri] starts_with "/api" } {
-    pool /arcadia/api/api-svc-pool
-  } elseif { [HTTP::uri] starts_with "/files" } {
-    pool /arcadia/backend/backend-svc-pool
-  } elseif { [HTTP::uri] starts_with "/app3" } {
-    pool /arcadia/refer/refer-svc-pool
-  } else {
-    pool /arcadia/main/main-svc-pool
-  }
-}
-----
-
-== Configmap Arcadia Across Namespace Routing
-
-[source, bash]
-.*1. Install*
-----
-kubectl apply -f configmap-arcadia/install/ns.yaml
-kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
-kubectl apply -f configmap-arcadia/install/rbac.yaml
-kubectl apply -f configmap-arcadia/install/cis.yaml
+kubectl apply -f 204/cm.yaml 
 ----
 
 [source, bash]
-.*2. Deploy APP*
+.*3. 测试验证*
 ----
-kubectl apply -f configmap-arcadia/arcadia-backend.yaml 
-kubectl apply -f configmap-arcadia/arcadia-api.yaml 
-kubectl apply -f configmap-arcadia/arcadia-refer.yaml 
-kubectl apply -f configmap-arcadia/arcadia-main.yaml 
+$ ssh root@192.168.200.204 'for i in 1 2 ; do tmsh list ltm virtual /cistest9/app-$i/app_svc_vs | grep virtual ; done' 
+Password: 
+ltm virtual /cistest9/app-1/app_svc_vs {
+ltm virtual /cistest9/app-2/app_svc_vs {
+----
+
+=== 一个 K8S NS 内的多个 SVC 对应 BIG-IP 上一个 Partition 内一个 APP
+
+K8S SVC 和 BIG-IP APP 多对 1 关系。
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 205/apps.yaml
 ----
 
 [source, bash]
-.*3. Deliver APP*
+.*2. 下发服务*
 ----
-kubectl apply -f configmap-arcadia/cm-backend.yaml
-kubectl apply -f configmap-arcadia/cm-api.yaml
-kubectl apply -f configmap-arcadia/cm-refer.yaml
-kubectl apply -f configmap-arcadia/cm-main.yaml 
-----
-
-Routing Rules
-
-[source, bash]
-----
-when HTTP_REQUEST {
-  if { [HTTP::uri] starts_with "/api" } {
-    pool /arcadia-api/api/api-svc-pool
-  } elseif { [HTTP::uri] starts_with "/files" } {
-    pool /arcadia-backend/backend/backend-svc-pool
-  } elseif { [HTTP::uri] starts_with "/app3" } {
-    pool /arcadia-refer/refer/refer-svc-pool
-  } else {
-    pool /arcadia-main/main/main-svc-pool
-  }
-}  
-----
-
-== Configmap Path Based Route
-
-[source, bash]
-.*1. Install*
-----
-kubectl apply -f configmap-routing/install/ns.yaml
-kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
-kubectl apply -f configmap-routing/install/rbac.yaml
-kubectl apply -f configmap-routing/install/cis.yaml
+kubectl apply -f 205/cm.yaml
 ----
 
 [source, bash]
-.*3. Deploy APP*
+.*3. 测试验证*
 ----
-kubectl apply -f deploy.yaml
+$ ssh root@192.168.200.204 tmsh list ltm virtual /cistest10/app/app_svc_1_vs | grep virtual
+ltm virtual /cistest10/app/app_svc_1_vs {
+$ ssh root@192.168.200.204 tmsh list ltm virtual /cistest10/app/app_svc_2_vs | grep virtual
+ltm virtual /cistest10/app/app_svc_2_vs {
+----
+
+=== 一个 K8S SVC 对应多个 BIG-IP VS
+
+[source, bash]
+.*1. 创建应用*
+----
+
 ----
 
 [source, bash]
-.*3. Depliver APP*
-----
-kubectl apply -f configmap-routing/cm.yaml
+.*2. 下发服务*
 ----
 
-== Configmap FastL4 Vs Standard
-
-[source, bash]
-.*1. Install*
-----
-kubectl apply -f configmap-fastl4-standard/install/ns.yaml
-kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
-kubectl apply -f configmap-fastl4-standard/install/rbac.yaml
-kubectl apply -f configmap-fastl4-standard/install/cis.yaml
 ----
 
 [source, bash]
-.*2. Deploy APP*
+.*3. 测试验证*
 ----
-kubectl apply -f  configmap-fastl4-standard/deploy.yaml 
+
+----
+
+=== BIG-IP 宕机后下发容错能力
+
+[source, bash]
+.*1. 创建应用*
+----
+
 ----
 
 [source, bash]
-.*3. Deliver APP*
-----
-kubectl apply -f configmap-fastl4-standard/cm-l4.yaml
-kubectl apply -f configmap-fastl4-standard/cm-http.yaml
+.*2. 下发服务*
 ----
 
-== Configmap AS3 Performance
-
-[source, bash]
-.*1. Install*
-----
-kubectl apply -f configmap-as3/install/ns.yaml
-kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
-kubectl apply -f configmap-as3/install/rbac.yaml
-kubectl apply -f configmap-as3/install/cis.yaml
 ----
 
 [source, bash]
-.*2. Deploy APP*
+.*3. 测试验证*
 ----
-kubectl apply -f  configmap-as3/deploy.yaml
+
 ----
 
 [source, bash]
-.**
+.*1. 创建应用*
 ----
 
 ----
+
+[source, bash]
+.*2. 下发服务*
+----
+
+----
+
+[source, bash]
+.*3. 测试验证*
+----
+
+----
+
+
