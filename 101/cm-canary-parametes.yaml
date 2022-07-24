@@ -2,7 +2,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: cm-test001
-  namespace: test001
+  namespace: f5-hub-2
   labels:
     f5type: virtual-server
     as3: "true"
@@ -14,7 +14,7 @@ data:
       "persist": true, 
       "declaration": {
         "class": "ADC",
-        "schemaVersion": "3.30.0",
+        "schemaVersion": "3.36.0",
         "id": "cm-test001",
         "test001": {
           "class": "Tenant",
@@ -25,7 +25,7 @@ data:
               "class": "Service_HTTP",
                "iRules": ["test001_app-v1-svc_irules"],
               "virtualAddresses": [
-                "192.168.200.13"
+                "192.168.200.11"
               ],
               "virtualPort": 80
             },
@@ -43,7 +43,7 @@ data:
             },
             "test001_app-v1-svc_irules": {
               "class": "iRule",
-              "iRule": "when HTTP_REQUEST {\n  if { [IP::addr [IP::client_addr] equals 192.168.5.30] or [IP::addr [IP::client_addr] equals 192.168.5.0/24] } {\n    pool /test002/app-v2/app-v2-svc-pool \n  } else {\n    pool /test001/app-v1/app-v1-svc-pool \n  }\n}"
+              "iRule": "when HTTP_REQUEST {\n  if {([URI::query ?[URI::query [HTTP::uri]] name]) equals \"1010\"} {\n    pool /test002/app-v2/app-v2-svc-pool \n  } else {\n    pool /test001/app-v1/app-v1-svc-pool \n  } \n}"
             }
           }
         }

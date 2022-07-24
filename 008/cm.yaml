@@ -14,7 +14,7 @@ data:
       "persist": true,
       "declaration": {
         "class": "ADC",
-        "schemaVersion": "3.30.0",
+        "schemaVersion": "3.36.0",
         "id": "f5-hub01",
         "cistest001": {
           "class": "Tenant",

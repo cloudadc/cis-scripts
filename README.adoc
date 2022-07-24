@@ -361,7 +361,7 @@ kubectl apply -f 007/app.yaml
 [source, bash]
 .*2. 下发服务*
 ----
-kubectl apply -f cm.yaml 
+kubectl apply -f 007/cm.yaml 
 ----
 
 [source, bash]
@@ -685,6 +685,7 @@ kubectl apply -f 016/cm-1.yaml
 ----
 
 [source, bash]
+
 .*2. Telnet 测试(尽管 VS 为红色，但 Telnet 成功)*
 ----
 $ telnet 192.168.200.46 80
@@ -763,6 +764,112 @@ Expires: Sat, 23 Jul 2022 15:55:08 GMT
 Cache-Control: no-cache
 Set-Cookie: BIGipServer~cistest001~app-1~app_1_svc_pool=857161828.36895.0000; path=/; Httponly
 ----
+
+== 场景测试
+
+=== 灰度发布
+
+[source, bash]
+.*1. 部署应用(Deploy 2 version of app, 1.0 version on test001, 1.1 version on test002)*
+----
+kubectl apply -f 101/backend-canary.yaml
+----
+
+[cols="2,5a"]
+|===
+|Methods |Steps
+
+|URL
+|Deliver
+
+----
+kubectl apply -f 101/cm-canary-v1.yaml
+kubectl apply -f 101/cm-canary-v2.yaml
+kubectl apply -f 101/cm-canary-url.yaml
+----
+
+Test
+
+----
+curl 192.168.200.11/foo
+----
+
+|URL Parameter
+|Deliver
+
+----
+kubectl apply -f 101/cm-canary-v1.yaml
+kubectl apply -f 101/cm-canary-v2.yaml
+kubectl apply -f 101/cm-canary-parametes.yaml
+----
+
+Test
+
+----
+curl 192.168.200.11/foo?name=1010
+----
+
+|Source Address
+|Deliver
+
+----
+kubectl apply -f 101/cm-canary-v1.yaml
+kubectl apply -f 101/cm-canary-v2.yaml
+kubectl apply -f 101/cm-canary-sourceaddr.yaml
+----
+
+Test
+
+----
+curl 192.168.200.11/foo
+----
+
+|Http Header
+|Deliver
+
+----
+kubectl apply -f 101/cm-canary-v1.yaml
+kubectl apply -f 101/cm-canary-v2.yaml
+kubectl apply -f 101/cm-canary-headers.yaml
+----
+
+Test
+
+----
+curl 192.168.200.11/foo --header "Canary: true"
+----
+
+|Cookie
+|Deliver
+
+----
+kubectl apply -f 101/cm-canary-v1.yaml
+kubectl apply -f 101/cm-canary-v2.yaml
+kubectl apply -f 101/cm-canary-cookie.yaml
+----
+
+Test
+
+----
+curl 192.168.200.11/foo --cookie "Canary=true"
+----
+
+|Ratio
+|Deliver
+
+----
+kubectl apply -f 101/cm-canary-v1.yaml
+kubectl apply -f 101/cm-canary-v2.yaml
+kubectl apply -f 101/cm-canary-ratio.yaml
+----
+
+Test
+
+----
+curl 192.168.200.11/foo
+----
+
+|===
 
 == Configmap Hub Mode Debug
 
@@ -935,16 +1042,16 @@ ltm virtual /cistest002/app-svc-1-app/app-svc-1-app-vs {
 [source, bash]
 .*1. Install*
 ----
-kubectl apply -f configmap-canary/install/ns.yaml
+kubectl apply -f 101/install/ns.yaml
 kubectl create secret generic bigip-login --from-literal=username=cis_user --from-literal=password=default -n bigip-ctlr
-kubectl apply -f configmap-canary/install/rbac.yaml
-kubectl apply -f configmap-canary/install/cis.yaml
+kubectl apply -f 101/install/rbac.yaml
+kubectl apply -f 101/install/cis.yaml
 ----
 
 [source, bash]
 .*2. Deploy APP(Deploy 2 version of app, 1.0 version on test001, 1.1 version on test002)*
 ----
-kubectl apply -f configmap-canary/backend-canary.yaml
+kubectl apply -f 101/backend-canary.yaml
 ----
 
 [cols="2,5a"]
@@ -955,90 +1062,96 @@ kubectl apply -f configmap-canary/backend-canary.yaml
 |Deliver
 
 ----
-kubectl apply -f configmap-canary/cm-canary-v1.yaml 
-kubectl apply -f configmap-canary/cm-canary-v2.yaml
-kubectl apply -f configmap-canary/cm-canary-url.yaml
+kubectl apply -f 101/cm-canary-v1.yaml 
+kubectl apply -f 101/cm-canary-v2.yaml
+kubectl apply -f 101/cm-canary-url.yaml
 ----
 
 Test
 
 ----
-curl 192.168.200.13/foo
+$ curl -s 192.168.200.11/bar | grep app | awk '{print $3}'
+app-v1-87d895484-zbvq6
+
+// if url start with foo will go into new version
+$ curl -s 192.168.200.11/foo | grep app | awk '{print $3}'
+app-v2-6f6c4894fd-nphh5
 ----
 
 |URL Parameter
 |Deliver
 
 ----
-kubectl apply -f configmap-canary/cm-canary-v1.yaml 
-kubectl apply -f configmap-canary/cm-canary-v2.yaml
-kubectl apply -f configmap-canary/cm-canary-parametes.yaml
+kubectl apply -f 101/cm-canary-v1.yaml 
+kubectl apply -f 101/cm-canary-v2.yaml
+kubectl apply -f 101/cm-canary-parametes.yaml
 ----
 
 Test
 
 ----
-curl 192.168.200.13/foo?name=1010
+$ curl -s 192.168.200.11/foo?name=1010 | grep app | awk '{print $3}'
+app-v2-6f6c4894fd-nphh5
 ----
 
 |Source Address
 |Deliver
 
 ----
-kubectl apply -f configmap-canary/cm-canary-v1.yaml 
-kubectl apply -f configmap-canary/cm-canary-v2.yaml
-kubectl apply -f configmap-canary/cm-canary-sourceaddr.yaml 
+kubectl apply -f 101/cm-canary-v1.yaml 
+kubectl apply -f 101/cm-canary-v2.yaml
+kubectl apply -f 101/cm-canary-sourceaddr.yaml 
 ----
 
 Test
 
 ----
-curl 192.168.200.13/foo
+curl 192.168.200.11/foo
 ----
 
 |Http Header
 |Deliver
 
 ----
-kubectl apply -f configmap-canary/cm-canary-v1.yaml 
-kubectl apply -f configmap-canary/cm-canary-v2.yaml
-kubectl apply -f configmap-canary/cm-canary-headers.yaml
+kubectl apply -f 101/cm-canary-v1.yaml 
+kubectl apply -f 101/cm-canary-v2.yaml
+kubectl apply -f 101/cm-canary-headers.yaml
 ----
 
 Test
 
 ----
-curl 192.168.200.13/foo --header "Canary: true"
+curl 192.168.200.11/foo --header "Canary: true"
 ----
 
 |Cookie
 |Deliver
 
 ----
-kubectl apply -f configmap-canary/cm-canary-v1.yaml 
-kubectl apply -f configmap-canary/cm-canary-v2.yaml
-kubectl apply -f configmap-canary/cm-canary-cookie.yaml 
+kubectl apply -f 101/cm-canary-v1.yaml 
+kubectl apply -f 101/cm-canary-v2.yaml
+kubectl apply -f 101/cm-canary-cookie.yaml 
 ----
 
 Test
 
 ----
-curl 192.168.200.13/foo --cookie "Canary=true"
+curl 192.168.200.11/foo --cookie "Canary=true"
 ----
 
 |Ratio
 |Deliver
 
 ----
-kubectl apply -f configmap-canary/cm-canary-v1.yaml 
-kubectl apply -f configmap-canary/cm-canary-v2.yaml
-kubectl apply -f configmap-canary/cm-canary-ratio.yaml 
+kubectl apply -f 101/cm-canary-v1.yaml 
+kubectl apply -f 101/cm-canary-v2.yaml
+kubectl apply -f 101/cm-canary-ratio.yaml 
 ----
 
 Test
 
 ----
-curl 192.168.200.13/foo 
+curl 192.168.200.11/foo 
 ----
 
 |===

@@ -2,7 +2,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: cm-test002
-  namespace: test002
+  namespace: f5-hub-2
   labels:
     f5type: virtual-server
     as3: "true"
@@ -14,7 +14,7 @@ data:
       "persist": true, 
       "declaration": {
         "class": "ADC",
-        "schemaVersion": "3.30.0",
+        "schemaVersion": "3.36.0",
         "id": "cm-test002",
         "test002": {
           "class": "Tenant",
