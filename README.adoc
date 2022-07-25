@@ -665,9 +665,11 @@ kubectl apply -f 016/cm-2.yaml
 [source, bash]
 .*4. Telnet 测试*
 ----
-$ telnet 192.168.200.46 40
+$ telnet 192.168.200.46 80
 Trying 192.168.200.46...
-telnet: Unable to connect to remote host: Connection refused
+Connected to 192.168.200.46.
+Escape character is '^]'.
+Connection closed by foreign host.
 ----
 
 === AS3 ServicePort 配置可选
@@ -1057,7 +1059,7 @@ $ ssh root@192.168.200.204 tmsh list ltm virtual /cistest10/app/app_svc_2_vs | g
 ltm virtual /cistest10/app/app_svc_2_vs {
 ----
 
-=== 一个 K8S SVC 对应多个 BIG-IP VS
+=== 一个 K8S SVC 对应多个 BIG-IP VS（同租户共享 APP 实现）
 
 [source, bash]
 .*1. 创建应用*
@@ -1074,7 +1076,104 @@ kubectl apply -f 206/cm.yaml
 [source, bash]
 .*3. 测试验证*
 ----
+$ ssh root@192.168.200.204 'tmsh list ltm virtual /cistest11/cistest11_1/app_svc_vs pool ; tmsh list ltm virtual /cistest11/cistest11_2/app_svc_vs pool'
+Password: 
+ltm virtual /cistest11/cistest11_1/app_svc_vs {
+    pool /cistest11/Shared/app_svc_pool
+}
+ltm virtual /cistest11/cistest11_2/app_svc_vs {
+    pool /cistest11/Shared/app_svc_pool
+}
+----
 
+=== 一个 K8S SVC 对应多个 BIG-IP VS（同租户下共享 Node）
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 207/apps.yaml
+----
+
+[source, bash]
+.*2. 下发服务*
+----
+kubectl apply -f 207/cm.yaml 
+----
+
+[source, bash]
+.*3. 测试验证*
+----
+$ ssh root@192.168.200.204 'tmsh list ltm pool /cistest12/app/app-svc-1_pool members | grep address ;tmsh list ltm pool /cistest12/app/app-svc-2_pool members | grep address'
+Password: 
+            address 100.64.23.28
+            address 100.64.23.28
+----
+
+NOTE: 只适用于 http 模板。
+
+=== 一个 K8S SVC 对应多个 BIG-IP VS（/Common 下共享 Node）
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 208/apps.yaml 
+----
+
+[source, bash]
+.*2. 下发服务*
+----
+kubectl apply -f 208/cm.yaml 
+----
+
+[source, bash]
+.*3. 测试验证*
+----
+$ ssh root@192.168.200.204 'tmsh list ltm pool /cistest13-1/app/app-svc-1_pool ; tmsh list ltm pool /cistest13-2/app/app-svc-2_pool ; tmsh list ltm node 100.64.23.12 '
+Password: 
+ltm pool /cistest13-1/app/app-svc-1_pool {
+    load-balancing-mode least-connections-member
+    members {
+        100.64.23.12:webcache {
+            address 100.64.23.12
+            session monitor-enabled
+            state up
+            metadata {
+                source {
+                    value declaration
+                }
+            }
+        }
+    }
+    min-active-members 1
+    monitor min 1 of { tcp }
+    partition cistest13-1
+}
+ltm pool /cistest13-2/app/app-svc-2_pool {
+    load-balancing-mode least-connections-member
+    members {
+        100.64.23.12:webcache {
+            address 100.64.23.12
+            session monitor-enabled
+            state up
+            metadata {
+                source {
+                    value declaration
+                }
+            }
+        }
+    }
+    min-active-members 1
+    monitor min 1 of { tcp }
+    partition cistest13-2
+}
+ltm node 100.64.23.12 {
+    address 100.64.23.12
+    metadata {
+        references {
+            value 2
+        }
+    }
+}
 ----
 
 === BIG-IP 宕机后下发容错能力

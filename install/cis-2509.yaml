@@ -1,41 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bigip-ctlr-192-168-200-204
+  name: bigip-ctlr-2509
   labels:
-    app: bigip-ctlr-192-168-200-204
+    app: bigip-ctlr-2509
   namespace: bigip-ctlr
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bigip-ctlr-192-168-200-204
+      app: bigip-ctlr-2509
   template:
     metadata:
-      name: bigip-ctlr-192-168-200-204
+      name: bigip-ctlr-2509
       labels:
-        app: bigip-ctlr-192-168-200-204
+        app: bigip-ctlr-2509
     spec:
       serviceAccountName: bigip-ctlr
       containers:
         - name: bigip-ctlr
-          #image: "f5networks/k8s-bigip-ctlr:2.9.1"
-          image: "cisbot/k8s-bigip-ctlr:teemCrashFix"
+          image: "f5networks/k8s-bigip-ctlr:2.9.1"
           imagePullPolicy: IfNotPresent
-          livenessProbe:
-            failureThreshold: 3
-            exec:
-              command:
-              - curl
-              - -k
-              - -s
-              - -o
-              - /dev/null
-              - https://192.168.200.204/mgmt/shared/appsvcs/info
-            initialDelaySeconds: 15
-            periodSeconds: 15
-            timeoutSeconds: 5
-            successThreshold: 1
           env:
             - name: BIGIP_USERNAME
               valueFrom:
@@ -58,8 +43,8 @@ spec:
             "--hubmode=true",
             "--filter-tenants=true",
             "--log-as3-response=true",
-            "--bigip-partition=k8s",
+            "--bigip-partition=k8s_2509",
             "--pool-member-type=cluster",
-            "--namespace=f5-hub-1",
-            "--namespace=f5-hub-2"
+            "--namespace=f5-hub-3",
+            "--namespace=f5-hub-4"
             ]

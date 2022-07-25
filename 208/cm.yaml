@@ -1,7 +1,7 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: cm-206
+  name: cm-208
   namespace: f5-hub-1
   labels:
     f5type: virtual-server
@@ -15,13 +15,23 @@ data:
       "declaration": {
         "class": "ADC",
         "schemaVersion": "3.36.0",
-        "id": "cm-206",
-        "cistest11": {
+        "id": "cm-208",
+        "cistest13-1": {
           "class": "Tenant",
-          "Shared": {
+          "app": {
             "class": "Application",
-            "template": "shared",
-            "app_svc_pool": {
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_HTTP",
+              "persistenceMethods": [ "cookie" ],
+              "virtualAddresses": [
+                "10.1.10.18"
+              ],
+              "snat": "self",
+              "virtualPort": 80,
+              "pool": "app-svc-1_pool"
+            },
+            "app-svc-1_pool": {
               "class": "Pool",
               "monitors": [
                 "tcp"
@@ -30,37 +40,41 @@ data:
               "members": [
               {
                 "servicePort": 8080,
+                "shareNodes": true,
                 "serverAddresses": []
               }
               ]
             }
-          },
-          "cistest11_1": {
+          }
+        },
+        "cistest13-2": {
+          "class": "Tenant",
+          "app": {
             "class": "Application",
             "template": "generic",
             "app_svc_vs": {
               "class": "Service_HTTP",
               "persistenceMethods": [ "cookie" ],
               "virtualAddresses": [
-                "10.1.10.14"
+                "10.1.10.19"
               ],
               "snat": "self",
               "virtualPort": 80,
-              "pool": "/cistest11/Shared/app_svc_pool"
-            }
-          },
-          "cistest11_2": {
-            "class": "Application",
-            "template": "generic",
-            "app_svc_vs": {
-              "class": "Service_HTTP",
-              "persistenceMethods": [ "cookie" ],
-              "virtualAddresses": [
-                "10.1.10.15"
+              "pool": "app-svc-2_pool"
+            },
+            "app-svc-2_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
               ],
-              "snat": "self",
-              "virtualPort": 80,
-              "pool": "/cistest11/Shared/app_svc_pool"
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8080,
+                "shareNodes": true,
+                "serverAddresses": []
+              }
+              ]
             }
           }
         }
