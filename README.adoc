@@ -868,7 +868,7 @@ when HTTP_REQUEST {
 
 == 架构测试
 
-=== Hub 模式
+=== Hub 模式（发布应用的 Configmap 集中在指定的 NS）
 
 一个 CIS 监控两个 NS，每个 NS 下一个 Configmap, 第一个 Configmap 发布 3 个服务，第二个 Configmap 发布 5个服务。
 
@@ -1062,13 +1062,13 @@ ltm virtual /cistest10/app/app_svc_2_vs {
 [source, bash]
 .*1. 创建应用*
 ----
-
+kubectl apply -f 206/apps.yaml
 ----
 
 [source, bash]
 .*2. 下发服务*
 ----
-
+kubectl apply -f 206/cm.yaml 
 ----
 
 [source, bash]

@@ -30,7 +30,7 @@ spec:
               - -s
               - -o
               - /dev/null
-              - https://192.168.200.204
+              - https://192.168.200.204/mgmt/shared/appsvcs/info
             initialDelaySeconds: 15
             periodSeconds: 15
             timeoutSeconds: 5
@@ -56,6 +56,7 @@ spec:
             "--insecure=true",
             "--hubmode=true",
             "--filter-tenants=true",
+            "--log-as3-response=true",
             "--bigip-partition=k8s",
             "--pool-member-type=cluster",
             "--namespace=f5-hub-1",
