@@ -1117,4 +1117,21 @@ kubectl apply -f 206/cm.yaml
 
 ----
 
+=== 平滑升级测试项
+
+[source, bash]
+.*1. 创建应用*
+----
+
+----
+
+== 性能测试
+
+=== SVC 在一个 NS 场景
+
+统计增加一个 SVC 下发到 BIG-IP 所需的时间，删除一个 SVC 同步到 BIG-IP 所需的时间，SVC 更新同步到 BIG-IP 所需的时间。
+
+=== SVC 在不同 NS 场景
+
+统计增加一个 SVC 下发到 BIG-IP 所需的时间，删除一个 SVC 同步到 BIG-IP 所需的时间，SVC 更新同步到 BIG-IP 所需的时间。
 
