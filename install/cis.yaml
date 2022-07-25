@@ -20,7 +20,8 @@ spec:
       containers:
         - name: bigip-ctlr
           #image: "f5networks/k8s-bigip-ctlr:2.9.1"
-          image: "cisbot/k8s-bigip-ctlr:teemCrashFix"
+          image: "f5networks/k8s-bigip-ctlr:2.9.1-1"
+          #image: "cisbot/k8s-bigip-ctlr:teemCrashFix"
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3

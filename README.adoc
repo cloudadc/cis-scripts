@@ -1053,9 +1053,9 @@ kubectl apply -f 205/cm.yaml
 [source, bash]
 .*3. 测试验证*
 ----
-$ ssh root@192.168.200.204 tmsh list ltm virtual /cistest10/app/app_svc_1_vs | grep virtual
+$ ssh root@192.168.200.204 'tmsh list ltm virtual /cistest10/app/app_svc_1_vs | grep virtual ; tmsh list ltm virtual /cistest10/app/app_svc_2_vs | grep virtual'
+Password: 
 ltm virtual /cistest10/app/app_svc_1_vs {
-$ ssh root@192.168.200.204 tmsh list ltm virtual /cistest10/app/app_svc_2_vs | grep virtual
 ltm virtual /cistest10/app/app_svc_2_vs {
 ----
 
@@ -1173,6 +1173,40 @@ ltm node 100.64.23.12 {
             value 2
         }
     }
+}
+----
+
+=== 管理平面隔离
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f 209/apps.yaml
+----
+
+[source, bash]
+.*2. 下发服务*
+----
+kubectl apply -f 209/cm-1.yaml
+kubectl apply -f 209/cm-2.yaml 
+kubectl apply -f 209/cm-3.yaml
+----
+
+[source, bash]
+.*3. 测试验证*
+----
+// check from cis log
+2022/07/25 14:41:33 [ERROR] [AS3][Configmap] Error validating AS3 template
+2022/07/25 14:41:33 [ERROR] [AS3][Configmap] Error in processing the resource ConfigMap: cm-209-1 in Namespace: f5-hub-1
+
+// verify the deployed vs
+$ ssh root@192.168.200.204 'tmsh list ltm virtual /cistest15/app/app_svc_1_vs pool ; tmsh list ltm virtual /cistest16/app/app_svc_1_vs pool'
+Password: 
+ltm virtual /cistest15/app/app_svc_1_vs {
+    pool /cistest15/app/app-1_app_svc_pool
+}
+ltm virtual /cistest16/app/app_svc_1_vs {
+    pool /cistest16/app/app-1_app_svc_pool
 }
 ----
 
