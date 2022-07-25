@@ -1127,11 +1127,11 @@ kubectl apply -f 206/cm.yaml
 
 == 性能测试
 
-=== SVC 在一个 NS 场景
+=== SVC 在一个 NS 场景(SVC 数量为 150，统计增加/删除/更新 1 个 SVC，同步到 BIG-IP 的时间)
 
 统计增加一个 SVC 下发到 BIG-IP 所需的时间，删除一个 SVC 同步到 BIG-IP 所需的时间，SVC 更新同步到 BIG-IP 所需的时间。
 
-=== SVC 在不同 NS 场景
+=== SVC 在不同 NS 场景(SVC 数量为 150，统计增加/删除/更新 1 个 SVC，同步到 BIG-IP 的时间)
 
 统计增加一个 SVC 下发到 BIG-IP 所需的时间，删除一个 SVC 同步到 BIG-IP 所需的时间，SVC 更新同步到 BIG-IP 所需的时间。
 
