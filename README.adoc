@@ -1297,9 +1297,6 @@ kubectl apply -f 211/cm.yaml
 |===
 |类型 | 日志
 
-|VS 
-|类型 | 日志
-
 |VS 地址冲突
 |
 
