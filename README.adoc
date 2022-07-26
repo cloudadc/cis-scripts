@@ -870,7 +870,7 @@ when HTTP_REQUEST {
 
 == 架构测试
 
-=== Hub 模式（发布应用的 Configmap 集中在指定的 NS）
+=== Hub 模式 - 应用和应用描述文件Configmap 在不同的 NS
 
 一个 CIS 监控两个 NS，每个 NS 下一个 Configmap, 第一个 Configmap 发布 3 个服务，第二个 Configmap 发布 5个服务。
 
@@ -1176,7 +1176,7 @@ ltm node 100.64.23.12 {
 }
 ----
 
-=== 管理平面隔离
+=== 管理平面隔离性 - 一个应用的下发失败不影响另一个应用的下发 
 
 [source, bash]
 .*1. 创建应用*
@@ -1215,22 +1215,69 @@ ltm virtual /cistest16/app/app_svc_1_vs {
 [source, bash]
 .*1. 创建应用*
 ----
-
+kubectl apply -f 210/apps.yaml
 ----
 
 [source, bash]
-.*2. 下发服务*
+.*2. 查看 CIS POD 内容器 RESTARTS 为 0*
+----
+$ kubectl get pods -n bigip-ctlr
+NAME                                          READY   STATUS    RESTARTS   AGE
+bigip-ctlr-192-168-200-204-565c7d6549-hbghn   1/1     Running   0          11h
 ----
 
+*3. 重启 BIG-IP*
+
+[source, bash]
+.*4. 下发服务*
+----
+for i in 1 2 3 ; do kubectl apply -f 210/cm-$i.yaml ; sleep 60 ; done
 ----
 
 [source, bash]
-.*3. 测试验证*
+.*5. 查看 CIS POD 内容器 RESTARTS 为 6*
+----
+$ kubectl get pods -n bigip-ctlr
+NAME                                          READY   STATUS    RESTARTS   AGE
+bigip-ctlr-192-168-200-204-565c7d6549-hbghn   1/1     Running   6          12h
+
+$ ns=bigip-ctlr; p=$(kubectl get pods -n $ns --no-headers | awk '{print $1}'); kubectl describe pods $p -n $ns
+...
+    State:          Running
+      Started:      Tue, 26 Jul 2022 09:19:16 +0800
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Tue, 26 Jul 2022 09:17:50 +0800
+      Finished:     Tue, 26 Jul 2022 09:17:51 +0800
+    Ready:          True
+    Restart Count:  6
+    Liveness:       exec [curl -k -s -o /dev/null https://192.168.200.204/mgmt/shared/appsvcs/info] delay=15s timeout=5s period=15s #success=1 #failure=3
+...
+Events:
+  Type     Reason     Age                From     Message
+  ----     ------     ----               ----     -------
+  Warning  Unhealthy  35m (x3 over 35m)  kubelet  Liveness probe failed:
+  Normal   Killing    35m                kubelet  Container bigip-ctlr failed liveness probe, will be restarted
 ----
 
+[source, bash]
+.*6. 测试验证*
+----
+$ ssh root@192.168.200.204 'for i in 17 18 19 ; do tmsh list ltm virtual /cistest$i/app/app_svc_1_vs destination ; done'
+Password: 
+ltm virtual /cistest17/app/app_svc_1_vs {
+    destination /cistest17/10.1.10.23:http
+}
+ltm virtual /cistest18/app/app_svc_1_vs {
+    destination /cistest18/10.1.10.24:http
+}
+ltm virtual /cistest19/app/app_svc_1_vs {
+    destination /cistest19/10.1.10.25:http
+}
 ----
 
-=== 自动化监控错误代码汇总
+=== 自动化监控日志代码汇总
 
 [source, bash]
 .*1. 创建应用*
