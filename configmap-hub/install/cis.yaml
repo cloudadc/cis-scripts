@@ -25,7 +25,7 @@ spec:
             - containerPort: 8081
               protocol: TCP
         - name: bigip-ctlr
-          image: "zongzw/k8s-bigip-ctlr-c:2.9.01"
+          image: "zongzw/k8s-bigip-ctlr-c:2.9.01-20220729"
           imagePullPolicy: IfNotPresent
           env:
             - name: BIGIP_USERNAME
