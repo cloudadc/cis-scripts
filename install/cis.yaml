@@ -52,7 +52,7 @@ spec:
           args: [
             "--bigip-username=$(BIGIP_USERNAME)",
             "--bigip-password=$(BIGIP_PASSWORD)",
-            "--log-level=INFO",
+            "--log-level=DEBUG",
             "--manage-ingress=false",
             "--bigip-url=192.168.200.204",
             "--insecure=true",
