@@ -48,7 +48,7 @@ spec:
             "--bigip-username=$(BIGIP_USERNAME)",
             "--bigip-password=$(BIGIP_PASSWORD)",
             "--log-level=info",
-            "--bigip-url=$(BIGIP_URL)",
+            "--bigip-url=https://192.168.200.204",
             "--hub-mode=true",
             "--namespace=f5-hub-1",
             "--namespace=f5-hub-2"
