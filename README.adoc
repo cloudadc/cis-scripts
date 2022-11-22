@@ -1430,8 +1430,18 @@ kubectl apply -f 212/apps.yaml
 kubectl apply -f 212/cm.yaml
 ----
 
+*3. Copy link:212/test.sh[] to K8S Host execute the bash*
+
 [source, bash]
-.*3. Use the following API in K8S Host, to make read probe works*
+----
+./test.sh
+----
+
+NOTE: The script need execute the API call towards POD directly.
+
+Runing the following API in K8S Host, also can make read probe works, the first time need execute POST.
+
+[source, bash]
 ----
 curl -X POST "http://<POD_IP>:8001/api/7/http/keyvals/canary" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"abswitch\": \"1\"}"
 curl -X PATCH "http://<POD_IP>:8001/api/7/http/keyvals/canary" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"abswitch\": \"0\"}"
