@@ -1416,14 +1416,25 @@ Jul 26 10:23:41 bigip1.com notice mcpd[7242]: 01070638:5: Pool /cistest211/app/a
 Jul 26 10:23:41 bigip1.com notice mcpd[7242]: 01070638:5: Pool /cistest211/app/app_svc_pool member /cistest211/100.64.21.153:8080 monitor status down. [ /Common/tcp: down; last error:  ]  [ was up for 0hr:3mins:49sec ]
 ----
 
-|===
-
-=== 平滑升级测试项
+=== Engpoint 事件与 CIS POST 关系
 
 [source, bash]
 .*1. 创建应用*
 ----
+kubectl apply -f 212/apps.yaml
+----
 
+[source, bash]
+.*2. 下发服务*
+----
+kubectl apply -f 212/cm.yaml
+----
+
+[source, bash]
+.*3. Use the following API in K8S Host, to make read probe works*
+----
+curl -X POST "http://<POD_IP>:8001/api/7/http/keyvals/canary" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"abswitch\": \"1\"}"
+curl -X PATCH "http://<POD_IP>:8001/api/7/http/keyvals/canary" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"abswitch\": \"0\"}"
 ----
 
 == 性能测试

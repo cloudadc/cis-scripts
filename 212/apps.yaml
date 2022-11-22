@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest212
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iop-hot-deploy-verification-deployment
+  namespace: cistest212
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      name: nginx
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: cloudadc/nginx-devops-demo:2.0.0
+        ports:
+        - containerPort: 8002
+        readinessProbe:
+          httpGet:
+            path: /foo
+            port: 8002
+          initialDelaySeconds: 3
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: nginx
+    cis.f5.com/as3-tenant: cistest212
+    cis.f5.com/as3-app: iop-hot-deploy-verification
+    cis.f5.com/as3-pool: iop-hot-deploy-verification-svc_pool
+  name: iop-hot-deploy-verification-svc
+  namespace: cistest212
+spec:
+  ports:
+  - port: 8002
+    protocol: TCP
+    targetPort: 8002
+  selector:
+    app: nginx
+  type: ClusterIP

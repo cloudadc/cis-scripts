@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cistest019
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coredns
+  namespace: cistest019
+data:
+  Corefile: |
+    .:53 {
+      forward . 8.8.8.8:53
+      log
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coredns
+  namespace: cistest019
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: coredns
+  template:
+    metadata:
+      labels:
+        app: coredns
+    spec:
+      containers:
+      - name: coredns
+        image: coredns/coredns:1.8.6
+        args: [ "-conf", "/etc/coredns/Corefile" ]
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/coredns
+          readOnly: true
+        ports:
+        - containerPort: 53
+          name: dns
+          protocol: UDP
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            add:
+            - NET_BIND_SERVICE
+            drop:
+            - all
+          readOnlyRootFilesystem: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: coredns
+            items:
+            - key: Corefile
+              path: Corefile
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    cis.f5.com/as3-tenant: cistest019
+    cis.f5.com/as3-app: coredns
+    cis.f5.com/as3-pool: coredns_pool
+  name: coredns
+  namespace: cistest019
+spec:
+  selector:
+   app: coredns
+  ports:
+  - name: dns
+    port: 53
+    protocol: UDP
