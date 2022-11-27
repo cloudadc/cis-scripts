@@ -1,0 +1,50 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: cm-014-ssl
+  namespace: f5-hub-2
+  labels:
+    f5type: virtual-server
+    as3: "true"
+data:
+  template: |
+    {
+      "class": "AS3",
+      "action": "deploy",
+      "persist": true,
+      "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.36.0",
+        "id": "cm-014-ssl",
+        "cistest014": {
+          "class": "Tenant",
+          "app-2": {
+            "class": "Application",
+            "template": "generic",
+            "app_svc_vs": {
+              "class": "Service_L4",
+              "layer4": "any",
+              "virtualAddresses": [
+                "192.168.200.44"
+              ],
+              "snat": "self",
+              "virtualPort": 443,
+              "pool": "app_2_svc_pool"
+            },
+            "app_2_svc_pool": {
+              "class": "Pool",
+              "monitors": [
+                "tcp"
+              ],
+              "loadBalancingMode": "least-connections-member",
+              "members": [
+              {
+                "servicePort": 8443,
+                "serverAddresses": []
+              }
+              ]
+            }
+          }
+        }
+      }
+    }

@@ -524,7 +524,7 @@ ltm profile one-connect /cistest013/app-1/customOneConnectProfile {
 }
 ----
 
-=== 自定义 SSL Profile
+=== SSL 卸载: 自定义 SSL Profile
 
 [source, bash]
 .*1. 创建应用*
@@ -588,7 +588,68 @@ Server name: app-1-7f4585dc79-6xc2n
 Date: 24/Jul/2022:07:40:27 +0000
 URI: /
 Request ID: 0473c17d40cde2901ebe300ce3b87658
+----
 
+=== TLS APP 请求路由:  FastL4
+
+[source, bash]
+.*1. 创建应用*
+----
+kubectl apply -f app-option-2.yaml
+----
+
+[source, bash]
+.*2. 下发服务*
+----
+kubectl apply -f cm-option-2.yaml
+----
+
+[source, bash]
+.*3. 测试验证*
+----
+$ curl --cacert 014/crt/example.com.crt --resolve example.com:443:192.168.200.44 https://example.com/test -v
+* Added example.com:443:192.168.200.44 to DNS cache
+* Hostname example.com was found in DNS cache
+*   Trying 192.168.200.44...
+* TCP_NODELAY set
+* Connected to example.com (192.168.200.44) port 443 (#0)
+* ALPN, offering h2
+* ALPN, offering http/1.1
+* successfully set certificate verify locations:
+*   CAfile: 014/crt/example.com.crt
+  CApath: none
+* TLSv1.2 (OUT), TLS handshake, Client hello (1):
+* TLSv1.2 (IN), TLS handshake, Server hello (2):
+* TLSv1.2 (IN), TLS handshake, Certificate (11):
+* TLSv1.2 (IN), TLS handshake, Server key exchange (12):
+* TLSv1.2 (IN), TLS handshake, Server finished (14):
+* TLSv1.2 (OUT), TLS handshake, Client key exchange (16):
+* TLSv1.2 (OUT), TLS change cipher, Change cipher spec (1):
+* TLSv1.2 (OUT), TLS handshake, Finished (20):
+* TLSv1.2 (IN), TLS change cipher, Change cipher spec (1):
+* TLSv1.2 (IN), TLS handshake, Finished (20):
+* SSL connection using TLSv1.2 / ECDHE-RSA-AES256-GCM-SHA384
+* ALPN, server accepted to use http/1.1
+* Server certificate:
+*  subject: CN=example.com; emailAddress=ksong@example.com; O=Kylin Soong Ltd; L=Beijing; C=CN
+*  start date: Nov 24 15:56:42 2022 GMT
+*  expire date: Nov 21 15:56:42 2032 GMT
+*  common name: example.com (matched)
+*  issuer: CN=example.com; emailAddress=ksong@example.com; O=Kylin Soong Ltd; L=Beijing; C=CN
+*  SSL certificate verify ok.
+> GET /test HTTP/1.1
+> Host: example.com
+> User-Agent: curl/7.64.1
+> Accept: */*
+> 
+< HTTP/1.1 200 OK
+< Server: nginx/1.21.6
+< Date: Sun, 27 Nov 2022 07:38:54 GMT
+< Content-Type: text/html
+< Content-Length: 8
+< Connection: keep-alive
+< 
+success
 ----
 
 === 四层透传模式
