@@ -1477,6 +1477,8 @@ Jul 26 10:23:41 bigip1.com notice mcpd[7242]: 01070638:5: Pool /cistest211/app/a
 Jul 26 10:23:41 bigip1.com notice mcpd[7242]: 01070638:5: Pool /cistest211/app/app_svc_pool member /cistest211/100.64.21.153:8080 monitor status down. [ /Common/tcp: down; last error:  ]  [ was up for 0hr:3mins:49sec ]
 ----
 
+|===
+
 === Engpoint 事件与 CIS POST 关系
 
 [source, bash]
@@ -1506,6 +1508,77 @@ Runing the following API in K8S Host, also can make read probe works, the first 
 ----
 curl -X POST "http://<POD_IP>:8001/api/7/http/keyvals/canary" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"abswitch\": \"1\"}"
 curl -X PATCH "http://<POD_IP>:8001/api/7/http/keyvals/canary" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"abswitch\": \"0\"}"
+----
+
+=== Prometheus blackbox_exporter
+
+Prometheus blackbox_exporter used to probe AS3 Service.
+
+[source, bash]
+.*1. Start the exporter*
+----
+docker run --rm -p 9115/tcp --name blackbox_exporter -v $(pwd)/213/blackbox.yml:/config/blackbox.yml:ro quay.io/prometheus/blackbox-exporter:latest --config.file=/config/blackbox.yml
+----
+
+[source, bash]
+.*2. Probe AS3*
+----
+$ curl "http://localhost:9115/probe?module=http_get_2xx&target=https://192.168.200.204/mgmt/shared/appsvcs/info"
+# HELP probe_dns_lookup_time_seconds Returns the time taken for probe dns lookup in seconds
+# TYPE probe_dns_lookup_time_seconds gauge
+probe_dns_lookup_time_seconds 1.3656e-05
+# HELP probe_duration_seconds Returns how long the probe took to complete in seconds
+# TYPE probe_duration_seconds gauge
+probe_duration_seconds 1.671629086
+# HELP probe_failed_due_to_regex Indicates if probe failed due to regex
+# TYPE probe_failed_due_to_regex gauge
+probe_failed_due_to_regex 0
+# HELP probe_http_content_length Length of http content response
+# TYPE probe_http_content_length gauge
+probe_http_content_length 83
+# HELP probe_http_duration_seconds Duration of http request by phase, summed over all redirects
+# TYPE probe_http_duration_seconds gauge
+probe_http_duration_seconds{phase="connect"} 0.044061677
+probe_http_duration_seconds{phase="processing"} 1.564671922
+probe_http_duration_seconds{phase="resolve"} 1.3656e-05
+probe_http_duration_seconds{phase="tls"} 0.06174227
+probe_http_duration_seconds{phase="transfer"} 0.000470468
+# HELP probe_http_redirects The number of redirects
+# TYPE probe_http_redirects gauge
+probe_http_redirects 0
+# HELP probe_http_ssl Indicates if SSL was used for the final redirect
+# TYPE probe_http_ssl gauge
+probe_http_ssl 1
+# HELP probe_http_status_code Response HTTP status code
+# TYPE probe_http_status_code gauge
+probe_http_status_code 200
+# HELP probe_http_uncompressed_body_length Length of uncompressed response body
+# TYPE probe_http_uncompressed_body_length gauge
+probe_http_uncompressed_body_length 83
+# HELP probe_http_version Returns the version of HTTP of the probe response
+# TYPE probe_http_version gauge
+probe_http_version 1.1
+# HELP probe_ip_addr_hash Specifies the hash of IP address. It's useful to detect if the IP address changes.
+# TYPE probe_ip_addr_hash gauge
+probe_ip_addr_hash 2.91599345e+08
+# HELP probe_ip_protocol Specifies whether probe ip protocol is IP4 or IP6
+# TYPE probe_ip_protocol gauge
+probe_ip_protocol 4
+# HELP probe_ssl_earliest_cert_expiry Returns earliest SSL cert expiry in unixtime
+# TYPE probe_ssl_earliest_cert_expiry gauge
+probe_ssl_earliest_cert_expiry 1.955675251e+09
+# HELP probe_ssl_last_chain_expiry_timestamp_seconds Returns last SSL chain expiry in timestamp seconds
+# TYPE probe_ssl_last_chain_expiry_timestamp_seconds gauge
+probe_ssl_last_chain_expiry_timestamp_seconds -6.21355968e+10
+# HELP probe_ssl_last_chain_info Contains SSL leaf certificate information
+# TYPE probe_ssl_last_chain_info gauge
+probe_ssl_last_chain_info{fingerprint_sha256="924e3213c11e5b5f5bf95a6a8a2c46244136a4613faccd2f0bdd3e51c48efbf5"} 1
+# HELP probe_success Displays whether or not the probe was a success
+# TYPE probe_success gauge
+probe_success 1
+# HELP probe_tls_version_info Contains the TLS version used
+# TYPE probe_tls_version_info gauge
+probe_tls_version_info{version="TLS 1.2"} 1
 ----
 
 == 性能测试
