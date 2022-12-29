@@ -1493,14 +1493,19 @@ kubectl apply -f 212/apps.yaml
 kubectl apply -f 212/cm.yaml
 ----
 
-*3. Copy link:212/test.sh[] to K8S Host execute the bash*
+[source, bash]
+.*3. 环境变量设定(K8S Host 上设定，或者可达 POD IP 的 Host 上设定)*
+----
+export NS=cistest212
+export IP=$(kubectl get pods -n $NS -o wide --no-headers | head -1 | awk '{print $6}')
+export EP=$(kubectl get ep -n $NS --no-headers | awk '{print $1}')
+----
 
 [source, bash]
+.*4. 执行一次 POST 完成初始化(K8S Host 上执行，或者可达 POD IP 的 Host 上执行)*
 ----
-./test.sh
+curl -X POST "http://$IP:8001/api/7/http/keyvals/canary" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"abswitch\": \"0\"}"
 ----
-
-NOTE: The script need execute the API call towards POD directly.
 
 Runing the following API in K8S Host, also can make read probe works, the first time need execute POST.
 
@@ -1509,6 +1514,14 @@ Runing the following API in K8S Host, also can make read probe works, the first 
 curl -X POST "http://<POD_IP>:8001/api/7/http/keyvals/canary" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"abswitch\": \"1\"}"
 curl -X PATCH "http://<POD_IP>:8001/api/7/http/keyvals/canary" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"abswitch\": \"0\"}"
 ----
+
+[source, bash]
+.*5. 执行 link:212/test.sh[]，模拟 EP 事件变化(K8S Host 上执行，或者可达 POD IP 的 Host 上执行)*
+----
+./test.sh $IP 10 $NS $EP
+----
+
+NOTE: The script need execute the API call towards POD directly.
 
 === Prometheus blackbox_exporter
 

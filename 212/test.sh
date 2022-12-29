@@ -25,6 +25,8 @@ do
     sleep 1;
 done
 
+echo $(date) $(kubectl get ep -n $NSNAME $EPNAME --no-headers | awk '{print $2}') $(kubectl get pods -o wide -n $NSNAME | grep $IP | awk '{print $2, $3, $6}')
+
 ENDTIME=$(date +%s)
 
 echo "remove $IP:8001 spend $(($ENDTIME - $STARTTIME)) seconds"
@@ -40,6 +42,8 @@ do
     echo $(date) $(kubectl get ep -n $NSNAME $EPNAME --no-headers | awk '{print $2}') $(kubectl get pods -o wide -n $NSNAME | grep $IP | awk '{print $2, $3, $6}')
     sleep 1;
 done
+
+echo $(date) $(kubectl get ep -n $NSNAME $EPNAME --no-headers | awk '{print $2}') $(kubectl get pods -o wide -n $NSNAME | grep $IP | awk '{print $2, $3, $6}')
 
 ADDENDTIME=$(date +%s)
 
