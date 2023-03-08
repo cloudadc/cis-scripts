@@ -1604,3 +1604,82 @@ probe_tls_version_info{version="TLS 1.2"} 1
 
 统计增加一个 SVC 下发到 BIG-IP 所需的时间，删除一个 SVC 同步到 BIG-IP 所需的时间，SVC 更新同步到 BIG-IP 所需的时间。
 
+[source, bash]
+.*50 SVC*
+----
+kubectl apply -f 300/deploy-50.yaml
+kubectl apply -f 300/cm-50.yaml
+
+kubectl apply -f 300/deploy-51.yaml
+kubectl apply -f 300/cm-51.yaml
+
+kubectl scale -n bigip-ctlr-ns-2 deploy/app-svc-25-app --replicas=2
+
+kubectl apply -f 300/cm-50.yaml
+
+kubectl scale -n bigip-ctlr-ns-2 deploy/app-svc-25-app --replicas=1
+----
+
+[source, bash]
+.*100 SVC*
+----
+kubectl apply -f 300/deploy-100.yaml
+kubectl apply -f 300/cm-100.yaml
+
+kubectl apply -f 300/deploy-101.yaml
+kubectl apply -f 300/cm-101.yaml
+
+kubectl scale -n bigip-ctlr-ns-4 deploy/app-svc-25-app --replicas=2
+
+kubectl apply -f 300/cm-100.yaml
+
+kubectl scale -n bigip-ctlr-ns-4 deploy/app-svc-25-app --replicas=1
+----
+
+[source, bash]
+.*150 SVC*
+----
+kubectl apply -f 300/deploy-150.yaml
+kubectl apply -f 300/cm-150.yaml
+
+kubectl apply -f 300/deploy-151.yaml
+kubectl apply -f 300/cm-151.yaml
+
+kubectl scale -n bigip-ctlr-ns-6 deploy/app-svc-25-app --replicas=2
+
+kubectl apply -f 300/cm-150.yaml
+
+kubectl scale -n bigip-ctlr-ns-6 deploy/app-svc-25-app --replicas=1
+----
+
+[source, bash]
+.*200 SVC*
+----
+kubectl apply -f 300/deploy-200.yaml
+kubectl apply -f 300/cm-200.yaml
+
+kubectl apply -f 300/deploy-201.yaml
+kubectl apply -f 300/cm-201.yaml
+
+kubectl scale -n bigip-ctlr-ns-8 deploy/app-svc-25-app --replicas=2
+
+kubectl apply -f 300/cm-200.yaml
+
+kubectl scale -n bigip-ctlr-ns-8 deploy/app-svc-25-app --replicas=1
+----
+
+[source, bash]
+.*250 SVC*
+----
+kubectl apply -f 300/deploy-249.yaml
+kubectl apply -f 300/cm-249.yaml
+
+kubectl apply -f 300/deploy-250.yaml
+kubectl apply -f 300/cm-250.yaml
+
+kubectl scale -n bigip-ctlr-ns-10 deploy/app-svc-24-app --replicas=2
+
+kubectl apply -f 300/cm-249.yaml
+
+kubectl scale -n bigip-ctlr-ns-10 deploy/app-svc-24-app --replicas=1
+----

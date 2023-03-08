@@ -1,0 +1,8643 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-1-app
+  name: app-svc-1-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-1-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-1-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-1-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-1-app
+    cis.f5.com/as3-pool: app-svc-1-app-pool
+  name: app-svc-1
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-1-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-2-app
+  name: app-svc-2-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-2-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-2-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-2-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-2-app
+    cis.f5.com/as3-pool: app-svc-2-app-pool
+  name: app-svc-2
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-2-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-3-app
+  name: app-svc-3-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-3-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-3-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-3-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-3-app
+    cis.f5.com/as3-pool: app-svc-3-app-pool
+  name: app-svc-3
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-3-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-4-app
+  name: app-svc-4-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-4-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-4-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-4-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-4-app
+    cis.f5.com/as3-pool: app-svc-4-app-pool
+  name: app-svc-4
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-4-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-5-app
+  name: app-svc-5-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-5-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-5-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-5-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-5-app
+    cis.f5.com/as3-pool: app-svc-5-app-pool
+  name: app-svc-5
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-5-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-6-app
+  name: app-svc-6-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-6-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-6-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-6-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-6-app
+    cis.f5.com/as3-pool: app-svc-6-app-pool
+  name: app-svc-6
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-6-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-7-app
+  name: app-svc-7-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-7-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-7-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-7-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-7-app
+    cis.f5.com/as3-pool: app-svc-7-app-pool
+  name: app-svc-7
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-7-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-8-app
+  name: app-svc-8-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-8-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-8-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-8-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-8-app
+    cis.f5.com/as3-pool: app-svc-8-app-pool
+  name: app-svc-8
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-8-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-9-app
+  name: app-svc-9-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-9-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-9-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-9-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-9-app
+    cis.f5.com/as3-pool: app-svc-9-app-pool
+  name: app-svc-9
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-9-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-10-app
+  name: app-svc-10-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-10-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-10-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-10-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-10-app
+    cis.f5.com/as3-pool: app-svc-10-app-pool
+  name: app-svc-10
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-10-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-11-app
+  name: app-svc-11-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-11-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-11-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-11-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-11-app
+    cis.f5.com/as3-pool: app-svc-11-app-pool
+  name: app-svc-11
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-11-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-12-app
+  name: app-svc-12-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-12-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-12-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-12-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-12-app
+    cis.f5.com/as3-pool: app-svc-12-app-pool
+  name: app-svc-12
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-12-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-13-app
+  name: app-svc-13-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-13-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-13-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-13-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-13-app
+    cis.f5.com/as3-pool: app-svc-13-app-pool
+  name: app-svc-13
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-13-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-14-app
+  name: app-svc-14-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-14-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-14-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-14-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-14-app
+    cis.f5.com/as3-pool: app-svc-14-app-pool
+  name: app-svc-14
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-14-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-15-app
+  name: app-svc-15-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-15-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-15-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-15-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-15-app
+    cis.f5.com/as3-pool: app-svc-15-app-pool
+  name: app-svc-15
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-15-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-16-app
+  name: app-svc-16-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-16-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-16-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-16-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-16-app
+    cis.f5.com/as3-pool: app-svc-16-app-pool
+  name: app-svc-16
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-16-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-17-app
+  name: app-svc-17-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-17-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-17-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-17-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-17-app
+    cis.f5.com/as3-pool: app-svc-17-app-pool
+  name: app-svc-17
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-17-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-18-app
+  name: app-svc-18-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-18-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-18-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-18-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-18-app
+    cis.f5.com/as3-pool: app-svc-18-app-pool
+  name: app-svc-18
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-18-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-19-app
+  name: app-svc-19-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-19-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-19-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-19-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-19-app
+    cis.f5.com/as3-pool: app-svc-19-app-pool
+  name: app-svc-19
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-19-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-20-app
+  name: app-svc-20-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-20-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-20-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-20-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-20-app
+    cis.f5.com/as3-pool: app-svc-20-app-pool
+  name: app-svc-20
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-20-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-21-app
+  name: app-svc-21-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-21-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-21-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-21-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-21-app
+    cis.f5.com/as3-pool: app-svc-21-app-pool
+  name: app-svc-21
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-21-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-22-app
+  name: app-svc-22-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-22-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-22-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-22-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-22-app
+    cis.f5.com/as3-pool: app-svc-22-app-pool
+  name: app-svc-22
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-22-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-23-app
+  name: app-svc-23-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-23-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-23-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-23-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-23-app
+    cis.f5.com/as3-pool: app-svc-23-app-pool
+  name: app-svc-23
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-23-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-24-app
+  name: app-svc-24-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-24-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-24-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-24-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-24-app
+    cis.f5.com/as3-pool: app-svc-24-app-pool
+  name: app-svc-24
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-24-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-25-app
+  name: app-svc-25-app
+  namespace: bigip-ctlr-ns-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-25-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-25-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-25-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-1
+    cis.f5.com/as3-app: app-svc-25-app
+    cis.f5.com/as3-pool: app-svc-25-app-pool
+  name: app-svc-25
+  namespace: bigip-ctlr-ns-1
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-25-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-1-app
+  name: app-svc-1-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-1-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-1-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-1-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-1-app
+    cis.f5.com/as3-pool: app-svc-1-app-pool
+  name: app-svc-1
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-1-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-2-app
+  name: app-svc-2-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-2-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-2-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-2-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-2-app
+    cis.f5.com/as3-pool: app-svc-2-app-pool
+  name: app-svc-2
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-2-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-3-app
+  name: app-svc-3-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-3-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-3-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-3-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-3-app
+    cis.f5.com/as3-pool: app-svc-3-app-pool
+  name: app-svc-3
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-3-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-4-app
+  name: app-svc-4-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-4-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-4-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-4-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-4-app
+    cis.f5.com/as3-pool: app-svc-4-app-pool
+  name: app-svc-4
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-4-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-5-app
+  name: app-svc-5-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-5-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-5-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-5-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-5-app
+    cis.f5.com/as3-pool: app-svc-5-app-pool
+  name: app-svc-5
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-5-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-6-app
+  name: app-svc-6-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-6-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-6-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-6-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-6-app
+    cis.f5.com/as3-pool: app-svc-6-app-pool
+  name: app-svc-6
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-6-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-7-app
+  name: app-svc-7-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-7-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-7-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-7-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-7-app
+    cis.f5.com/as3-pool: app-svc-7-app-pool
+  name: app-svc-7
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-7-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-8-app
+  name: app-svc-8-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-8-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-8-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-8-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-8-app
+    cis.f5.com/as3-pool: app-svc-8-app-pool
+  name: app-svc-8
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-8-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-9-app
+  name: app-svc-9-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-9-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-9-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-9-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-9-app
+    cis.f5.com/as3-pool: app-svc-9-app-pool
+  name: app-svc-9
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-9-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-10-app
+  name: app-svc-10-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-10-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-10-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-10-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-10-app
+    cis.f5.com/as3-pool: app-svc-10-app-pool
+  name: app-svc-10
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-10-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-11-app
+  name: app-svc-11-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-11-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-11-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-11-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-11-app
+    cis.f5.com/as3-pool: app-svc-11-app-pool
+  name: app-svc-11
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-11-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-12-app
+  name: app-svc-12-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-12-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-12-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-12-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-12-app
+    cis.f5.com/as3-pool: app-svc-12-app-pool
+  name: app-svc-12
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-12-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-13-app
+  name: app-svc-13-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-13-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-13-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-13-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-13-app
+    cis.f5.com/as3-pool: app-svc-13-app-pool
+  name: app-svc-13
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-13-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-14-app
+  name: app-svc-14-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-14-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-14-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-14-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-14-app
+    cis.f5.com/as3-pool: app-svc-14-app-pool
+  name: app-svc-14
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-14-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-15-app
+  name: app-svc-15-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-15-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-15-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-15-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-15-app
+    cis.f5.com/as3-pool: app-svc-15-app-pool
+  name: app-svc-15
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-15-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-16-app
+  name: app-svc-16-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-16-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-16-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-16-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-16-app
+    cis.f5.com/as3-pool: app-svc-16-app-pool
+  name: app-svc-16
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-16-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-17-app
+  name: app-svc-17-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-17-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-17-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-17-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-17-app
+    cis.f5.com/as3-pool: app-svc-17-app-pool
+  name: app-svc-17
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-17-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-18-app
+  name: app-svc-18-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-18-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-18-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-18-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-18-app
+    cis.f5.com/as3-pool: app-svc-18-app-pool
+  name: app-svc-18
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-18-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-19-app
+  name: app-svc-19-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-19-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-19-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-19-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-19-app
+    cis.f5.com/as3-pool: app-svc-19-app-pool
+  name: app-svc-19
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-19-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-20-app
+  name: app-svc-20-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-20-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-20-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-20-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-20-app
+    cis.f5.com/as3-pool: app-svc-20-app-pool
+  name: app-svc-20
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-20-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-21-app
+  name: app-svc-21-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-21-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-21-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-21-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-21-app
+    cis.f5.com/as3-pool: app-svc-21-app-pool
+  name: app-svc-21
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-21-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-22-app
+  name: app-svc-22-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-22-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-22-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-22-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-22-app
+    cis.f5.com/as3-pool: app-svc-22-app-pool
+  name: app-svc-22
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-22-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-23-app
+  name: app-svc-23-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-23-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-23-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-23-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-23-app
+    cis.f5.com/as3-pool: app-svc-23-app-pool
+  name: app-svc-23
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-23-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-24-app
+  name: app-svc-24-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-24-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-24-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-24-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-24-app
+    cis.f5.com/as3-pool: app-svc-24-app-pool
+  name: app-svc-24
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-24-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-25-app
+  name: app-svc-25-app
+  namespace: bigip-ctlr-ns-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-25-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-25-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-25-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-2
+    cis.f5.com/as3-app: app-svc-25-app
+    cis.f5.com/as3-pool: app-svc-25-app-pool
+  name: app-svc-25
+  namespace: bigip-ctlr-ns-2
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-25-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-1-app
+  name: app-svc-1-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-1-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-1-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-1-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-1-app
+    cis.f5.com/as3-pool: app-svc-1-app-pool
+  name: app-svc-1
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-1-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-2-app
+  name: app-svc-2-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-2-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-2-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-2-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-2-app
+    cis.f5.com/as3-pool: app-svc-2-app-pool
+  name: app-svc-2
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-2-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-3-app
+  name: app-svc-3-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-3-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-3-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-3-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-3-app
+    cis.f5.com/as3-pool: app-svc-3-app-pool
+  name: app-svc-3
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-3-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-4-app
+  name: app-svc-4-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-4-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-4-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-4-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-4-app
+    cis.f5.com/as3-pool: app-svc-4-app-pool
+  name: app-svc-4
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-4-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-5-app
+  name: app-svc-5-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-5-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-5-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-5-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-5-app
+    cis.f5.com/as3-pool: app-svc-5-app-pool
+  name: app-svc-5
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-5-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-6-app
+  name: app-svc-6-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-6-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-6-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-6-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-6-app
+    cis.f5.com/as3-pool: app-svc-6-app-pool
+  name: app-svc-6
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-6-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-7-app
+  name: app-svc-7-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-7-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-7-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-7-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-7-app
+    cis.f5.com/as3-pool: app-svc-7-app-pool
+  name: app-svc-7
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-7-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-8-app
+  name: app-svc-8-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-8-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-8-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-8-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-8-app
+    cis.f5.com/as3-pool: app-svc-8-app-pool
+  name: app-svc-8
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-8-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-9-app
+  name: app-svc-9-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-9-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-9-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-9-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-9-app
+    cis.f5.com/as3-pool: app-svc-9-app-pool
+  name: app-svc-9
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-9-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-10-app
+  name: app-svc-10-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-10-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-10-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-10-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-10-app
+    cis.f5.com/as3-pool: app-svc-10-app-pool
+  name: app-svc-10
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-10-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-11-app
+  name: app-svc-11-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-11-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-11-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-11-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-11-app
+    cis.f5.com/as3-pool: app-svc-11-app-pool
+  name: app-svc-11
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-11-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-12-app
+  name: app-svc-12-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-12-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-12-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-12-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-12-app
+    cis.f5.com/as3-pool: app-svc-12-app-pool
+  name: app-svc-12
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-12-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-13-app
+  name: app-svc-13-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-13-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-13-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-13-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-13-app
+    cis.f5.com/as3-pool: app-svc-13-app-pool
+  name: app-svc-13
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-13-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-14-app
+  name: app-svc-14-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-14-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-14-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-14-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-14-app
+    cis.f5.com/as3-pool: app-svc-14-app-pool
+  name: app-svc-14
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-14-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-15-app
+  name: app-svc-15-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-15-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-15-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-15-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-15-app
+    cis.f5.com/as3-pool: app-svc-15-app-pool
+  name: app-svc-15
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-15-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-16-app
+  name: app-svc-16-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-16-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-16-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-16-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-16-app
+    cis.f5.com/as3-pool: app-svc-16-app-pool
+  name: app-svc-16
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-16-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-17-app
+  name: app-svc-17-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-17-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-17-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-17-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-17-app
+    cis.f5.com/as3-pool: app-svc-17-app-pool
+  name: app-svc-17
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-17-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-18-app
+  name: app-svc-18-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-18-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-18-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-18-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-18-app
+    cis.f5.com/as3-pool: app-svc-18-app-pool
+  name: app-svc-18
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-18-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-19-app
+  name: app-svc-19-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-19-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-19-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-19-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-19-app
+    cis.f5.com/as3-pool: app-svc-19-app-pool
+  name: app-svc-19
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-19-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-20-app
+  name: app-svc-20-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-20-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-20-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-20-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-20-app
+    cis.f5.com/as3-pool: app-svc-20-app-pool
+  name: app-svc-20
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-20-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-21-app
+  name: app-svc-21-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-21-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-21-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-21-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-21-app
+    cis.f5.com/as3-pool: app-svc-21-app-pool
+  name: app-svc-21
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-21-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-22-app
+  name: app-svc-22-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-22-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-22-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-22-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-22-app
+    cis.f5.com/as3-pool: app-svc-22-app-pool
+  name: app-svc-22
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-22-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-23-app
+  name: app-svc-23-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-23-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-23-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-23-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-23-app
+    cis.f5.com/as3-pool: app-svc-23-app-pool
+  name: app-svc-23
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-23-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-24-app
+  name: app-svc-24-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-24-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-24-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-24-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-24-app
+    cis.f5.com/as3-pool: app-svc-24-app-pool
+  name: app-svc-24
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-24-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-25-app
+  name: app-svc-25-app
+  namespace: bigip-ctlr-ns-3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-25-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-25-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-25-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-3
+    cis.f5.com/as3-app: app-svc-25-app
+    cis.f5.com/as3-pool: app-svc-25-app-pool
+  name: app-svc-25
+  namespace: bigip-ctlr-ns-3
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-25-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-1-app
+  name: app-svc-1-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-1-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-1-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-1-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-1-app
+    cis.f5.com/as3-pool: app-svc-1-app-pool
+  name: app-svc-1
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-1-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-2-app
+  name: app-svc-2-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-2-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-2-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-2-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-2-app
+    cis.f5.com/as3-pool: app-svc-2-app-pool
+  name: app-svc-2
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-2-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-3-app
+  name: app-svc-3-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-3-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-3-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-3-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-3-app
+    cis.f5.com/as3-pool: app-svc-3-app-pool
+  name: app-svc-3
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-3-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-4-app
+  name: app-svc-4-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-4-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-4-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-4-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-4-app
+    cis.f5.com/as3-pool: app-svc-4-app-pool
+  name: app-svc-4
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-4-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-5-app
+  name: app-svc-5-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-5-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-5-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-5-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-5-app
+    cis.f5.com/as3-pool: app-svc-5-app-pool
+  name: app-svc-5
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-5-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-6-app
+  name: app-svc-6-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-6-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-6-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-6-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-6-app
+    cis.f5.com/as3-pool: app-svc-6-app-pool
+  name: app-svc-6
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-6-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-7-app
+  name: app-svc-7-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-7-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-7-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-7-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-7-app
+    cis.f5.com/as3-pool: app-svc-7-app-pool
+  name: app-svc-7
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-7-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-8-app
+  name: app-svc-8-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-8-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-8-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-8-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-8-app
+    cis.f5.com/as3-pool: app-svc-8-app-pool
+  name: app-svc-8
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-8-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-9-app
+  name: app-svc-9-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-9-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-9-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-9-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-9-app
+    cis.f5.com/as3-pool: app-svc-9-app-pool
+  name: app-svc-9
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-9-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-10-app
+  name: app-svc-10-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-10-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-10-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-10-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-10-app
+    cis.f5.com/as3-pool: app-svc-10-app-pool
+  name: app-svc-10
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-10-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-11-app
+  name: app-svc-11-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-11-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-11-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-11-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-11-app
+    cis.f5.com/as3-pool: app-svc-11-app-pool
+  name: app-svc-11
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-11-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-12-app
+  name: app-svc-12-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-12-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-12-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-12-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-12-app
+    cis.f5.com/as3-pool: app-svc-12-app-pool
+  name: app-svc-12
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-12-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-13-app
+  name: app-svc-13-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-13-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-13-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-13-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-13-app
+    cis.f5.com/as3-pool: app-svc-13-app-pool
+  name: app-svc-13
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-13-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-14-app
+  name: app-svc-14-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-14-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-14-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-14-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-14-app
+    cis.f5.com/as3-pool: app-svc-14-app-pool
+  name: app-svc-14
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-14-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-15-app
+  name: app-svc-15-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-15-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-15-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-15-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-15-app
+    cis.f5.com/as3-pool: app-svc-15-app-pool
+  name: app-svc-15
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-15-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-16-app
+  name: app-svc-16-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-16-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-16-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-16-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-16-app
+    cis.f5.com/as3-pool: app-svc-16-app-pool
+  name: app-svc-16
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-16-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-17-app
+  name: app-svc-17-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-17-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-17-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-17-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-17-app
+    cis.f5.com/as3-pool: app-svc-17-app-pool
+  name: app-svc-17
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-17-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-18-app
+  name: app-svc-18-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-18-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-18-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-18-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-18-app
+    cis.f5.com/as3-pool: app-svc-18-app-pool
+  name: app-svc-18
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-18-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-19-app
+  name: app-svc-19-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-19-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-19-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-19-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-19-app
+    cis.f5.com/as3-pool: app-svc-19-app-pool
+  name: app-svc-19
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-19-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-20-app
+  name: app-svc-20-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-20-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-20-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-20-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-20-app
+    cis.f5.com/as3-pool: app-svc-20-app-pool
+  name: app-svc-20
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-20-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-21-app
+  name: app-svc-21-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-21-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-21-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-21-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-21-app
+    cis.f5.com/as3-pool: app-svc-21-app-pool
+  name: app-svc-21
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-21-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-22-app
+  name: app-svc-22-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-22-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-22-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-22-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-22-app
+    cis.f5.com/as3-pool: app-svc-22-app-pool
+  name: app-svc-22
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-22-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-23-app
+  name: app-svc-23-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-23-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-23-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-23-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-23-app
+    cis.f5.com/as3-pool: app-svc-23-app-pool
+  name: app-svc-23
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-23-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-24-app
+  name: app-svc-24-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-24-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-24-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-24-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-24-app
+    cis.f5.com/as3-pool: app-svc-24-app-pool
+  name: app-svc-24
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-24-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-25-app
+  name: app-svc-25-app
+  namespace: bigip-ctlr-ns-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-25-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-25-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-25-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-4
+    cis.f5.com/as3-app: app-svc-25-app
+    cis.f5.com/as3-pool: app-svc-25-app-pool
+  name: app-svc-25
+  namespace: bigip-ctlr-ns-4
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-25-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-1-app
+  name: app-svc-1-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-1-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-1-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-1-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-1-app
+    cis.f5.com/as3-pool: app-svc-1-app-pool
+  name: app-svc-1
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-1-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-2-app
+  name: app-svc-2-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-2-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-2-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-2-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-2-app
+    cis.f5.com/as3-pool: app-svc-2-app-pool
+  name: app-svc-2
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-2-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-3-app
+  name: app-svc-3-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-3-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-3-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-3-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-3-app
+    cis.f5.com/as3-pool: app-svc-3-app-pool
+  name: app-svc-3
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-3-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-4-app
+  name: app-svc-4-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-4-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-4-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-4-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-4-app
+    cis.f5.com/as3-pool: app-svc-4-app-pool
+  name: app-svc-4
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-4-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-5-app
+  name: app-svc-5-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-5-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-5-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-5-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-5-app
+    cis.f5.com/as3-pool: app-svc-5-app-pool
+  name: app-svc-5
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-5-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-6-app
+  name: app-svc-6-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-6-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-6-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-6-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-6-app
+    cis.f5.com/as3-pool: app-svc-6-app-pool
+  name: app-svc-6
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-6-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-7-app
+  name: app-svc-7-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-7-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-7-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-7-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-7-app
+    cis.f5.com/as3-pool: app-svc-7-app-pool
+  name: app-svc-7
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-7-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-8-app
+  name: app-svc-8-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-8-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-8-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-8-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-8-app
+    cis.f5.com/as3-pool: app-svc-8-app-pool
+  name: app-svc-8
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-8-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-9-app
+  name: app-svc-9-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-9-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-9-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-9-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-9-app
+    cis.f5.com/as3-pool: app-svc-9-app-pool
+  name: app-svc-9
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-9-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-10-app
+  name: app-svc-10-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-10-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-10-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-10-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-10-app
+    cis.f5.com/as3-pool: app-svc-10-app-pool
+  name: app-svc-10
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-10-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-11-app
+  name: app-svc-11-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-11-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-11-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-11-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-11-app
+    cis.f5.com/as3-pool: app-svc-11-app-pool
+  name: app-svc-11
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-11-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-12-app
+  name: app-svc-12-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-12-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-12-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-12-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-12-app
+    cis.f5.com/as3-pool: app-svc-12-app-pool
+  name: app-svc-12
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-12-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-13-app
+  name: app-svc-13-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-13-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-13-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-13-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-13-app
+    cis.f5.com/as3-pool: app-svc-13-app-pool
+  name: app-svc-13
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-13-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-14-app
+  name: app-svc-14-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-14-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-14-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-14-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-14-app
+    cis.f5.com/as3-pool: app-svc-14-app-pool
+  name: app-svc-14
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-14-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-15-app
+  name: app-svc-15-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-15-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-15-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-15-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-15-app
+    cis.f5.com/as3-pool: app-svc-15-app-pool
+  name: app-svc-15
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-15-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-16-app
+  name: app-svc-16-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-16-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-16-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-16-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-16-app
+    cis.f5.com/as3-pool: app-svc-16-app-pool
+  name: app-svc-16
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-16-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-17-app
+  name: app-svc-17-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-17-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-17-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-17-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-17-app
+    cis.f5.com/as3-pool: app-svc-17-app-pool
+  name: app-svc-17
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-17-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-18-app
+  name: app-svc-18-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-18-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-18-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-18-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-18-app
+    cis.f5.com/as3-pool: app-svc-18-app-pool
+  name: app-svc-18
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-18-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-19-app
+  name: app-svc-19-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-19-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-19-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-19-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-19-app
+    cis.f5.com/as3-pool: app-svc-19-app-pool
+  name: app-svc-19
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-19-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-20-app
+  name: app-svc-20-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-20-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-20-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-20-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-20-app
+    cis.f5.com/as3-pool: app-svc-20-app-pool
+  name: app-svc-20
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-20-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-21-app
+  name: app-svc-21-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-21-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-21-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-21-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-21-app
+    cis.f5.com/as3-pool: app-svc-21-app-pool
+  name: app-svc-21
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-21-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-22-app
+  name: app-svc-22-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-22-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-22-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-22-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-22-app
+    cis.f5.com/as3-pool: app-svc-22-app-pool
+  name: app-svc-22
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-22-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-23-app
+  name: app-svc-23-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-23-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-23-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-23-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-23-app
+    cis.f5.com/as3-pool: app-svc-23-app-pool
+  name: app-svc-23
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-23-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-24-app
+  name: app-svc-24-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-24-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-24-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-24-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-24-app
+    cis.f5.com/as3-pool: app-svc-24-app-pool
+  name: app-svc-24
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-24-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-25-app
+  name: app-svc-25-app
+  namespace: bigip-ctlr-ns-5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-25-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-25-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-25-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-5
+    cis.f5.com/as3-app: app-svc-25-app
+    cis.f5.com/as3-pool: app-svc-25-app-pool
+  name: app-svc-25
+  namespace: bigip-ctlr-ns-5
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-25-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-1-app
+  name: app-svc-1-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-1-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-1-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-1-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-1-app
+    cis.f5.com/as3-pool: app-svc-1-app-pool
+  name: app-svc-1
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-1-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-2-app
+  name: app-svc-2-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-2-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-2-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-2-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-2-app
+    cis.f5.com/as3-pool: app-svc-2-app-pool
+  name: app-svc-2
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-2-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-3-app
+  name: app-svc-3-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-3-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-3-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-3-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-3-app
+    cis.f5.com/as3-pool: app-svc-3-app-pool
+  name: app-svc-3
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-3-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-4-app
+  name: app-svc-4-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-4-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-4-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-4-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-4-app
+    cis.f5.com/as3-pool: app-svc-4-app-pool
+  name: app-svc-4
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-4-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-5-app
+  name: app-svc-5-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-5-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-5-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-5-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-5-app
+    cis.f5.com/as3-pool: app-svc-5-app-pool
+  name: app-svc-5
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-5-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-6-app
+  name: app-svc-6-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-6-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-6-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-6-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-6-app
+    cis.f5.com/as3-pool: app-svc-6-app-pool
+  name: app-svc-6
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-6-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-7-app
+  name: app-svc-7-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-7-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-7-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-7-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-7-app
+    cis.f5.com/as3-pool: app-svc-7-app-pool
+  name: app-svc-7
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-7-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-8-app
+  name: app-svc-8-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-8-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-8-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-8-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-8-app
+    cis.f5.com/as3-pool: app-svc-8-app-pool
+  name: app-svc-8
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-8-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-9-app
+  name: app-svc-9-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-9-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-9-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-9-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-9-app
+    cis.f5.com/as3-pool: app-svc-9-app-pool
+  name: app-svc-9
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-9-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-10-app
+  name: app-svc-10-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-10-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-10-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-10-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-10-app
+    cis.f5.com/as3-pool: app-svc-10-app-pool
+  name: app-svc-10
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-10-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-11-app
+  name: app-svc-11-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-11-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-11-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-11-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-11-app
+    cis.f5.com/as3-pool: app-svc-11-app-pool
+  name: app-svc-11
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-11-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-12-app
+  name: app-svc-12-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-12-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-12-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-12-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-12-app
+    cis.f5.com/as3-pool: app-svc-12-app-pool
+  name: app-svc-12
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-12-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-13-app
+  name: app-svc-13-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-13-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-13-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-13-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-13-app
+    cis.f5.com/as3-pool: app-svc-13-app-pool
+  name: app-svc-13
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-13-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-14-app
+  name: app-svc-14-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-14-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-14-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-14-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-14-app
+    cis.f5.com/as3-pool: app-svc-14-app-pool
+  name: app-svc-14
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-14-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-15-app
+  name: app-svc-15-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-15-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-15-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-15-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-15-app
+    cis.f5.com/as3-pool: app-svc-15-app-pool
+  name: app-svc-15
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-15-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-16-app
+  name: app-svc-16-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-16-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-16-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-16-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-16-app
+    cis.f5.com/as3-pool: app-svc-16-app-pool
+  name: app-svc-16
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-16-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-17-app
+  name: app-svc-17-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-17-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-17-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-17-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-17-app
+    cis.f5.com/as3-pool: app-svc-17-app-pool
+  name: app-svc-17
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-17-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-18-app
+  name: app-svc-18-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-18-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-18-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-18-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-18-app
+    cis.f5.com/as3-pool: app-svc-18-app-pool
+  name: app-svc-18
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-18-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-19-app
+  name: app-svc-19-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-19-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-19-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-19-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-19-app
+    cis.f5.com/as3-pool: app-svc-19-app-pool
+  name: app-svc-19
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-19-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-20-app
+  name: app-svc-20-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-20-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-20-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-20-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-20-app
+    cis.f5.com/as3-pool: app-svc-20-app-pool
+  name: app-svc-20
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-20-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-21-app
+  name: app-svc-21-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-21-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-21-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-21-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-21-app
+    cis.f5.com/as3-pool: app-svc-21-app-pool
+  name: app-svc-21
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-21-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-22-app
+  name: app-svc-22-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-22-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-22-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-22-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-22-app
+    cis.f5.com/as3-pool: app-svc-22-app-pool
+  name: app-svc-22
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-22-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-23-app
+  name: app-svc-23-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-23-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-23-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-23-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-23-app
+    cis.f5.com/as3-pool: app-svc-23-app-pool
+  name: app-svc-23
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-23-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-24-app
+  name: app-svc-24-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-24-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-24-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-24-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-24-app
+    cis.f5.com/as3-pool: app-svc-24-app-pool
+  name: app-svc-24
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-24-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-25-app
+  name: app-svc-25-app
+  namespace: bigip-ctlr-ns-6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-25-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-25-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-25-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-6
+    cis.f5.com/as3-app: app-svc-25-app
+    cis.f5.com/as3-pool: app-svc-25-app-pool
+  name: app-svc-25
+  namespace: bigip-ctlr-ns-6
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-25-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-1-app
+  name: app-svc-1-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-1-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-1-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-1-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-1-app
+    cis.f5.com/as3-pool: app-svc-1-app-pool
+  name: app-svc-1
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-1-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-2-app
+  name: app-svc-2-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-2-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-2-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-2-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-2-app
+    cis.f5.com/as3-pool: app-svc-2-app-pool
+  name: app-svc-2
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-2-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-3-app
+  name: app-svc-3-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-3-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-3-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-3-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-3-app
+    cis.f5.com/as3-pool: app-svc-3-app-pool
+  name: app-svc-3
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-3-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-4-app
+  name: app-svc-4-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-4-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-4-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-4-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-4-app
+    cis.f5.com/as3-pool: app-svc-4-app-pool
+  name: app-svc-4
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-4-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-5-app
+  name: app-svc-5-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-5-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-5-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-5-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-5-app
+    cis.f5.com/as3-pool: app-svc-5-app-pool
+  name: app-svc-5
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-5-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-6-app
+  name: app-svc-6-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-6-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-6-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-6-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-6-app
+    cis.f5.com/as3-pool: app-svc-6-app-pool
+  name: app-svc-6
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-6-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-7-app
+  name: app-svc-7-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-7-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-7-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-7-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-7-app
+    cis.f5.com/as3-pool: app-svc-7-app-pool
+  name: app-svc-7
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-7-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-8-app
+  name: app-svc-8-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-8-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-8-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-8-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-8-app
+    cis.f5.com/as3-pool: app-svc-8-app-pool
+  name: app-svc-8
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-8-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-9-app
+  name: app-svc-9-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-9-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-9-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-9-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-9-app
+    cis.f5.com/as3-pool: app-svc-9-app-pool
+  name: app-svc-9
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-9-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-10-app
+  name: app-svc-10-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-10-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-10-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-10-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-10-app
+    cis.f5.com/as3-pool: app-svc-10-app-pool
+  name: app-svc-10
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-10-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-11-app
+  name: app-svc-11-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-11-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-11-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-11-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-11-app
+    cis.f5.com/as3-pool: app-svc-11-app-pool
+  name: app-svc-11
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-11-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-12-app
+  name: app-svc-12-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-12-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-12-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-12-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-12-app
+    cis.f5.com/as3-pool: app-svc-12-app-pool
+  name: app-svc-12
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-12-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-13-app
+  name: app-svc-13-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-13-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-13-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-13-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-13-app
+    cis.f5.com/as3-pool: app-svc-13-app-pool
+  name: app-svc-13
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-13-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-14-app
+  name: app-svc-14-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-14-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-14-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-14-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-14-app
+    cis.f5.com/as3-pool: app-svc-14-app-pool
+  name: app-svc-14
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-14-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-15-app
+  name: app-svc-15-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-15-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-15-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-15-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-15-app
+    cis.f5.com/as3-pool: app-svc-15-app-pool
+  name: app-svc-15
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-15-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-16-app
+  name: app-svc-16-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-16-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-16-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-16-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-16-app
+    cis.f5.com/as3-pool: app-svc-16-app-pool
+  name: app-svc-16
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-16-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-17-app
+  name: app-svc-17-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-17-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-17-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-17-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-17-app
+    cis.f5.com/as3-pool: app-svc-17-app-pool
+  name: app-svc-17
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-17-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-18-app
+  name: app-svc-18-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-18-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-18-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-18-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-18-app
+    cis.f5.com/as3-pool: app-svc-18-app-pool
+  name: app-svc-18
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-18-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-19-app
+  name: app-svc-19-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-19-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-19-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-19-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-19-app
+    cis.f5.com/as3-pool: app-svc-19-app-pool
+  name: app-svc-19
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-19-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-20-app
+  name: app-svc-20-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-20-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-20-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-20-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-20-app
+    cis.f5.com/as3-pool: app-svc-20-app-pool
+  name: app-svc-20
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-20-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-21-app
+  name: app-svc-21-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-21-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-21-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-21-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-21-app
+    cis.f5.com/as3-pool: app-svc-21-app-pool
+  name: app-svc-21
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-21-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-22-app
+  name: app-svc-22-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-22-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-22-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-22-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-22-app
+    cis.f5.com/as3-pool: app-svc-22-app-pool
+  name: app-svc-22
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-22-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-23-app
+  name: app-svc-23-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-23-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-23-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-23-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-23-app
+    cis.f5.com/as3-pool: app-svc-23-app-pool
+  name: app-svc-23
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-23-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-24-app
+  name: app-svc-24-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-24-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-24-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-24-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-24-app
+    cis.f5.com/as3-pool: app-svc-24-app-pool
+  name: app-svc-24
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-24-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-25-app
+  name: app-svc-25-app
+  namespace: bigip-ctlr-ns-7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-25-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-25-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-25-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-7
+    cis.f5.com/as3-app: app-svc-25-app
+    cis.f5.com/as3-pool: app-svc-25-app-pool
+  name: app-svc-25
+  namespace: bigip-ctlr-ns-7
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-25-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-1-app
+  name: app-svc-1-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-1-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-1-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-1-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-1-app
+    cis.f5.com/as3-pool: app-svc-1-app-pool
+  name: app-svc-1
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-1-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-2-app
+  name: app-svc-2-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-2-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-2-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-2-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-2-app
+    cis.f5.com/as3-pool: app-svc-2-app-pool
+  name: app-svc-2
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-2-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-3-app
+  name: app-svc-3-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-3-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-3-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-3-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-3-app
+    cis.f5.com/as3-pool: app-svc-3-app-pool
+  name: app-svc-3
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-3-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-4-app
+  name: app-svc-4-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-4-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-4-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-4-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-4-app
+    cis.f5.com/as3-pool: app-svc-4-app-pool
+  name: app-svc-4
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-4-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-5-app
+  name: app-svc-5-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-5-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-5-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-5-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-5-app
+    cis.f5.com/as3-pool: app-svc-5-app-pool
+  name: app-svc-5
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-5-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-6-app
+  name: app-svc-6-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-6-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-6-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-6-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-6-app
+    cis.f5.com/as3-pool: app-svc-6-app-pool
+  name: app-svc-6
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-6-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-7-app
+  name: app-svc-7-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-7-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-7-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-7-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-7-app
+    cis.f5.com/as3-pool: app-svc-7-app-pool
+  name: app-svc-7
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-7-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-8-app
+  name: app-svc-8-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-8-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-8-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-8-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-8-app
+    cis.f5.com/as3-pool: app-svc-8-app-pool
+  name: app-svc-8
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-8-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-9-app
+  name: app-svc-9-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-9-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-9-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-9-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-9-app
+    cis.f5.com/as3-pool: app-svc-9-app-pool
+  name: app-svc-9
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-9-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-10-app
+  name: app-svc-10-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-10-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-10-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-10-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-10-app
+    cis.f5.com/as3-pool: app-svc-10-app-pool
+  name: app-svc-10
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-10-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-11-app
+  name: app-svc-11-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-11-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-11-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-11-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-11-app
+    cis.f5.com/as3-pool: app-svc-11-app-pool
+  name: app-svc-11
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-11-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-12-app
+  name: app-svc-12-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-12-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-12-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-12-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-12-app
+    cis.f5.com/as3-pool: app-svc-12-app-pool
+  name: app-svc-12
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-12-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-13-app
+  name: app-svc-13-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-13-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-13-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-13-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-13-app
+    cis.f5.com/as3-pool: app-svc-13-app-pool
+  name: app-svc-13
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-13-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-14-app
+  name: app-svc-14-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-14-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-14-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-14-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-14-app
+    cis.f5.com/as3-pool: app-svc-14-app-pool
+  name: app-svc-14
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-14-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-15-app
+  name: app-svc-15-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-15-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-15-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-15-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-15-app
+    cis.f5.com/as3-pool: app-svc-15-app-pool
+  name: app-svc-15
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-15-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-16-app
+  name: app-svc-16-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-16-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-16-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-16-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-16-app
+    cis.f5.com/as3-pool: app-svc-16-app-pool
+  name: app-svc-16
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-16-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-17-app
+  name: app-svc-17-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-17-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-17-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-17-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-17-app
+    cis.f5.com/as3-pool: app-svc-17-app-pool
+  name: app-svc-17
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-17-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-18-app
+  name: app-svc-18-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-18-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-18-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-18-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-18-app
+    cis.f5.com/as3-pool: app-svc-18-app-pool
+  name: app-svc-18
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-18-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-19-app
+  name: app-svc-19-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-19-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-19-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-19-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-19-app
+    cis.f5.com/as3-pool: app-svc-19-app-pool
+  name: app-svc-19
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-19-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-20-app
+  name: app-svc-20-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-20-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-20-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-20-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-20-app
+    cis.f5.com/as3-pool: app-svc-20-app-pool
+  name: app-svc-20
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-20-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-21-app
+  name: app-svc-21-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-21-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-21-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-21-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-21-app
+    cis.f5.com/as3-pool: app-svc-21-app-pool
+  name: app-svc-21
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-21-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-22-app
+  name: app-svc-22-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-22-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-22-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-22-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-22-app
+    cis.f5.com/as3-pool: app-svc-22-app-pool
+  name: app-svc-22
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-22-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-23-app
+  name: app-svc-23-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-23-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-23-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-23-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-23-app
+    cis.f5.com/as3-pool: app-svc-23-app-pool
+  name: app-svc-23
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-23-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-24-app
+  name: app-svc-24-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-24-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-24-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-24-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-24-app
+    cis.f5.com/as3-pool: app-svc-24-app-pool
+  name: app-svc-24
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-24-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-25-app
+  name: app-svc-25-app
+  namespace: bigip-ctlr-ns-8
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-25-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-25-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-25-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-8
+    cis.f5.com/as3-app: app-svc-25-app
+    cis.f5.com/as3-pool: app-svc-25-app-pool
+  name: app-svc-25
+  namespace: bigip-ctlr-ns-8
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-25-app
+  sessionAffinity: None
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: app-svc-1-app
+  name: app-svc-1-app
+  namespace: bigip-ctlr-ns-9
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-svc-1-app
+  template:
+    metadata:
+      labels:
+        app: app-svc-1-app
+    spec:
+      containers:
+      - image: artifactory.cmbc.com.cn:31345/net-docker-ver-local/bigip-ctlr/f5-demo-app:0221
+        name: backend
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: app-svc-1-app
+    cis.f5.com/as3-tenant: bigip-ctlr-ns-9
+    cis.f5.com/as3-app: app-svc-1-app
+    cis.f5.com/as3-pool: app-svc-1-app-pool
+  name: app-svc-1
+  namespace: bigip-ctlr-ns-9
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: app-svc-1-app
+  sessionAffinity: None
+  type: ClusterIP
+---
